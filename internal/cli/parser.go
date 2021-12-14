@@ -6,6 +6,7 @@ import (
 	"fofax/internal/utils"
 	"github.com/projectdiscovery/goflags"
 	"os"
+	"path/filepath"
 )
 
 const (
@@ -146,6 +147,15 @@ func ParseOptions() *Options {
 	} else {
 		args.Mode = Stdin_Mode
 	}
+
+	if args.Version {
+		printer.Infof("Version: %s", FoFaXVersion)
+		printer.Infof("Branch: %s", Branch)
+		printer.Infof("Commit: %s", Commit)
+		printer.Infof("Date: %s", Date)
+		os.Exit(0)
+	}
+
 	// 检查基本信息
 	checkFoFaInfo()
 
@@ -154,14 +164,6 @@ func ParseOptions() *Options {
 	if err != nil {
 		printer.Error(printer.HandlerLine(err.Error()))
 		os.Exit(1)
-	}
-
-	if args.Version {
-		printer.Infof("Current Version: %s", FoFaXVersion)
-		printer.Infof("Current Branch: %s", Branch)
-		printer.Infof("Current Commit: %s", Commit)
-		printer.Infof("Current Date: %s", Date)
-		os.Exit(0)
 	}
 
 	return args
@@ -216,4 +218,12 @@ func checkFoFaInfo() {
 		printer.Error("FoFaKey or FoFaEmail is empty")
 		os.Exit(1)
 	}
+}
+
+func getHomeConf() (home string) {
+	home, err := os.UserHomeDir()
+	if err != nil {
+		return "fofa.yaml"
+	}
+	return filepath.Join(home, ".config", "fofa", "fofa.yaml")
 }

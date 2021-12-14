@@ -106,3 +106,11 @@ func GetHidePasswd(key string) string {
 	}
 	return ""
 }
+
+func FileExist(path string) bool {
+	_, err := os.Lstat(path)
+	if err != nil {
+		return false
+	}
+	return !os.IsNotExist(err)
+}
