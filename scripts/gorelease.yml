@@ -20,7 +20,10 @@ builds:
       - goos: darwin
         goarch: 386
 archives:
-  -
+  - name_template: "{{ .ProjectName }}_{{ .Tag }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}{{ if .Mips }}_{{ .Mips }}{{ end }}"
+    replacements:
+    files:
+      -
     format_overrides:
       - goos: windows
         format: zip
@@ -34,7 +37,6 @@ changelog:
     exclude:
       - '^docs:'
       - '^test:'
-      - "README.md"
 nfpms:
   - maintainer: go0p
     description: FoFax is a command line fofa query tool, simple is the best!
