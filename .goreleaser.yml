@@ -1,0 +1,44 @@
+# This is an example goreleaser.yaml file with some sane defaults.
+# Make sure to check the documentation at http://goreleaser.com
+# https://goreleaser.com/customization/build/
+project_name: fofax
+builds:
+  - env: [CGO_ENABLED=0]
+    binary: fofa
+    main: ./cmd/fofax/fofax.go
+    ldflags:
+      - -s -w -X fofax/internal/cli.FoFaXVersion={{.Version}} -X fofax/internal/cli.Commit={{.ShortCommit}} -X fofax/internal/cli.Date={{.Date}} -X fofax/internal/cli.Branch={{.Branch}}
+    goos:
+      - linux
+      - windows
+      - darwin
+    goarch:
+      - amd64
+      - 386
+      - arm64
+    ignore:
+      - goos: darwin
+        goarch: 386
+archives:
+  -
+    format_overrides:
+      - goos: windows
+        format: zip
+checksum:
+  name_template: 'checksums.txt'
+snapshot:
+  name_template: "{{ .Tag }}-next"
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+nfpms:
+  - maintainer: go0p
+    description: FoFax is a command line fofa query tool, simple is the best!
+    homepage: https://www.xiecat.fun/
+    license: MIT
+    formats:
+      - deb
+      - rpm
