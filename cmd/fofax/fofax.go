@@ -15,7 +15,7 @@ func main() {
 		printer.Error(err)
 		os.Exit(1)
 	}
-	res :=fofax.Run()
+	res := fofax.Run()
 	res.Range(func(key, value interface{}) bool {
 		if value == nil {
 			fmt.Println(key)

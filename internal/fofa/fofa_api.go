@@ -105,8 +105,8 @@ func (f *FoFa) fetchByFields(fields string, queryStr string) bool {
 			return false
 		}
 		latency, err := resp.GetLatency()
-		if f.option.Debug{
-			printer.Debugf("Resp Time: %d/millis",latency.Milliseconds())
+		if f.option.Debug {
+			printer.Debugf("Resp Time: %d/millis", latency.Milliseconds())
 
 		}
 		if err != nil {
@@ -166,6 +166,7 @@ func (f *FoFa) FetchTitlesOfDomain(queryStr string) bool {
 func (f *FoFa) Fetch(queryStr string) bool {
 	return f.fetchByFields("host,title,lastupdatetime", queryStr)
 }
+
 //func (f *FoFa) fetchFn(fields []string, allSize int32) bool {
 //	hostInfo := utils.NewFixUrl(
 //		fmt.Sprintf("%s://%s:%s",

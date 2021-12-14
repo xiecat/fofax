@@ -34,6 +34,7 @@ changelog:
     exclude:
       - '^docs:'
       - '^test:'
+      - "README.md"
 nfpms:
   - maintainer: go0p
     description: FoFax is a command line fofa query tool, simple is the best!

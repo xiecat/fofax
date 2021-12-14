@@ -5,11 +5,11 @@ import (
 	"github.com/fatih/color"
 )
 
-const (
-	FoFaXVersion = "v1.0"
-	Commit       = ""
-	Date         = ""
-	Branch       = ""
+var (
+	FoFaXVersion = "unknown"
+	Commit       = "unknown"
+	Date         = "unknown"
+	Branch       = "unknown"
 )
 
 func banner() {
