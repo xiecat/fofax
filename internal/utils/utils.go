@@ -52,7 +52,7 @@ func MapToJsonStr(m map[string]string) (string, error) {
 	return string(jsonByte), nil
 }
 
-func FindFile(path string) bool {
+func FileExist(path string) bool {
 	_, err := os.Stat(path)
 	if err == nil {
 		return true
@@ -107,10 +107,3 @@ func GetHidePasswd(key string) string {
 	return ""
 }
 
-func FileExist(path string) bool {
-	_, err := os.Lstat(path)
-	if err != nil {
-		return false
-	}
-	return !os.IsNotExist(err)
-}

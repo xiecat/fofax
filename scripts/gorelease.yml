@@ -4,7 +4,7 @@
 project_name: fofax
 builds:
   - env: [CGO_ENABLED=0]
-    binary: fofa
+    binary: fofax
     main: ./cmd/fofax/fofax.go
     ldflags:
       - -s -w -X fofax/internal/cli.FoFaXVersion={{.Version}} -X fofax/internal/cli.Commit={{.ShortCommit}} -X fofax/internal/cli.Date={{.Date}} -X fofax/internal/cli.Branch={{.Branch}}
