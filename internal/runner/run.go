@@ -59,7 +59,7 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 			}
 		}
 		// 通过文件，计算 icon hash 后进行查询 -if
-		if options.IconFilePath != "" && utils.FindFile(options.IconFilePath) {
+		if options.IconFilePath != "" && utils.FileExist(options.IconFilePath) {
 			iconConfig := iconhash.NewIconHashConfig(options.UrlIcon, options.Debug)
 			// 通过文件
 			if iHash, err := iconConfig.FromFileGetContent(); err == nil {
@@ -73,7 +73,7 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 	// 多个 Query/cert/icon 搜索项 代码块
 	{
 		// 加载文件，查询多个语句 -qf
-		if len(options.QueryFile) != 0 && utils.FindFile(options.QueryFile) {
+		if len(options.QueryFile) != 0 && utils.FileExist(options.QueryFile) {
 			input, err := os.Open(options.QueryFile)
 			defer input.Close()
 			if err != nil {
@@ -93,7 +93,7 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 		}
 
 		// 读取文件中的URL，计算 cert 后进行查询 -ufc
-		if len(options.PeerCertificatesFile) != 0 && utils.FindFile(options.PeerCertificatesFile) {
+		if len(options.PeerCertificatesFile) != 0 && utils.FileExist(options.PeerCertificatesFile) {
 			input, err := os.Open(options.PeerCertificatesFile)
 			defer input.Close()
 			if err != nil {
@@ -112,7 +112,7 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 		}
 
 		// 读取文件中的URL，计算 icon hash 后进行查询 -iuf
-		if len(options.UrlIconFile) != 0 && utils.FindFile(options.UrlIconFile) {
+		if len(options.UrlIconFile) != 0 && utils.FileExist(options.UrlIconFile) {
 			input, err := os.Open(options.UrlIconFile)
 			defer input.Close()
 			if err != nil {
