@@ -182,8 +182,7 @@ func (r *Runner) Run() *sync.Map {
 		if r.options.FetchFullHostInfo {
 			fo.FetchFn = func(fields []string, allSize int32) bool {
 				fullUrl, err := utils.NewFixUrl(
-					fmt.Sprintf("%s://%s:%s",
-						fields[0], fields[1], fields[2]))
+					utils.FixFullHostInfoScheme(fields))
 				if err != nil {
 					printer.Errorf("url.Parse %s", err)
 					os.Exit(1)

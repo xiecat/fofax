@@ -150,7 +150,7 @@ func (f *FoFa) fetchByFields(fields string, queryStr string) bool {
 
 // FetchFullHostInfo 提取完整带协议的字段
 func (f *FoFa) FetchFullHostInfo(queryStr string) bool {
-	return f.fetchByFields("protocol,ip,port", queryStr)
+	return f.fetchByFields("protocol,ip,port,host", queryStr)
 }
 
 // FetchOneField 提取指定的字段
