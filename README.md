@@ -1,6 +1,21 @@
 # FoFax
 
+## 简介
+
+FoFax是一款命令行fofa查询工具，简单就是最好的！
+
+## 下载
+
+点击 [Releases下载链接](https://github.com/xiecat/fofax/releases) ，按照自己的系统来选择相应的发行版本。
+
+## 使用
+
+
+
+
+
 ```text
+
 FoFax is a fast
 
 Usage:
@@ -38,17 +53,12 @@ OTHER OPTIONS:
 
 ```
 
-fofax and httpx
-```shell script
-echo "projector-client-web"|fofadump |httpx -title -content-length -status-code -silent
-```
+## 联动案例
 
+### fofax && httpx
 
-地区查询
+CVE-2021-43798 Grafana未授权目录遍历（fofax是开源后的名字，此前还没有一个正式的名字，下图中就叫fofa）。
 
-```"ttt" && region="North Carolina"```
+![fofax&httpx](./docs/images/fofax&httpx.jpeg)
 
-```shell
-"ttt" && region="North Carolina" && after="2021-01-01" && country="US"
-```
-
+### fofax && nuclei
