@@ -3,6 +3,7 @@ package printer
 import (
 	"fmt"
 	"github.com/fatih/color"
+	"github.com/mattn/go-colorable"
 	"path/filepath"
 	"runtime"
 	"strconv"
@@ -18,7 +19,8 @@ const (
 )
 
 var (
-	strC = color.New(color.FgCyan).SprintfFunc()
+	strC = color.New(color.FgHiCyan).SprintfFunc()
+	outPut = colorable.NewColorableStdout()
 )
 
 type errInfo struct {
@@ -49,57 +51,57 @@ func (e *errInfo) Error() string {
 }
 
 func Debugf(format string, a ...interface{}) {
-	debug := color.New(color.FgMagenta).SprintfFunc()
+	debug := color.New(color.FgYellow).SprintfFunc()
 	prefix := debug(DEBUG)
 	str := strC(fmt.Sprintf(format, a...))
-	fmt.Println(formatPrint(prefix), str)
+	fmt.Fprintln(outPut,formatPrint(prefix), str)
 }
 
 func Debug(a ...interface{}) {
-	debug := color.New(color.FgMagenta).SprintfFunc()
+	debug := color.New(color.FgYellow).SprintfFunc()
 	prefix := debug(DEBUG)
 	str := strC(fmt.Sprint(a...))
-	fmt.Println(formatPrint(prefix), str)
+	fmt.Fprintln(outPut,formatPrint(prefix), str)
 }
 
 func Infof(format string, a ...interface{}) {
-	info := color.New(color.FgYellow).SprintfFunc()
+	info := color.New(color.FgHiWhite).SprintfFunc()
 	prefix := info(INFO)
 	str := strC(fmt.Sprintf(format, a...))
-	fmt.Println(formatPrint(prefix), str)
+	fmt.Fprintln(outPut,formatPrint(prefix), str)
 }
 
 func Info(a ...interface{}) {
-	info := color.New(color.FgYellow).SprintfFunc()
+	info := color.New(color.FgHiWhite).SprintfFunc()
 	prefix := info(INFO)
 	str := strC(fmt.Sprint(a...))
-	fmt.Println(formatPrint(prefix), str)
+	fmt.Fprintln(outPut,formatPrint(prefix), str)
 }
 
 func Successf(format string, a ...interface{}) {
 	succ := color.New(color.FgGreen).SprintfFunc()
 	prefix := succ(SUCCESS)
 	str := strC(fmt.Sprintf(format, a...))
-	fmt.Println(formatPrint(prefix), str)
+	fmt.Fprintln(outPut,formatPrint(prefix), str)
 }
 func Success(a ...interface{}) {
 	succ := color.New(color.FgGreen).SprintfFunc()
 	prefix := succ(SUCCESS)
 	str := strC(fmt.Sprint(a...))
-	fmt.Println(formatPrint(prefix), str)
+	fmt.Fprintln(outPut,formatPrint(prefix), str)
 }
 
 func Errorf(format string, a ...interface{}) {
 	err := color.New(color.FgRed).SprintfFunc()
 	prefix := err(ERROR)
 	str := strC(fmt.Sprintf(format, a...))
-	fmt.Println(formatPrint(prefix), str)
+	fmt.Fprintln(outPut,formatPrint(prefix), str)
 }
 func Error(a ...interface{}) {
 	err := color.New(color.FgRed).SprintfFunc()
 	prefix := err(ERROR)
 	str := strC(fmt.Sprint(a...))
-	fmt.Println(formatPrint(prefix), str)
+	fmt.Fprintln(outPut,formatPrint(prefix), str)
 }
 
 func formatPrint(prefix string) string {
