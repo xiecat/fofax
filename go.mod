@@ -7,6 +7,7 @@ require (
 	github.com/jweny/xhttp v0.0.0-20211209064339-2c93342bd421
 	github.com/projectdiscovery/goflags v0.0.7
 	github.com/twmb/murmur3 v1.1.6
+	golang.org/x/text v0.3.6
 )
 
 require (
@@ -20,7 +21,6 @@ require (
 	golang.org/x/crypto v0.0.0-20210220033148-5ea612d1eb83 // indirect
 	golang.org/x/net v0.0.0-20211105192438-b53810dc28af // indirect
 	golang.org/x/sys v0.0.0-20210630005230-0f9fa26af87c // indirect
-	golang.org/x/text v0.3.6 // indirect
 	golang.org/x/time v0.0.0-20210723032227-1f47c861a9ac // indirect
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
