@@ -10,7 +10,8 @@ import (
 )
 
 const (
-	Stdin_Mode = iota
+	NONE_Mode = iota
+	Stdin_Mode
 	Query_Mode
 	File_Mode
 )
@@ -211,7 +212,11 @@ func checkMutFlags() error {
 	// 单一模式和批量模式互斥
 	// 单一模式、批量模式中的各个参数也互斥
 	if flagNum > 1 {
-		return errors.New("These " + flagStr + " are mutually exclusive")
+		return errors.New("these " + flagStr + " are mutually exclusive")
+	}
+	// 不输入 query 也应当提醒
+	if flagNum == 0 && args.Mode != Stdin_Mode {
+		return errors.New("query are empty")
 	}
 	if args.Mode != Query_Mode {
 		args.Mode = File_Mode
