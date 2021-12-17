@@ -14,15 +14,15 @@ var (
 )
 
 func banner() {
-	magenta := color.New(color.FgMagenta).PrintfFunc()
+	magenta := color.New(color.FgHiWhite).PrintfFunc()
 	fmt.Println("")
-	magenta("    ____      ____          \n")
-	magenta(`   / __/___  / __/___ __  __` + "\n")
-	magenta(`  / /_/ __ \/ /_/ __ ` + "`/ |/_/" + "\n")
-	magenta(` / __/ /_/ / __/ /_/ />  <  ` + "\n")
-	magenta(`/_/  \____/_/  \__,_/_/|_|  ` + "\n")
+	magenta("      ____      ____          \n")
+	magenta(`     / __/___  / __/___ __  __` + "\n")
+	magenta(`    / /_/ __ \/ /_/ __ ` + "`/ |/_/" + "\n")
+	magenta(`   / __/ /_/ / __/ /_/ />  <  ` + "\n")
+	magenta(`  /_/  \____/_/  \__,_/_/|_|  ` + "\n")
 	fmt.Println("")
-	g := color.New(color.FgGreen).PrintfFunc()
+	g := color.New(color.FgHiGreen).PrintfFunc()
 	g(fmt.Sprintf("                                   { %s  Author:xiecat }\n", FoFaXVersion))
 	fmt.Println("")
 }
