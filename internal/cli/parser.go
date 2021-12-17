@@ -22,6 +22,7 @@ type Options struct {
 	filter
 	config
 	Version bool
+	Use     bool
 	// 标准输入
 	Stdin bool
 }
@@ -125,6 +126,7 @@ func init() {
 		flags.StringVarP(&args.UrlIconFile, "icon-hash-url-file", "iuf", args.UrlIconFile, "读取文件中的URL，计算 icon hash 后进行查询"),
 	)
 	flags.BoolVarP(&args.Version, "version", "v", false, "Show version of fofadump")
+	flags.BoolVar(&args.Use, "use", false, "Query syntax reference")
 	err := flags.Parse()
 	if err != nil {
 		printer.Error(printer.HandlerLine("Parse err :" + err.Error()))
@@ -153,6 +155,11 @@ func ParseOptions() *Options {
 		printer.Infof("Branch: %s", Branch)
 		printer.Infof("Commit: %s", Commit)
 		printer.Infof("Date: %s", Date)
+		os.Exit(0)
+	}
+
+	if args.Use {
+		ShowUsage()
 		os.Exit(0)
 	}
 
