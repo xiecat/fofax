@@ -10,6 +10,7 @@ import (
 	"fofax/internal/queue"
 	"fofax/internal/utils"
 	"os"
+	"runtime"
 	"strings"
 	"sync"
 )
@@ -31,7 +32,13 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 	if options.Stdin {
 		scanner := bufio.NewScanner(os.Stdin)
 		for scanner.Scan() {
-			fofaQuery := strings.Trim(scanner.Text(), " \t\r")
+			var fofaQuery string
+			if runtime.GOOS == "windows"{
+				fofaQuery = utils.ConvertByte2String(scanner.Bytes(),"GB18030")
+				fofaQuery = strings.Trim(fofaQuery, " \t\r")
+			}else {
+				fofaQuery = strings.Trim(scanner.Text(), " \t\r")
+			}
 			if fofaQuery == "" {
 				continue
 			}
