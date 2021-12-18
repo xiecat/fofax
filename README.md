@@ -10,21 +10,18 @@ FoFax是一款命令行fofa查询工具，简单就是最好的！
 
 ## 使用
 
+```bash
+>fofax.exe -h
 
-
-
-
-```text
-
-FoFax is a fast
+FoFax is a command line fofa query tool, simple is the best!
 
 Usage:
-  ./fofax [flags]
+  fofax.exe [flags]
 
 Flags:
 配置项:
-   -email, -fofa-email string  Fofa API Email (default "xxxxxx@qq.com")
-   -key, -fofakey string       Fofa API Key (default "dfc28xxxxxxxxxxxxxxxxxxxxf86a3c")
+   -email, -fofa-email string  Fofa API Email
+   -key, -fofakey string       Fofa API Key
    -p, -proxy string           proxy for http like http://127.0.0.1:8080
    -fofa-url string            Fofa url (default "https://fofa.so")
    -debug                      开启 debug 模式
@@ -49,9 +46,12 @@ Flags:
    -iuf, -icon-hash-url-file string  读取文件中的URL，计算 icon hash 后进行查询
 
 OTHER OPTIONS:
-   -version  Show version of fofadump
+   -v, -version  Show version of fofadump
+   -use          Query syntax reference
 
 ```
+
+
 
 ## 联动案例
 
