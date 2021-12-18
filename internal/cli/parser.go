@@ -2,11 +2,13 @@ package cli
 
 import (
 	"errors"
+	"fmt"
 	"fofax/internal/printer"
 	"fofax/internal/utils"
-	"github.com/projectdiscovery/goflags"
 	"os"
 	"path/filepath"
+
+	"github.com/projectdiscovery/goflags"
 )
 
 const (
@@ -92,42 +94,42 @@ func initOptions() {
 func init() {
 	initOptions()
 	flags = goflags.NewFlagSet()
-	flags.SetDescription("FoFax is a command line fofa query tool, simple is the best!")
+	flags.SetDescription("FoFaX is a command line fofa query tool, simple is the best!")
 	//flags.StringVar(&args.ConfigFile, "config", args.ConfigFile, "fofadump configuration file.The file reading order")
 	createGroup(
-		flags, "config", "配置项",
+		flags, "config", "CONFIGS",
 		flags.StringVarP(&args.FoFaEmail, "fofa-email", "email", args.FoFaEmail, "Fofa API Email"),
 		flags.StringVarP(&args.FoFaKey, "fofakey", "key", args.FoFaKey, "Fofa API Key"),
 		flags.StringVarP(&args.Proxy, "proxy", "p", "", "proxy for http like http://127.0.0.1:8080"),
 		flags.StringVar(&args.FoFaURL, "fofa-url", args.FoFaURL, "Fofa url"),
-		flags.BoolVar(&args.Debug, "debug", false, "开启 debug 模式"),
+		flags.BoolVar(&args.Debug, "debug", false, "Debug mode"),
 	)
 	createGroup(
-		flags, "filters", "过滤项",
-		flags.IntVarP(&args.FetchSize, "fetch-size", "fs", args.FetchSize, "最大查询数,默认 100"),
-		flags.BoolVarP(&args.Exclude, "exclude", "e", args.Exclude, "排除干扰"),
-		flags.BoolVarP(&args.ExcludeCountryCN, "exclude-country", "ec", false, "过滤 CN"),
+		flags, "filters", "FILTERS:",
+		flags.IntVarP(&args.FetchSize, "fetch-size", "fs", args.FetchSize, "The maximum number of query"),
+		flags.BoolVarP(&args.Exclude, "exclude", "e", args.Exclude, "Exclude the honeypot."),
+		flags.BoolVarP(&args.ExcludeCountryCN, "exclude-country-cn", "ec", false, "Exclude CN."),
 		// 好像没用
 		//flags.BoolVarP(&args.UniqByIP, "unique-by-ip", "ubi", args.UniqByIP, "以IP的方式进行去重"),
-		flags.BoolVarP(&args.FetchFullHostInfo, "fetch-fullHost-info", "ffi", args.FetchFullHostInfo, "提取完整的 hostinfo,带有 protocol"),
-		flags.BoolVarP(&args.FetchTitlesOfDomain, "fetch-titles-ofDomain", "fto", args.FetchTitlesOfDomain, "提取指定根域名的 title"),
-		flags.StringVarP(&args.FetchOneField, "fetch-one-field", "fof", args.FetchOneField, "填写需要的另一个字段如，port"),
+		flags.BoolVarP(&args.FetchFullHostInfo, "fetch-fullHost-info", "ffi", args.FetchFullHostInfo, "URL fetch, with scheme, hostname, port"),
+		flags.BoolVarP(&args.FetchTitlesOfDomain, "fetch-titles-ofDomain", "fto", args.FetchTitlesOfDomain, "Fetch website title"),
+		// flags.StringVarP(&args.FetchOneField, "fetch-one-field", "fof", args.FetchOneField, "填写需要的另一个字段如，port"),
 	)
 	createGroup(
-		flags, "query", "单个 Query/cert/icon 搜索项",
-		flags.StringVarP(&args.Query, "query", "q", args.Query, "FoFa 查询语句"),
-		flags.StringVarP(&args.PeerCertificates, "url-cert", "uc", args.PeerCertificates, "输入 url(https) 查询证书"),
-		flags.StringVarP(&args.UrlIcon, "url-to-icon-hash", "ui", args.UrlIcon, "通过 URL，计算 icon hash 后进行查询"),
-		flags.StringVarP(&args.IconFilePath, "icon-file-path", "if", args.IconFilePath, "通过 ico 文件，计算 icon hash 后进行查询"),
+		flags, "query", "Single query/ert/icon",
+		flags.StringVarP(&args.Query, "query", "q", args.Query, "FoFa query statement"),
+		flags.StringVarP(&args.PeerCertificates, "url-cert", "uc", args.PeerCertificates, "Enter the certificate of the https URL to query"),
+		flags.StringVarP(&args.UrlIcon, "url-to-icon-hash", "ui", args.UrlIcon, "Enter the URL of an icon, calculate it and query it"),
+		flags.StringVarP(&args.IconFilePath, "icon-file-path", "if", args.IconFilePath, "Calculate the hash of the local icon file, then query it"),
 	)
 	createGroup(
-		flags, "queryFile", "多个 Query/cert/icon 搜索项",
-		flags.StringVarP(&args.QueryFile, "query-file", "qf", args.QueryFile, "加载文件，查询多个语句"),
-		flags.StringVarP(&args.PeerCertificatesFile, "url-cert-file", "ucf", args.UrlIconFile, "读取文件中的URL，计算 cert 后进行查询"),
-		flags.StringVarP(&args.UrlIconFile, "icon-hash-url-file", "iuf", args.UrlIconFile, "读取文件中的URL，计算 icon hash 后进行查询"),
+		flags, "queryFile", "Multiple query/cert/icon",
+		flags.StringVarP(&args.QueryFile, "query-file", "qf", args.QueryFile, "Load files, query multiple statements"),
+		flags.StringVarP(&args.PeerCertificatesFile, "url-cert-file", "ucf", args.UrlIconFile, "Read the URL from the file, calculate the cert and then query it"),
+		flags.StringVarP(&args.UrlIconFile, "icon-hash-url-file", "iuf", args.UrlIconFile, "Retrieve the URL from the file, calculate the icon hash and query it"),
 	)
-	flags.BoolVarP(&args.Version, "version", "v", false, "Show version of fofadump")
-	flags.BoolVar(&args.Use, "use", false, "Query syntax reference")
+	flags.BoolVarP(&args.Version, "version", "v", false, "Show FoFaX version")
+	flags.BoolVar(&args.Use, "use", false, "Syntax queries")
 	err := flags.Parse()
 	if err != nil {
 		printer.Error(printer.HandlerLine("Parse err :" + err.Error()))
@@ -156,6 +158,7 @@ func ParseOptions() *Options {
 		printer.Infof("Branch: %s", Branch)
 		printer.Infof("Commit: %s", Commit)
 		printer.Infof("Date: %s", Date)
+		fmt.Println("FoFaX is a command line fofa query tool, simple is the best!")
 		os.Exit(0)
 	}
 
