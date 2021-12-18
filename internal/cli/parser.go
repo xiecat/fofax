@@ -94,7 +94,7 @@ func initOptions() {
 func init() {
 	initOptions()
 	flags = goflags.NewFlagSet()
-	flags.SetDescription("FoFaX is a command line fofa query tool, simple is the best!")
+	flags.SetDescription("fofaX is a command line fofa query tool, simple is the best!")
 	//flags.StringVar(&args.ConfigFile, "config", args.ConfigFile, "fofadump configuration file.The file reading order")
 	createGroup(
 		flags, "config", "CONFIGS",
@@ -128,7 +128,7 @@ func init() {
 		flags.StringVarP(&args.PeerCertificatesFile, "url-cert-file", "ucf", args.UrlIconFile, "Read the URL from the file, calculate the cert and then query it"),
 		flags.StringVarP(&args.UrlIconFile, "icon-hash-url-file", "iuf", args.UrlIconFile, "Retrieve the URL from the file, calculate the icon hash and query it"),
 	)
-	flags.BoolVarP(&args.Version, "version", "v", false, "Show FoFaX version")
+	flags.BoolVarP(&args.Version, "version", "v", false, "Show fofaX version")
 	flags.BoolVar(&args.Use, "use", false, "Syntax queries")
 	err := flags.Parse()
 	if err != nil {
@@ -154,11 +154,11 @@ func ParseOptions() *Options {
 	}
 
 	if args.Version {
-		printer.Infof("Version: %s", FoFaXVersion)
+		printer.Infof("Version: %s", fofaXVersion)
 		printer.Infof("Branch: %s", Branch)
 		printer.Infof("Commit: %s", Commit)
 		printer.Infof("Date: %s", Date)
-		fmt.Println("FoFaX is a command line fofa query tool, simple is the best!")
+		fmt.Println("fofaX is a command line fofa query tool, simple is the best!")
 		os.Exit(0)
 	}
 

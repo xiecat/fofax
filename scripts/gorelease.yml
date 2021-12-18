@@ -39,7 +39,7 @@ changelog:
       - '^test:'
 nfpms:
   - maintainer: go0p
-    description: FoFax is a command line fofa query tool, simple is the best!
+    description: fofaX is a command line fofa query tool, simple is the best!
     homepage: https://www.xiecat.fun/
     license: MIT
     formats:

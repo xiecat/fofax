@@ -1,8 +1,8 @@
-# FoFax
+# fofaX
 
 ## 简介
 
-FoFax是一款命令行fofa查询工具，简单就是最好的！
+fofaX是一款命令行fofa查询工具，简单就是最好的！
 
 ## 下载
 
@@ -13,7 +13,7 @@ FoFax是一款命令行fofa查询工具，简单就是最好的！
 ```bash
 >fofax.exe -h
 
-FoFax is a command line fofa query tool, simple is the best!
+fofaX is a command line fofa query tool, simple is the best!
 
 Usage:
   fofax.exe [flags]
