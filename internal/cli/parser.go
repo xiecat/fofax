@@ -111,7 +111,7 @@ func init() {
 		//flags.BoolVarP(&args.UniqByIP, "unique-by-ip", "ubi", args.UniqByIP, "以IP的方式进行去重"),
 		flags.BoolVarP(&args.FetchFullHostInfo, "fetch-fullHost-info", "ffi", args.FetchFullHostInfo, "提取完整的 hostinfo,带有 protocol"),
 		flags.BoolVarP(&args.FetchTitlesOfDomain, "fetch-titles-ofDomain", "fto", args.FetchTitlesOfDomain, "提取指定根域名的 title"),
-		flags.StringVarP(&args.FetchOneField, "fetch-one-field", "fof", args.FetchOneField, "填写需要的另一个字段如，port"),
+		//flags.StringVarP(&args.FetchOneField, "fetch-one-field", "fof", args.FetchOneField, "填写需要的另一个字段如，port"),
 	)
 	createGroup(
 		flags, "query", "单个 Query/cert/icon 搜索项",
