@@ -23,6 +23,6 @@ func banner() {
 	magenta(`  /_/  \____/_/  \__,_/_/|_|  ` + "\n")
 	fmt.Println("")
 	g := color.New(color.FgHiGreen).PrintfFunc()
-	g(fmt.Sprintf("                                   { %s  Author:Xiecat }\n", FoFaXVersion))
+	g(fmt.Sprintf("                                   { %s  Author:xiecat }\n", FoFaXVersion))
 	fmt.Println("")
 }
