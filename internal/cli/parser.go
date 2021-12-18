@@ -154,7 +154,7 @@ func ParseOptions() *Options {
 	}
 
 	if args.Version {
-		printer.Infof("Version: %s", fofaXVersion)
+		printer.Infof("Version: %s", FoFaXVersion)
 		printer.Infof("Branch: %s", Branch)
 		printer.Infof("Commit: %s", Commit)
 		printer.Infof("Date: %s", Date)
