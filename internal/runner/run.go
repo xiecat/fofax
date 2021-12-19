@@ -33,10 +33,10 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 		scanner := bufio.NewScanner(os.Stdin)
 		for scanner.Scan() {
 			var fofaQuery string
-			if runtime.GOOS == "windows"{
-				fofaQuery = utils.ConvertByte2String(scanner.Bytes(),"GB18030")
+			if runtime.GOOS == "windows" {
+				fofaQuery = utils.ConvertByte2String(scanner.Bytes(), "GB18030")
 				fofaQuery = strings.Trim(fofaQuery, " \t\r")
-			}else {
+			} else {
 				fofaQuery = strings.Trim(scanner.Text(), " \t\r")
 			}
 			if fofaQuery == "" {
