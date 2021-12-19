@@ -1,12 +1,16 @@
 package fx
 
-type Fxlang struct {
-	Num          int
-	Title        string // 标题
-	titleEnglish string
-	Description  string
-	Author       string
-	FofaQuery    string
-	Tag          string
-	Source       string
+var Querys = []Plugin{
+	{
+		Num:         1,
+		Grammer:     "jupyterunath",
+		RuleName:    "jupyter 未授权",
+		RuleEnglish: "jupyter unth",
+		Description: "jupyter 未设置密码时可以随意访问",
+		Author:      "becivells",
+		FofaQuery:   `title="jupyter"`,
+		Tag:         []string{"", ""},
+		Type:        TypeInline,
+		Source:      "",
+	},
 }

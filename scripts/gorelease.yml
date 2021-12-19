@@ -37,11 +37,11 @@ changelog:
     exclude:
       - '^docs:'
       - '^test:'
-nfpms:
-  - maintainer: go0p
-    description: fofaX is a command line fofa query tool, simple is the best!
-    homepage: https://www.xiecat.fun/
-    license: MIT
-    formats:
-      - deb
-      - rpm
+#nfpms:
+#  - maintainer: go0p
+#    description: fofaX is a command line fofa query tool, simple is the best!
+#    homepage: https://www.xiecat.fun/
+#    license: MIT
+#    formats:
+#      - deb
+#      - rpm
