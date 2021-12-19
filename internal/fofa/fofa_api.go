@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"fofax/internal/cli"
 	"fofax/internal/printer"
-	"fofax/internal/utils"
 	"github.com/jweny/xhttp"
 	"math"
 	"net/http"
@@ -84,16 +83,7 @@ func (f *FoFa) fetchByFields(fields string, queryStr string) bool {
 
 		fullURL := f.buildQueryUrl(uri)
 		if f.option.Debug {
-			// 保护 key
-			fakeUri := fmt.Sprintf(
-				"/api/v1/search/all?email=%s&key=%s&qbase64=%s&size=%d&page=%d&fields=%s",
-				f.option.FoFaEmail, utils.GetHidePasswd(f.option.FoFaKey),
-				base64.StdEncoding.EncodeToString([]byte(queryStr)),
-				perPage,
-				f.page,
-				fields,
-			)
-			printer.Debug(f.option.FoFaURL + fakeUri)
+			printer.Debug(fullURL)
 		}
 		hr, _ := http.NewRequest("GET", fullURL, nil)
 		req := &xhttp.Request{RawRequest: hr}
@@ -113,7 +103,10 @@ func (f *FoFa) fetchByFields(fields string, queryStr string) bool {
 			printer.Errorf(printer.HandlerLine("request failed: %s" + err.Error()))
 			return false
 		}
-
+		if resp.GetStatus() != 200 {
+			printer.Errorf("Http Status Code : %d", resp.GetStatus())
+			return false
+		}
 		var apiResult ApiResults
 		if err := json.Unmarshal(resp.Body, &apiResult); err != nil {
 			printer.Errorf("Json Unmarshal Failed: %s", string(resp.Body))
