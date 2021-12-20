@@ -6,6 +6,7 @@ import (
 	"fofax/internal/printer"
 	"fofax/internal/table"
 	"io/ioutil"
+	"path/filepath"
 	"strings"
 )
 
@@ -54,6 +55,36 @@ func (fx FoFaxQuery) SearchSingle(id, query string) (Plugin, error) {
 	return Plugin{}, errors.New("not found")
 }
 
+func (fx FoFaxQuery) SearchExpTab(rawStrs string) {
+	var id, query, ruleName, ruleEnglish, Author, tag string
+	strs := strings.Split(rawStrs, ";")
+	if len(strs) == 1 {
+		fx.SearchTable(rawStrs, "", "", "", "", "")
+		return
+	}
+	for _, expr := range strs {
+		exprSplit := strings.Split(expr, "=")
+		if len(exprSplit) != 2 {
+			printer.Fatal("expr err")
+		}
+		switch strings.TrimSpace(strings.ToLower(exprSplit[0])) {
+		case "id":
+			id = trimOther(exprSplit[1])
+		case "query":
+			query = trimOther(exprSplit[1])
+		case "rulename":
+			ruleName = trimOther(exprSplit[1])
+		case "ruleenglish":
+			ruleEnglish = trimOther(exprSplit[1])
+		case "author":
+			Author = trimOther(exprSplit[1])
+		case "tag":
+			tag = trimOther(exprSplit[1])
+		}
+	}
+	fx.SearchTable(id, query, ruleName, ruleEnglish, Author, tag)
+}
+
 func (fx FoFaxQuery) SearchTable(id, query, ruleName, ruleEnglish, Author, tag string) {
 	type qTable struct {
 		Id          string `table:"Id" yaml:"Id"`
@@ -84,7 +115,15 @@ func (fx FoFaxQuery) SearchTable(id, query, ruleName, ruleEnglish, Author, tag s
 	}
 	table.Output(results)
 }
-
+func (fx FoFaxQuery) ListTags() {
+	tlist := []string{}
+	for k := range fx.Tags {
+		tlist = append(tlist, k)
+	}
+	table.Output([]Tinfo{
+		{"Tags", strings.Join(tlist, ",")},
+	})
+}
 func (fx FoFaxQuery) SearchSingleTable(query string) {
 	if query == "" {
 		table.Output([]Tinfo{{"Error", "id or query not null"}})
@@ -114,7 +153,9 @@ func Add(p Plugin) {
 		printer.Fatalf("Duplicate entry for  query: %s, other info id: %s, Author: %s", p.Query, p.Id, p.Author)
 		return
 	}
-
+	for _, v := range p.Tag {
+		Info.Tags[v] = true
+	}
 	Info.Plugins[p.Query] = p
 }
 
@@ -124,6 +165,14 @@ func AddLists(plist []Plugin) {
 	}
 }
 
+func trimOther(s string) string {
+	s = strings.TrimSpace(s)
+	if (strings.HasSuffix(s, "'") && strings.HasPrefix(s, "'")) || (strings.HasSuffix(s, "\"") && strings.HasPrefix(s, "\"")) {
+		s = s[1 : len(s)-1]
+	}
+	return s
+}
+
 func getFxLists(path string) {
 	fs, _ := ioutil.ReadDir(path)
 	for _, file := range fs {
@@ -131,12 +180,16 @@ func getFxLists(path string) {
 			fmt.Println(path + file.Name())
 			getFxLists(path + file.Name() + "/")
 		} else {
-
-			p, err := LoadPlugin(path + file.Name())
-			if err != nil {
-				printer.Fatalf("load plugins error:%s", err.Error())
+			yp := filepath.Join(path, file.Name())
+			if strings.HasSuffix(yp, "yaml") || strings.HasSuffix(yp, "yml") {
+				p, err := LoadPlugin(yp)
+				p.Type = TypeYaml
+				if err != nil {
+					printer.Fatalf("load plugins error:%s", err.Error())
+				}
+				Add(*p)
 			}
-			Add(*p)
+
 		}
 	}
 }

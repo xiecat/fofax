@@ -35,6 +35,7 @@ func LoadPlugin(pathFile string) (*Plugin, error) {
 	configFile, err := os.Open(pathFile)
 	if err != nil {
 		printer.Errorf("readPlugin(%s) os.Open failed: %v", pathFile, err)
+		return nil, err
 	}
 	defer configFile.Close()
 

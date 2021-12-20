@@ -69,7 +69,7 @@ func (base *Plugin) GenPlugin(pluginFile string) error {
 	printer.Infof("Will Write Plugin file: %s\n", pluginFile)
 	err := ioutil.WriteFile(pluginFile, data, 0644) // 写入
 	if err != nil {
-		printer.Errorf("%s can't  write Plugin file\n", pluginFile)
+		printer.Fatalf("%s can't  write Plugin file\n", pluginFile)
 		return err
 	}
 	return nil

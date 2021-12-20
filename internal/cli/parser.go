@@ -87,6 +87,8 @@ var (
 	fxSearch       string
 	fxSearchSingle string
 	fxList         bool
+	fxtags         bool
+	genFx          string
 )
 
 func initOptions() {
@@ -95,6 +97,7 @@ func initOptions() {
 	args.FoFaKey = os.Getenv("FOFA_KEY")
 	args.FoFaURL = "https://fofa.so"
 	args.FetchSize = 100
+	args.FxDir = getFxConf()
 }
 
 func init() {
@@ -136,9 +139,11 @@ func init() {
 	)
 	createGroup(
 		flags, "fxgroup", "fx grammer",
-		flags.StringVarP(&args.FxDir, "fxdir", "fd", args.FxDir, "fx 目录位置"),
-		flags.BoolVarP(&fxList, "lists", "l", false, "搜索"),
-		flags.StringVarP(&fxSearch, "search", "s", args.UrlIconFile, "搜索"),
+		flags.StringVarP(&args.FxDir, "fxdir", "fd", args.FxDir, "fx目录位置"),
+		flags.StringVarP(&genFx, "gen", "g", genFx, "生成 fx 语法文件 eg: default_fx.yaml"),
+		flags.BoolVarP(&fxList, "lists", "l", false, "列出fx语法列表"),
+		flags.BoolVarP(&fxtags, "list-tags", "lt", false, "列出fx语法列表"),
+		flags.StringVarP(&fxSearch, "search", "s", args.UrlIconFile, "搜索 语句用分号分开 eg: id=fx-2021-01;query=\"jupyter Unauth\""),
 		flags.StringVarP(&fxSearchSingle, "show-single", "ss", args.QueryFile, "显示单个 fx 信息"),
 	)
 	flags.BoolVarP(&args.Version, "version", "v", false, "Show fofaX version")
@@ -177,12 +182,24 @@ func ParseOptions() *Options {
 
 	args.FxQuery = fx.NewFoFaxQuery(args.FxDir)
 
+	if genFx != "" {
+		fx.GenDefaultPlugin(genFx)
+		os.Exit(0)
+	}
 	if fxList {
-		args.FxQuery.SearchTable("", "", "", "", "", "")
+		args.FxQuery.SearchExpTab("")
+		os.Exit(0)
+	}
+	if fxtags {
+		args.FxQuery.ListTags()
 		os.Exit(0)
 	}
 	if fxSearchSingle != "" {
 		args.FxQuery.SearchSingleTable(fxSearchSingle)
+		os.Exit(0)
+	}
+	if fxSearch != "" {
+		args.FxQuery.SearchExpTab(fxSearch)
 		os.Exit(0)
 	}
 
@@ -259,10 +276,19 @@ func checkFoFaInfo() {
 	}
 }
 
-func getHomeConf() (home string) {
+func getFxConf() (home string) {
 	home, err := os.UserHomeDir()
 	if err != nil {
 		return "fofa.yaml"
 	}
-	return filepath.Join(home, ".config", "fofa", "fofa.yaml")
+	fxdir := filepath.Join(home, ".config", "fofax", "fxdir")
+	if !utils.FileExist(fxdir) {
+		printer.Infof("create  dir fxdir: %s", fxdir)
+		err := os.MkdirAll(filepath.Dir(fxdir), os.ModePerm)
+		if err != nil {
+			printer.Fatalf("无法创建目录: %s", err.Error())
+		}
+	}
+
+	return fxdir
 }
