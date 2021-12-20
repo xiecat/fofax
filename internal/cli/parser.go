@@ -284,7 +284,7 @@ func getFxConf() (home string) {
 	fxdir := filepath.Join(home, ".config", "fofax", "fxdir")
 	if !utils.FileExist(fxdir) {
 		printer.Infof("create  dir fxdir: %s", fxdir)
-		err := os.MkdirAll(filepath.Dir(fxdir), os.ModePerm)
+		err := os.MkdirAll(fxdir, os.ModePerm)
 		if err != nil {
 			printer.Fatalf("无法创建目录: %s", err.Error())
 		}
