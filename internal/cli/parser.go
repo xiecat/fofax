@@ -3,6 +3,7 @@ package cli
 import (
 	"errors"
 	"fmt"
+	"fofax/internal/fx"
 	"fofax/internal/printer"
 	"fofax/internal/utils"
 	"os"
@@ -24,6 +25,7 @@ type Options struct {
 	queryOfFile
 	filter
 	config
+	FxQuery *fx.FoFaxQuery
 	Version bool
 	Use     bool
 	// 标准输入
@@ -76,11 +78,15 @@ type config struct {
 	Proxy       string
 	Debug       bool
 	ConfigFile  string
+	FxDir       string
 }
 
 var (
-	args  *Options
-	flags *goflags.FlagSet
+	args           *Options
+	flags          *goflags.FlagSet
+	fxSearch       string
+	fxSearchSingle string
+	fxList         bool
 )
 
 func initOptions() {
@@ -128,6 +134,13 @@ func init() {
 		flags.StringVarP(&args.PeerCertificatesFile, "url-cert-file", "ucf", args.UrlIconFile, "Read the URL from the file, calculate the cert and then query it"),
 		flags.StringVarP(&args.UrlIconFile, "icon-hash-url-file", "iuf", args.UrlIconFile, "Retrieve the URL from the file, calculate the icon hash and query it"),
 	)
+	createGroup(
+		flags, "fxgroup", "fx grammer",
+		flags.StringVarP(&args.FxDir, "fxdir", "fd", args.FxDir, "fx 目录位置"),
+		flags.BoolVarP(&fxList, "lists", "l", false, "搜索"),
+		flags.StringVarP(&fxSearch, "search", "s", args.UrlIconFile, "搜索"),
+		flags.StringVarP(&fxSearchSingle, "show-single", "ss", args.QueryFile, "显示单个 fx 信息"),
+	)
 	flags.BoolVarP(&args.Version, "version", "v", false, "Show fofaX version")
 	flags.BoolVar(&args.Use, "use", false, "Syntax queries")
 	err := flags.Parse()
@@ -159,6 +172,17 @@ func ParseOptions() *Options {
 		printer.Infof("Commit: %s", Commit)
 		printer.Infof("Date: %s", Date)
 		fmt.Println("fofaX is a command line fofa query tool, simple is the best!")
+		os.Exit(0)
+	}
+
+	args.FxQuery = fx.NewFoFaxQuery(args.FxDir)
+
+	if fxList {
+		args.FxQuery.SearchTable("", "", "", "", "", "")
+		os.Exit(0)
+	}
+	if fxSearchSingle != "" {
+		args.FxQuery.SearchSingleTable(fxSearchSingle)
 		os.Exit(0)
 	}
 

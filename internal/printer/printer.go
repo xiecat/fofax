@@ -3,6 +3,7 @@ package printer
 import (
 	"fmt"
 	"github.com/fatih/color"
+	"os"
 	"path/filepath"
 	"runtime"
 	"strconv"
@@ -101,6 +102,21 @@ func Error(a ...interface{}) {
 	prefix := err(ERROR)
 	str := strC(fmt.Sprint(a...))
 	fmt.Fprintln(outPut, formatPrint(prefix), str)
+}
+
+func Fatalf(format string, a ...interface{}) {
+	err := color.New(color.FgRed).SprintfFunc()
+	prefix := err(ERROR)
+	str := strC(fmt.Sprintf(format, a...))
+	fmt.Fprintln(outPut, formatPrint(prefix), str)
+	os.Exit(-1)
+}
+func Fatal(a ...interface{}) {
+	err := color.New(color.FgRed).SprintfFunc()
+	prefix := err(ERROR)
+	str := strC(fmt.Sprint(a...))
+	fmt.Fprintln(outPut, formatPrint(prefix), str)
+	os.Exit(-1)
 }
 
 func formatPrint(prefix string) string {

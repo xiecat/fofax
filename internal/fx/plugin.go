@@ -2,21 +2,21 @@ package fx
 
 import (
 	"errors"
-	"fmt"
 	"fofax/internal/printer"
+	"fofax/internal/table"
 	"io/ioutil"
-	"os"
+	"strings"
 
 	"fofax/internal/utils"
 	"gopkg.in/yaml.v2"
 )
 
-type FxType int
-
 const (
 	TypeInline FxType = iota
 	TypeYaml
 )
+
+type FxType int
 
 func (f FxType) String() string {
 	switch f {
@@ -24,23 +24,37 @@ func (f FxType) String() string {
 		return "文件规则"
 	case TypeInline:
 		return "内置规则"
-
 	default:
 		return "未知规则类型"
 	}
 }
 
 type Plugin struct {
-	Num         int
-	Grammer     string   // 查询语法
-	RuleName    string   // 标题名
-	RuleEnglish string   // 规则英文名
-	Description string   // 描述
-	Author      string   // 作者
-	FofaQuery   string   // fofa查询
-	Tag         []string // 标签
-	Type        FxType   // 类别
-	Source      string   // 来源
+	Id          string   `table:"Id" yaml:"Id"`
+	Query       string   `table:"Query" yaml:"Query"`             // 查询语法
+	RuleName    string   `table:"RuleName" yaml:"RuleName"`       // 标题名
+	RuleEnglish string   `table:"RuleEnglish" yaml:"RuleEnglish"` // 规则英文名
+	Description string   `table:"Description" yaml:"Description"` // 描述
+	Author      string   `table:"Author" yaml:"Author"`           // 作者
+	FofaQuery   string   `table:"-" yaml:"FofaQuery"`             // fofa查询
+	Tag         []string `table:"Tag" yaml:"Tag"`                 // 标签
+	Type        FxType   `table:"Type" yaml:"-"`                  // 类别
+	Source      string   `table:"Source" yaml:"Source"`           // 来源
+}
+
+func (q *Plugin) ShowInfoTable() {
+	results := []Tinfo{
+		{"ID", q.Id},
+		{"Query", q.Query},
+		{"RuleName", q.RuleName},
+		{"RuleEnglish", q.RuleEnglish},
+		{"Author", q.Author},
+		{"FofaQuery", q.FofaQuery},
+		{"Tag", strings.Join(q.Tag, ",")},
+		{"Type", q.Type.String()},
+		{"Description", q.Description},
+	}
+	table.Output(results)
 }
 
 func (f Plugin) QueryString() string {
@@ -60,29 +74,4 @@ func (base *Plugin) GenPlugin(pluginFile string) error {
 	}
 	return nil
 
-}
-
-func GenDefaultPlugin(pluginFile string) error {
-	return nil
-}
-
-func LoadPlugin(pathFile string) (*Plugin, error) {
-	configFile, err := os.Open(pathFile)
-	if err != nil {
-		printer.Errorf("readPlugin(%s) os.Open failed: %v", pathFile, err)
-	}
-	defer configFile.Close()
-
-	content, err := ioutil.ReadAll(configFile)
-	if err != nil {
-		printer.Errorf("readPlugin(%s) ioutil.ReadAll failed: %v", pathFile, err)
-		return nil, err
-	}
-	plugin := &Plugin{}
-
-	err = yaml.Unmarshal(content, plugin)
-	if err != nil {
-		return nil, fmt.Errorf("[%s] yaml format err:%s ", pathFile, err.Error())
-	}
-	return plugin, nil
 }
