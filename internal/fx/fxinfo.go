@@ -3,7 +3,7 @@ package fx
 var defalutPlugins = []Plugin{
 
 	{
-		Id:          "fx-2021-0001",
+		Id:          "fx-2021-1001",
 		Query:       "Google Reverse",
 		RuleName:    "Google反代服务器",
 		RuleEnglish: "Google Reverse proxy",
@@ -15,7 +15,7 @@ var defalutPlugins = []Plugin{
 		Source:      "https://tp.wjx.top/m/67114073.aspx",
 	},
 	{
-		Id:          "fx-2021-0002",
+		Id:          "fx-2021-1002",
 		Query:       "Python SimpleHTTP",
 		RuleName:    "Python SimpleHTTP服务器",
 		RuleEnglish: "Python SimpleHTTP Server",
@@ -27,7 +27,7 @@ var defalutPlugins = []Plugin{
 		Source:      "https://tp.wjx.top/m/67114073.aspx",
 	},
 	{
-		Id:          "fx-2021-0003",
+		Id:          "fx-2021-1003",
 		Query:       "xiangqin",
 		RuleName:    "相亲约会？",
 		RuleEnglish: "Blind Date",
@@ -39,7 +39,7 @@ var defalutPlugins = []Plugin{
 		Source:      "",
 	},
 	{
-		Id:          "fx-2021-0004",
+		Id:          "fx-2021-1004",
 		Query:       "hfs rce",
 		RuleName:    "存在命令执行的HFS服务",
 		RuleEnglish: "Presence of HFS services for command execution",
@@ -51,7 +51,7 @@ var defalutPlugins = []Plugin{
 		Source:      "",
 	},
 	{
-		Id:          "fx-2021-0005",
+		Id:          "fx-2021-1005",
 		Query:       "Satellites FTP",
 		RuleName:    "一键日卫星FTP？",
 		RuleEnglish: "Satellites FTP",
@@ -63,7 +63,7 @@ var defalutPlugins = []Plugin{
 		Source:      "",
 	},
 	{
-		Id:          "fx-2021-0006",
+		Id:          "fx-2021-1006",
 		Query:       "mk Mining",
 		RuleName:    "mk路由器全球挖矿感染",
 		RuleEnglish: "mk router global mining infection",
@@ -75,7 +75,7 @@ var defalutPlugins = []Plugin{
 		Source:      "",
 	},
 	{
-		Id:          "fx-2021-0007",
+		Id:          "fx-2021-1007",
 		Query:       "ss-Manager Login",
 		RuleName:    "ss-Manager 登录",
 		RuleEnglish: "ss-Manager Login",
@@ -87,7 +87,7 @@ var defalutPlugins = []Plugin{
 		Source:      "",
 	},
 	{
-		Id:          "fx-2021-0008",
+		Id:          "fx-2021-1008",
 		Query:       "Heating monitoring",
 		RuleName:    "供暖监控系统",
 		RuleEnglish: "Heating monitoring systems",
@@ -99,7 +99,7 @@ var defalutPlugins = []Plugin{
 		Source:      "",
 	},
 	{
-		Id:          "fx-2021-0009",
+		Id:          "fx-2021-1009",
 		Query:       "Free Proxy",
 		RuleName:    "免费代理池",
 		RuleEnglish: "Free Proxy Pool",
@@ -111,7 +111,7 @@ var defalutPlugins = []Plugin{
 		Source:      "",
 	},
 	{
-		Id:          "fx-2021-0010",
+		Id:          "fx-2021-1010",
 		Query:       "honeypot-01",
 		RuleName:    "蜜罐",
 		RuleEnglish: "honeypot 01",
@@ -123,7 +123,7 @@ var defalutPlugins = []Plugin{
 		Source:      "",
 	},
 	{
-		Id:          "fx-2021-0011",
+		Id:          "fx-2021-1011",
 		Query:       "webcamXP",
 		RuleName:    "webcamXP",
 		RuleEnglish: "webcamXP",
@@ -135,7 +135,7 @@ var defalutPlugins = []Plugin{
 		Source:      "",
 	},
 	{
-		Id:          "fx-2021-0012",
+		Id:          "fx-2021-1012",
 		Query:       "hacked by",
 		RuleName:    "hacked by xxx",
 		RuleEnglish: "hacked by xxx",
