@@ -1,6 +1,6 @@
 #!/bin/bash
 
-NEEDED_COMMANDS="go git goreleaser"
+NEEDED_COMMANDS="go git goreleaser java"
 
 for cmd in ${NEEDED_COMMANDS} ; do
     if ! command -v "${cmd}" &> /dev/null ; then

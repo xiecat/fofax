@@ -4,11 +4,17 @@ import (
 	"bufio"
 	"encoding/json"
 	"fmt"
-	"fofax/internal/printer"
 	"golang.org/x/text/encoding/simplifiedchinese"
 	"os"
+	"path/filepath"
 	"reflect"
 )
+
+var ConfDefaultPath []string = []string{
+	"fofax.yaml",
+	filepath.Join(getHomedir(), "fofax.yaml"),
+	"/etc/fofa.yaml",
+}
 
 // StructToMap Struct 转 Map
 func StructToMap(in interface{}, tagName string) (map[string]interface{}, error) {
@@ -59,7 +65,6 @@ func FileExist(path string) bool {
 		return true
 	}
 	if os.IsNotExist(err) {
-		printer.Errorf("File  %s not exist", path)
 		return false
 	}
 	return false
@@ -121,4 +126,29 @@ func GetHidePasswd(key string) string {
 		return key[0:3] + HiddenPasswdChar + key[28:]
 	}
 	return ""
+}
+
+func GetDefaultConf() string {
+	for _, cfile := range ConfDefaultPath {
+		if FileExist(cfile) {
+			return cfile
+		}
+	}
+	return ConfDefaultPath[0]
+}
+
+func BinBaseDir() string {
+	ex, err := os.Executable()
+	if err != nil {
+		panic(err)
+	}
+	return filepath.Dir(ex)
+}
+
+func getHomedir() (home string) {
+	home, err := os.UserHomeDir()
+	if err != nil {
+		return ""
+	}
+	return filepath.Join(home, ".config", "fofax")
 }

@@ -13,15 +13,17 @@ import (
 var Info *FoFaxQuery
 
 type FoFaxQuery struct {
-	Plugins map[string]Plugin // query
+	Plugins []Plugin // query
+	Query   map[string]bool
 	Tags    map[string]bool
 	Id      map[string]bool
 }
 
 func NewFoFaxQuery(fxpath string) *FoFaxQuery {
 	fq := &FoFaxQuery{
-		Plugins: make(map[string]Plugin),
+		Plugins: []Plugin{},
 		Tags:    make(map[string]bool),
+		Query:   make(map[string]bool),
 		Id:      make(map[string]bool),
 	}
 	Info = fq
@@ -204,7 +206,7 @@ func Add(p Plugin) {
 		Info.Id[p.Id] = true
 	}
 
-	if _, ok := Info.Plugins[p.Query]; ok {
+	if _, ok := Info.Query[p.Query]; ok {
 		printer.Fatalf("Duplicate entry for  query: %s, other info id: %s, Author: %s", p.Query, p.Id, p.Author)
 		return
 	}
@@ -212,7 +214,8 @@ func Add(p Plugin) {
 	for _, v := range p.Tag {
 		Info.Tags[v] = true
 	}
-	Info.Plugins[p.Query] = p
+	Info.Query[p.Query] = true
+	Info.Plugins = append(Info.Plugins, p)
 }
 
 func AddLists(plist []Plugin) {

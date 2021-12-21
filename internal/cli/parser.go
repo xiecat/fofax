@@ -9,8 +9,9 @@ import (
 	"fofax/internal/utils"
 	"os"
 	"path/filepath"
+	"strings"
 
-	"github.com/projectdiscovery/goflags"
+	"fofax/internal/goflags"
 )
 
 const (
@@ -80,7 +81,6 @@ type config struct {
 	Proxy       string
 	Debug       bool
 	ConfigFile  string
-	FxDir       string
 }
 type fxconfig struct {
 	FxSearch       string
@@ -90,6 +90,7 @@ type fxconfig struct {
 	FxParseTree    bool
 	GenFx          string
 	FofaExt        bool
+	FxDir          string
 }
 
 var (
@@ -103,14 +104,15 @@ func initOptions() {
 	args.FoFaKey = os.Getenv("FOFA_KEY")
 	args.FoFaURL = "https://fofa.so"
 	args.FetchSize = 100
-	args.FxDir = getFxConf()
+	args.FxDir = filepath.Join(filepath.Dir(utils.GetDefaultConf()), "fxrules")
+	args.ConfigFile = utils.GetDefaultConf()
 }
 
 func init() {
 	initOptions()
 	flags = goflags.NewFlagSet()
 	flags.SetDescription("fofaX is a command line fofa query tool, simple is the best!")
-	//flags.StringVar(&args.ConfigFile, "config", args.ConfigFile, "fofadump configuration file.The file reading order")
+	flags.StringVar(&args.ConfigFile, "config", args.ConfigFile, "fofax configuration file.The file reading order("+strings.Join(utils.ConfDefaultPath, ",")+")")
 	createGroup(
 		flags, "config", "CONFIGS",
 		flags.StringVarP(&args.FoFaEmail, "fofa-email", "email", args.FoFaEmail, "Fofa API Email"),
@@ -146,6 +148,7 @@ func init() {
 	createGroup(
 		flags, "fxgroup", "fx grammer",
 		flags.StringVarP(&args.GenFx, "gen", "g", args.GenFx, "生成 fx 语法文件 eg: default_fx.yaml"),
+		flags.StringVarP(&args.FxDir, "fxdir", "fd", args.FxDir, "fxdir 目录"),
 		flags.BoolVarP(&args.FxList, "lists", "l", false, "列出fx语法列表"),
 		flags.BoolVarP(&args.Fxtags, "list-tags", "lt", false, "列出fx语法列表"),
 		flags.StringVarP(&args.FxSearch, "search", "s", args.FxSearch, "搜索 语句用分号分开 eg: id=fx-2021-01;query=\"jupyter Unauth\""),
@@ -295,21 +298,4 @@ func checkFoFaInfo() {
 		printer.Error("FoFaKey or FoFaEmail is empty")
 		os.Exit(1)
 	}
-}
-
-func getFxConf() (home string) {
-	home, err := os.UserHomeDir()
-	if err != nil {
-		return "fofa.yaml"
-	}
-	fxdir := filepath.Join(home, ".config", "fofax", "fxdir")
-	if !utils.FileExist(fxdir) {
-		printer.Infof("create  dir fxdir: %s", fxdir)
-		err := os.MkdirAll(fxdir, os.ModePerm)
-		if err != nil {
-			printer.Fatalf("无法创建目录: %s", err.Error())
-		}
-	}
-
-	return fxdir
 }

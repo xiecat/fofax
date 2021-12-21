@@ -25,6 +25,11 @@ deps:		## deps check
 	@echo "$(CGREEN)deps check ...$(CEND)"
 	@/bin/bash scripts/deps.sh
 
+.PHONY: fparse
+fparse:		## gen fofax parse
+	@echo "$(CGREEN)deps check ...$(CEND)"
+	@cd internal/fxparser/ && make
+
 .PHONY: build
 build:  fmt   	## build current target
 	@echo "$(CGREEN)beye build snapshot no publish ...$(CEND)"
