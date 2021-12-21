@@ -30,16 +30,16 @@ func (f FxType) String() string {
 }
 
 type Plugin struct {
-	Id          string   `table:"Id" yaml:"Id"`
-	Query       string   `table:"Query" yaml:"Query"`             // 查询语法
-	RuleName    string   `table:"RuleName" yaml:"RuleName"`       // 标题名
-	RuleEnglish string   `table:"RuleEnglish" yaml:"RuleEnglish"` // 规则英文名
-	Description string   `table:"Description" yaml:"Description"` // 描述
-	Author      string   `table:"Author" yaml:"Author"`           // 作者
-	FofaQuery   string   `table:"-" yaml:"FofaQuery"`             // fofa查询
-	Tag         []string `table:"Tag" yaml:"Tag"`                 // 标签
-	Type        FxType   `table:"Type" yaml:"-"`                  // 类别
-	Source      string   `table:"Source" yaml:"Source"`           // 来源
+	Id          string   `table:"Id" yaml:"id"`
+	Query       string   `table:"Query" yaml:"query"`              // 查询语法
+	RuleName    string   `table:"RuleName" yaml:"rule_name"`       // 标题名
+	RuleEnglish string   `table:"RuleEnglish" yaml:"rule_english"` // 规则英文名
+	Description string   `table:"Description" yaml:"description"`  // 描述
+	Author      string   `table:"Author" yaml:"author"`            // 作者
+	FofaQuery   string   `table:"-" yaml:"fofa_query"`             // fofa查询
+	Tag         []string `table:"Tag" yaml:"tag"`                  // 标签
+	Type        FxType   `table:"Type" yaml:"-"`                   // 类别
+	Source      string   `table:"Source" yaml:"source"`            // 来源
 }
 
 func (q *Plugin) ShowInfoTable() {

@@ -181,16 +181,6 @@ func (s *StartContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
-func (s *StartContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
-	switch t := visitor.(type) {
-	case FOFAVisitor:
-		return t.VisitStart(s)
-
-	default:
-		return t.VisitChildren(s)
-	}
-}
-
 func (p *FOFAParser) Start() (localctx IStartContext) {
 	localctx = NewStartContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 0, FOFAParserRULE_start)
@@ -339,16 +329,6 @@ func (s *CompareExpContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
-func (s *CompareExpContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
-	switch t := visitor.(type) {
-	case FOFAVisitor:
-		return t.VisitCompareExp(s)
-
-	default:
-		return t.VisitChildren(s)
-	}
-}
-
 type AndLogicalExpContext struct {
 	*QueryContext
 	leftQuery  IQueryContext
@@ -421,16 +401,6 @@ func (s *AndLogicalExpContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
-func (s *AndLogicalExpContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
-	switch t := visitor.(type) {
-	case FOFAVisitor:
-		return t.VisitAndLogicalExp(s)
-
-	default:
-		return t.VisitChildren(s)
-	}
-}
-
 type BracketExpContext struct {
 	*QueryContext
 	leftBracket  antlr.Token
@@ -486,16 +456,6 @@ func (s *BracketExpContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *BracketExpContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(FOFAListener); ok {
 		listenerT.ExitBracketExp(s)
-	}
-}
-
-func (s *BracketExpContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
-	switch t := visitor.(type) {
-	case FOFAVisitor:
-		return t.VisitBracketExp(s)
-
-	default:
-		return t.VisitChildren(s)
 	}
 }
 
@@ -568,16 +528,6 @@ func (s *ScompareExpContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
-func (s *ScompareExpContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
-	switch t := visitor.(type) {
-	case FOFAVisitor:
-		return t.VisitScompareExp(s)
-
-	default:
-		return t.VisitChildren(s)
-	}
-}
-
 type OrLogicalExpContext struct {
 	*QueryContext
 	leftQuery  IQueryContext
@@ -647,16 +597,6 @@ func (s *OrLogicalExpContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *OrLogicalExpContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(FOFAListener); ok {
 		listenerT.ExitOrLogicalExp(s)
-	}
-}
-
-func (s *OrLogicalExpContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
-	switch t := visitor.(type) {
-	case FOFAVisitor:
-		return t.VisitOrLogicalExp(s)
-
-	default:
-		return t.VisitChildren(s)
 	}
 }
 
@@ -909,16 +849,6 @@ func (s *AttrPathContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
-func (s *AttrPathContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
-	switch t := visitor.(type) {
-	case FOFAVisitor:
-		return t.VisitAttrPath(s)
-
-	default:
-		return t.VisitChildren(s)
-	}
-}
-
 func (p *FOFAParser) AttrPath() (localctx IAttrPathContext) {
 	localctx = NewAttrPathContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 4, FOFAParserRULE_attrPath)
@@ -1032,16 +962,6 @@ func (s *BooleanContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
-func (s *BooleanContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
-	switch t := visitor.(type) {
-	case FOFAVisitor:
-		return t.VisitBoolean(s)
-
-	default:
-		return t.VisitChildren(s)
-	}
-}
-
 type NullContext struct {
 	*AttrValueContext
 }
@@ -1073,16 +993,6 @@ func (s *NullContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *NullContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(FOFAListener); ok {
 		listenerT.ExitNull(s)
-	}
-}
-
-func (s *NullContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
-	switch t := visitor.(type) {
-	case FOFAVisitor:
-		return t.VisitNull(s)
-
-	default:
-		return t.VisitChildren(s)
 	}
 }
 
@@ -1120,16 +1030,6 @@ func (s *StringContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
-func (s *StringContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
-	switch t := visitor.(type) {
-	case FOFAVisitor:
-		return t.VisitString(s)
-
-	default:
-		return t.VisitChildren(s)
-	}
-}
-
 type DoubleContext struct {
 	*AttrValueContext
 }
@@ -1161,16 +1061,6 @@ func (s *DoubleContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *DoubleContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(FOFAListener); ok {
 		listenerT.ExitDouble(s)
-	}
-}
-
-func (s *DoubleContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
-	switch t := visitor.(type) {
-	case FOFAVisitor:
-		return t.VisitDouble(s)
-
-	default:
-		return t.VisitChildren(s)
 	}
 }
 
@@ -1209,16 +1099,6 @@ func (s *LongContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *LongContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(FOFAListener); ok {
 		listenerT.ExitLong(s)
-	}
-}
-
-func (s *LongContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
-	switch t := visitor.(type) {
-	case FOFAVisitor:
-		return t.VisitLong(s)
-
-	default:
-		return t.VisitChildren(s)
 	}
 }
 

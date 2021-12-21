@@ -43,7 +43,10 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 			if fofaQuery == "" {
 				continue
 			}
-			fofaQuery = fxparser.Query(fofaQuery)
+			if options.FofaExt {
+				fofaQuery = fxparser.Query(fofaQuery)
+			}
+
 			runner.query.Push(fofaQuery)
 		}
 	}
@@ -52,7 +55,10 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 		// query -q
 		if len(options.Query) != 0 {
 			runner.inputCount++
-			runner.query.Push(fxparser.Query(options.Query))
+			if options.FofaExt {
+				options.Query = fxparser.Query(options.Query)
+			}
+			runner.query.Push(options.Query)
 		}
 		// 通过 url 查询证书 -uc
 		if options.PeerCertificates != "" {
@@ -97,6 +103,11 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 				}
 
 				runner.inputCount++
+
+				if options.FofaExt {
+					url = fxparser.Query(url)
+				}
+
 				runner.query.Push(url)
 			}
 		}

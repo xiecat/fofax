@@ -200,12 +200,15 @@ func Add(p Plugin) {
 	if _, ok := Info.Id[p.Id]; ok {
 		printer.Fatalf("Duplicate entry for  id: %s, other info Query: %s, Author: %s", p.Id, p.Query, p.Author)
 		return
+	} else {
+		Info.Id[p.Id] = true
 	}
 
 	if _, ok := Info.Plugins[p.Query]; ok {
 		printer.Fatalf("Duplicate entry for  query: %s, other info id: %s, Author: %s", p.Query, p.Id, p.Author)
 		return
 	}
+
 	for _, v := range p.Tag {
 		Info.Tags[v] = true
 	}

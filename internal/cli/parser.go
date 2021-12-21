@@ -26,6 +26,7 @@ type Options struct {
 	queryOfFile
 	filter
 	config
+	fxconfig
 	FxQuery *fx.FoFaxQuery
 	Version bool
 	Use     bool
@@ -81,16 +82,19 @@ type config struct {
 	ConfigFile  string
 	FxDir       string
 }
+type fxconfig struct {
+	FxSearch       string
+	FxSearchSingle string
+	FxList         bool
+	Fxtags         bool
+	FxParseTree    bool
+	GenFx          string
+	FofaExt        bool
+}
 
 var (
-	args           *Options
-	flags          *goflags.FlagSet
-	fxSearch       string
-	fxSearchSingle string
-	fxList         bool
-	fxtags         bool
-	fxParseTree    bool
-	genFx          string
+	args  *Options
+	flags *goflags.FlagSet
 )
 
 func initOptions() {
@@ -141,13 +145,13 @@ func init() {
 	)
 	createGroup(
 		flags, "fxgroup", "fx grammer",
-		flags.StringVarP(&args.FxDir, "fxdir", "fd", args.FxDir, "fx目录位置"),
-		flags.StringVarP(&genFx, "gen", "g", genFx, "生成 fx 语法文件 eg: default_fx.yaml"),
-		flags.BoolVarP(&fxList, "lists", "l", false, "列出fx语法列表"),
-		flags.BoolVarP(&fxtags, "list-tags", "lt", false, "列出fx语法列表"),
-		flags.StringVarP(&fxSearch, "search", "s", args.UrlIconFile, "搜索 语句用分号分开 eg: id=fx-2021-01;query=\"jupyter Unauth\""),
-		flags.BoolVar(&fxParseTree, "tree", false, "打印语法树"),
-		flags.StringVarP(&fxSearchSingle, "show-single", "ss", args.QueryFile, "显示单个 fx 信息"),
+		flags.StringVarP(&args.GenFx, "gen", "g", args.GenFx, "生成 fx 语法文件 eg: default_fx.yaml"),
+		flags.BoolVarP(&args.FxList, "lists", "l", false, "列出fx语法列表"),
+		flags.BoolVarP(&args.Fxtags, "list-tags", "lt", false, "列出fx语法列表"),
+		flags.StringVarP(&args.FxSearch, "search", "s", args.FxSearch, "搜索 语句用分号分开 eg: id=fx-2021-01;query=\"jupyter Unauth\""),
+		flags.BoolVar(&args.FxParseTree, "tree", false, "打印语法树"),
+		flags.BoolVar(&args.FofaExt, "fofa-ext", true, "使用扩展语法(fx)"),
+		flags.StringVarP(&args.FxSearchSingle, "show-single", "ss", args.QueryFile, "显示单个 fx 信息"),
 	)
 	flags.BoolVarP(&args.Version, "version", "v", false, "Show fofaX version")
 	flags.BoolVar(&args.Use, "use", false, "Syntax queries")
@@ -174,27 +178,27 @@ func ParseFxOptions() {
 	}
 
 	args.FxQuery = fx.NewFoFaxQuery(args.FxDir)
-	if genFx != "" {
-		fx.GenDefaultPlugin(genFx)
+	if args.GenFx != "" {
+		fx.GenDefaultPlugin(args.GenFx)
 		os.Exit(0)
 	}
-	if fxList {
+	if args.FxList {
 		args.FxQuery.SearchExpTab("")
 		os.Exit(0)
 	}
-	if fxtags {
+	if args.Fxtags {
 		args.FxQuery.ListTags()
 		os.Exit(0)
 	}
-	if fxSearchSingle != "" {
-		args.FxQuery.SearchSingleTable(fxSearchSingle)
+	if args.FxSearchSingle != "" {
+		args.FxQuery.SearchSingleTable(args.FxSearchSingle)
 		os.Exit(0)
 	}
-	if fxSearch != "" {
-		args.FxQuery.SearchExpTab(fxSearch)
+	if args.FxSearch != "" {
+		args.FxQuery.SearchExpTab(args.FxSearch)
 		os.Exit(0)
 	}
-	if fxParseTree {
+	if args.FxParseTree {
 		fxparser.PrintParserTree(args.Query)
 		os.Exit(1)
 	}
