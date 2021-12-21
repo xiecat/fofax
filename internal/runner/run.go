@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"fofax/internal/cli"
 	"fofax/internal/fofa"
+	"fofax/internal/fxparser"
 	"fofax/internal/iconhash"
 	"fofax/internal/printer"
 	"fofax/internal/queue"
@@ -42,6 +43,7 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 			if fofaQuery == "" {
 				continue
 			}
+			fofaQuery = fxparser.Query(fofaQuery)
 			runner.query.Push(fofaQuery)
 		}
 	}
@@ -50,7 +52,7 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 		// query -q
 		if len(options.Query) != 0 {
 			runner.inputCount++
-			runner.query.Push(options.Query)
+			runner.query.Push(fxparser.Query(options.Query))
 		}
 		// 通过 url 查询证书 -uc
 		if options.PeerCertificates != "" {

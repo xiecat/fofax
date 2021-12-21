@@ -43,15 +43,16 @@ func (fx FoFaxQuery) Search(id, query, ruleName, ruleEnglish, Author, tag string
 	return
 }
 
-func (fx FoFaxQuery) SearchSingle(id, query string) (Plugin, error) {
-	if id == "" && query == "" {
-		return Plugin{}, errors.New("id or query not null")
+func (fx FoFaxQuery) SearchSingle(query string) (Plugin, error) {
+	if len(query) < 3 {
+		return Plugin{}, errors.New("no found")
 	}
 	for _, q := range fx.Plugins {
-		if StrEqual(id, q.Id) && StrEqual(query, q.Query) {
+		if StrEqual(query, q.Id) || StrEqual(query, q.Query) {
 			return q, nil
 		}
 	}
+
 	return Plugin{}, errors.New("not found")
 }
 
@@ -180,6 +181,7 @@ func (fx FoFaxQuery) SearchSingleTable(query string) {
 		table.Output([]Tinfo{{"Error", "id or query not null"}})
 	}
 	for _, q := range fx.Plugins {
+		fmt.Println(q.Id, query)
 		if StrEqual(query, q.Id) || StrEqual(query, q.Query) {
 			q.ShowInfoTable()
 			return

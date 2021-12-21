@@ -3,6 +3,7 @@ module fofax
 go 1.17
 
 require (
+	github.com/antlr/antlr4/runtime/Go/antlr v0.0.0-20211221011931-643d94fcab96
 	github.com/fatih/color v1.13.0
 	github.com/jweny/xhttp v0.0.0-20211209064339-2c93342bd421
 	github.com/projectdiscovery/goflags v0.0.7

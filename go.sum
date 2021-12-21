@@ -1,3 +1,5 @@
+github.com/antlr/antlr4/runtime/Go/antlr v0.0.0-20211221011931-643d94fcab96 h1:2P/dm3KbCLnRHQN/Ma50elhMx1Si9loEZe5hOrsuvuE=
+github.com/antlr/antlr4/runtime/Go/antlr v0.0.0-20211221011931-643d94fcab96/go.mod h1:F7bn7fEU90QkQ3tnmaTx3LTKLEDqnwWODIYppRQ5hnY=
 github.com/cnf/structhash v0.0.0-20201127153200-e1b16c1ebc08 h1:ox2F0PSMlrAAiAdknSRMDrAr8mfxPCfSZolH+/qQnyQ=
 github.com/cnf/structhash v0.0.0-20201127153200-e1b16c1ebc08/go.mod h1:pCxVEbcm3AMg7ejXyorUXi6HQCzOIBf7zEDVPtw0/U4=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=

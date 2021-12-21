@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"fofax/internal/fx"
+	"fofax/internal/fxparser"
 	"fofax/internal/printer"
 	"fofax/internal/utils"
 	"os"
@@ -88,6 +89,7 @@ var (
 	fxSearchSingle string
 	fxList         bool
 	fxtags         bool
+	fxParseTree    bool
 	genFx          string
 )
 
@@ -144,6 +146,7 @@ func init() {
 		flags.BoolVarP(&fxList, "lists", "l", false, "列出fx语法列表"),
 		flags.BoolVarP(&fxtags, "list-tags", "lt", false, "列出fx语法列表"),
 		flags.StringVarP(&fxSearch, "search", "s", args.UrlIconFile, "搜索 语句用分号分开 eg: id=fx-2021-01;query=\"jupyter Unauth\""),
+		flags.BoolVar(&fxParseTree, "tree", false, "打印语法树"),
 		flags.StringVarP(&fxSearchSingle, "show-single", "ss", args.QueryFile, "显示单个 fx 信息"),
 	)
 	flags.BoolVarP(&args.Version, "version", "v", false, "Show fofaX version")
@@ -161,27 +164,16 @@ func createGroup(flagSet *goflags.FlagSet, name, desc string, flags ...*goflags.
 		currentFlag.Group(name)
 	}
 }
-
-func ParseOptions() *Options {
-
-	args.Stdin = utils.HasStdin()
-	if !args.Stdin {
-		banner()
-	} else {
-		args.Mode = Stdin_Mode
-	}
-
-	if args.Version {
-		printer.Infof("Version: %s", FoFaXVersion)
-		printer.Infof("Branch: %s", Branch)
-		printer.Infof("Commit: %s", Commit)
-		printer.Infof("Date: %s", Date)
-		fmt.Println("fofaX is a command line fofa query tool, simple is the best!")
-		os.Exit(0)
+func ParseFxOptions() {
+	if !utils.FileExist(args.FxDir) {
+		printer.Infof("create  dir fxdir: %s", args.FxDir)
+		err := os.Mkdir(args.FxDir, os.ModePerm)
+		if err != nil {
+			printer.Fatalf("无法创建目录: %s", err.Error())
+		}
 	}
 
 	args.FxQuery = fx.NewFoFaxQuery(args.FxDir)
-
 	if genFx != "" {
 		fx.GenDefaultPlugin(genFx)
 		os.Exit(0)
@@ -200,6 +192,31 @@ func ParseOptions() *Options {
 	}
 	if fxSearch != "" {
 		args.FxQuery.SearchExpTab(fxSearch)
+		os.Exit(0)
+	}
+	if fxParseTree {
+		fxparser.PrintParserTree(args.Query)
+		os.Exit(1)
+	}
+
+}
+
+func ParseOptions() *Options {
+	ParseFxOptions()
+
+	args.Stdin = utils.HasStdin()
+	if !args.Stdin {
+		banner()
+	} else {
+		args.Mode = Stdin_Mode
+	}
+
+	if args.Version {
+		printer.Infof("Version: %s", FoFaXVersion)
+		printer.Infof("Branch: %s", Branch)
+		printer.Infof("Commit: %s", Commit)
+		printer.Infof("Date: %s", Date)
+		fmt.Println("fofaX is a command line fofa query tool, simple is the best!")
 		os.Exit(0)
 	}
 
