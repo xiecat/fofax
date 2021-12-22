@@ -13,7 +13,11 @@ import (
 	"runtime"
 )
 
-var ConfDefaultPath = getConfList()
+var ConfDefaultPath = []string{
+	"fofax.yaml",
+	filepath.Join(getHomedir(), "fofax.yaml"),
+	"/etc/fofa.yaml",
+}
 
 // StructToMap Struct 转 Map
 func StructToMap(in interface{}, tagName string) (map[string]interface{}, error) {
@@ -133,7 +137,11 @@ func GetDefaultConf() string {
 			return cfile
 		}
 	}
-	return ConfDefaultPath[0]
+	if runtime.GOOS == "windows" {
+		return ConfDefaultPath[0]
+	} else {
+		return ConfDefaultPath[1]
+	}
 }
 
 func BinBaseDir() string {
@@ -150,24 +158,6 @@ func getHomedir() (home string) {
 		return ""
 	}
 	return filepath.Join(home, ".config", "fofax")
-}
-
-func getConfList() []string {
-
-	switch os := runtime.GOOS; os {
-	case "windows":
-		return []string{
-			"fofax.yaml",
-			filepath.Join(getHomedir(), "fofax.yaml"),
-			"/etc/fofa.yaml",
-		}
-	default:
-		return []string{
-			filepath.Join(getHomedir(), "fofax.yaml"),
-			"fofax.yaml",
-			"/etc/fofa.yaml",
-		}
-	}
 }
 
 func OpenFofa(query string) {
