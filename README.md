@@ -24,9 +24,37 @@ fofaX是一款命令行fofa查询工具，定位命令行，简单就是最好�
 
 ## 0x03 使用
 
+### 使用Tips
+
+不带任何参数时，除了会输出ASCII Logo，还会随机输出一条使用Tips。
+
+```bash
+fofax
+```
+
+![tips](./docs/images/tips.png)
+
+
+
+### 帮助信息
+
 可以使用 `fofax -h` 显示帮助信息。
 
-![fofax&httpx](./docs/images/help.png)
+```bash
+fofax -h
+```
+
+![help](./docs/images/help.png)
+
+### FOFA语法规则
+
+使用 `-use` 参数，显示FOFA语法查询规则。
+
+```bash
+fofax -use
+```
+
+![use](./docs/images/use.png)
 
 ### 基础查询
 
@@ -36,19 +64,69 @@ fofaX是一款命令行fofa查询工具，定位命令行，简单就是最好�
 fofax -q 'app="APACHE-Solr"'
 ```
 
+![solr-1](./docs/images/solr-1.png)
+
 ```bash
 echo 'app="APACHE-Solr"' | fofax
 ```
 
-![fofax&httpx](./docs/images/query.png)
+![solr-2](./docs/images/solr-2.png)
 
-### 指定数量查询
+### 指定查询数量
+
+```bash
+echo 'app="APACHE-Solr"' | fofax -fs 5
+```
+
+![fs](./docs/images/fs.png)
+
+如上只输出了4条数据，是因为fofax自动对重复的数据进行了去重（不信可以看fofa API的返回数据）。
+
+![fofaapi](./docs/images/fofaapi.png)
+
+### 获取URL
+
+添加 `-ffi` 参数，根据查询语句直接获取对应的URL（[scheme]://[host]:[port]）。
+
+```bash
+echo 'app="APACHE-Solr"' | fofax -fs 5 -ffi
+```
+
+![url](./docs/images/url.png)
+
+### Debug模式
+
+添加 `-debug` 参数，开启Debug详细模式。
+
+```bash
+echo 'app="APACHE-Solr"' | fofax -fs 5 -ffi -debug
+```
+
+![debug](./docs/images/debug.png)
+
+### 浏览器中打开
+
+```bash
+echo 'app="APACHE-Solr"' | fofax -open
+```
+
+![openinbrowser](./docs/images/openinbrowser.gif)
+
+### icon hash查询
+
+两种方式，第一种是直接根据提供icon的URL来查询。
+
+```bash
+fofax -iu https://www.baidu.com/favicon.ico -fs 5
+```
+
+![iconhash-1](./docs/images/iconhash-1.png)
+
+第二种是根据本地icon文件，来计算hash并查询。
+
+![iconhash-2](./docs/images/iconhash-2.png)
 
 
-
-
-
-### 用法
 
 
 
@@ -56,8 +134,8 @@ echo 'app="APACHE-Solr"' | fofax
 
 ### fofax && httpx
 
-CVE-2021-43798 Grafana未授权目录遍历（fofax是开源后的名字，此前还没有一个正式的名字，下图中就叫fofa）。
+CVE-2021-43798 Grafana未授权目录遍历。
 
-![fofax&httpx](./docs/images/fofax&httpx.jpeg)
+![fofax&httpx](./docs/images/fofax&httpx.png)
 
 ### fofax && nuclei
