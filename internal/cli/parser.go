@@ -107,6 +107,12 @@ func initOptions() {
 	args.FetchSize = 100
 	args.FxDir = filepath.Join(filepath.Dir(utils.GetDefaultConf()), "fxrules")
 	args.ConfigFile = utils.GetDefaultConf()
+	args.Stdin = utils.HasStdin()
+	if !args.Stdin {
+		banner()
+	} else {
+		args.Mode = Stdin_Mode
+	}
 }
 
 func init() {
@@ -212,13 +218,6 @@ func ParseFxOptions() {
 
 func ParseOptions() *Options {
 	ParseFxOptions()
-
-	args.Stdin = utils.HasStdin()
-	if !args.Stdin {
-		banner()
-	} else {
-		args.Mode = Stdin_Mode
-	}
 
 	if args.Version {
 		printer.Infof("Version: %s", FoFaXVersion)
