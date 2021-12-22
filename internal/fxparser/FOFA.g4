@@ -10,32 +10,16 @@ query
    : leftBracket = BR_OPEN query rightBracket = BR_CLOSE                    #bracketExp
    | leftQuery=query op=AND rightQuery=query                                #andLogicalExp
    | leftQuery=query op=OR rightQuery=query                                 #orLogicalExp
-   | propertyName=attrPath op=COMPARISON_OPERATOR propertyValue=attrValue   #compareExp
-   | propertyName=attrPath op=SCOMPARISON_OPERATOR propertyValue=attrValue  #scompareExp
+   | propertyName=fofaKeyword op=EQ propertyValue=fofaValue                    #compareExp
+   | propertyName=fofaKeyword op=SEQ propertyValue=fofaValue                   #scompareExp
    ;
 
-attrPath
-   : ATTRNAME
-   ;
+fofaKeyword
+   : FOFA_KEY;
 
-fragment ATTR_NAME_CHAR
-   : '-' | '_' | ':' | DIGIT | ALPHA
-   ;
-
-fragment DIGIT
-   : ('0'..'9')
-   ;
-
-fragment ALPHA
-   : ( 'A'..'Z' | 'a'..'z' )
-   ;
-
-attrValue
-   : BOOLEAN           #boolean
-   | NULL              #null
-   | STRING            #string
-   | DOUBLE            #double
-   | '-'? INT EXP?     #long
+fofaValue
+   : BOOLEAN              #null
+   | STRING               #string
    ;
 
 fragment ESC
@@ -54,13 +38,6 @@ BOOLEAN
    : 'true' | 'false'
    ;
 
-NULL
-   : 'null'
-   ;
-
-COMPARISON_OPERATOR: EQ;
-SCOMPARISON_OPERATOR: SEQ;
-
 AND:   '&&';
 OR:    '||';
 EQ : '=';
@@ -68,7 +45,9 @@ SEQ: '==';
 BR_OPEN: '(';
 BR_CLOSE: ')';
 
-ATTRNAME
+FOFA_KEY_EXT: 'fx';
+
+FOFA_KEY
    : 'title'
    | 'header'
    | 'body'
@@ -113,23 +92,11 @@ ATTRNAME
    | 'ip_city'
    | 'ip_after'
    | 'ip_before'
-   | 'fx'
+   | FOFA_KEY_EXT
    ;
 
 STRING
-   : '"' (ESC | ~ ["\\])* '"'
-   ;
-
-DOUBLE
-   : '-'? INT '.' [0-9] + EXP?
-   ;
-// INT no leading zeros.
-INT
-   : '0' | [1-9] [0-9]*
-   ;
-// EXP we use "\-" since "-" means "range" inside [...]
-EXP
-   : [Ee] [+\-]? INT
+   : '"' (ESC | ~ ["\\])* |  '"'
    ;
 
 WS: [\t ]+ -> skip;

@@ -63,12 +63,6 @@ func (s *BaseFOFAListener) EnterAttrPath(ctx *AttrPathContext) {}
 // ExitAttrPath is called when production attrPath is exited.
 func (s *BaseFOFAListener) ExitAttrPath(ctx *AttrPathContext) {}
 
-// EnterBoolean is called when production boolean is entered.
-func (s *BaseFOFAListener) EnterBoolean(ctx *BooleanContext) {}
-
-// ExitBoolean is called when production boolean is exited.
-func (s *BaseFOFAListener) ExitBoolean(ctx *BooleanContext) {}
-
 // EnterNull is called when production null is entered.
 func (s *BaseFOFAListener) EnterNull(ctx *NullContext) {}
 
@@ -80,15 +74,3 @@ func (s *BaseFOFAListener) EnterString(ctx *StringContext) {}
 
 // ExitString is called when production string is exited.
 func (s *BaseFOFAListener) ExitString(ctx *StringContext) {}
-
-// EnterDouble is called when production double is entered.
-func (s *BaseFOFAListener) EnterDouble(ctx *DoubleContext) {}
-
-// ExitDouble is called when production double is exited.
-func (s *BaseFOFAListener) ExitDouble(ctx *DoubleContext) {}
-
-// EnterLong is called when production long is entered.
-func (s *BaseFOFAListener) EnterLong(ctx *LongContext) {}
-
-// ExitLong is called when production long is exited.
-func (s *BaseFOFAListener) ExitLong(ctx *LongContext) {}

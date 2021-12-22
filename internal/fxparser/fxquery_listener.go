@@ -1,12 +1,14 @@
 package fxparser
 
 import (
+	"errors"
 	"fmt"
 	"fofax/internal/fx"
 	"fofax/internal/fxparser/parser"
 	"fofax/internal/fxparser/stack"
 	"fofax/internal/printer"
 	"github.com/antlr/antlr4/runtime/Go/antlr"
+	"os"
 	"strings"
 )
 
@@ -23,8 +25,9 @@ func NewFxQueryListener() *FxQueryListener {
 
 func (ql *FxQueryListener) ExitCompareExp(c *parser.CompareExpContext) {
 	if c.GetPropertyName().GetText() == "fx" {
-		fxvalue := strings.TrimSpace(c.GetPropertyValue().GetText())
-		fxvalue = fxvalue[1 : len(fxvalue)-1]
+		fxvalue := strings.Trim(c.GetPropertyValue().GetText(), `\"`)
+		printer.Debugf("query id:%s", fxvalue)
+		//fxvalue = fxvalue[1 : len(fxvalue)-1]
 		fxinfo, err := fx.Info.SearchSingle(fxvalue)
 		if err != nil {
 			printer.Fatalf("%s Err:%s", c.GetPropertyValue().GetText(), err.Error())
@@ -56,24 +59,48 @@ func (ql *FxQueryListener) ExitOrLogicalExp(c *parser.OrLogicalExpContext) {
 	left := ql.Stack.Pop()
 	ql.Stack.Push(fmt.Sprintf("%s||%s", left, right))
 }
+func (ql *FxQueryListener) VisitErrorNode(node antlr.ErrorNode) {
+	fmt.Printf("error:%s", node.GetText())
+	os.Exit(1)
+}
 
-func PrintParserTree(query string) {
+func parseTree(query string) (parser.IStartContext, error) {
+	errListener := NewFxErrorListener()
 	stream := antlr.NewInputStream(query)
 	lexer := parser.NewFOFALexer(stream)
+	lexer.AddErrorListener(errListener)
 	tokenStream := antlr.NewCommonTokenStream(lexer, antlr.TokenDefaultChannel)
 	fofaxParser := parser.NewFOFAParser(tokenStream)
+	fofaxParser.AddErrorListener(errListener)
 	tree := fofaxParser.Start()
+	if errListener.errors > 0 {
+		return tree, errors.New("found syntax errors in input")
+	}
+	return tree, nil
+}
+
+func PrintParserTree(query string) {
+	errListener := NewFxErrorListener()
+	stream := antlr.NewInputStream(query)
+	lexer := parser.NewFOFALexer(stream)
+	lexer.AddErrorListener(errListener)
+	tokenStream := antlr.NewCommonTokenStream(lexer, antlr.TokenDefaultChannel)
+	fofaxParser := parser.NewFOFAParser(tokenStream)
+	fofaxParser.AddErrorListener(errListener)
+	tree := fofaxParser.Start()
+	if errListener.errors > 0 {
+		printer.Fatal("found syntax errors in input")
+	}
 	fmt.Println(tree.GetText())
 	fmt.Println(tree.ToStringTree([]string{""}, fofaxParser))
 
 }
 
 func Query(query string) string {
-	stream := antlr.NewInputStream(query)
-	lexer := parser.NewFOFALexer(stream)
-	tokenStream := antlr.NewCommonTokenStream(lexer, antlr.TokenDefaultChannel)
-	dslParser := parser.NewFOFAParser(tokenStream)
-	tree := dslParser.Start()
+	tree, err := parseTree(query)
+	if err != nil {
+		printer.Fatal(err.Error())
+	}
 	listener := NewFxQueryListener()
 	antlr.ParseTreeWalkerDefault.Walk(listener, tree)
 	return listener.Stack.Pop().(string)

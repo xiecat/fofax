@@ -29,20 +29,11 @@ type FOFAListener interface {
 	// EnterAttrPath is called when entering the attrPath production.
 	EnterAttrPath(c *AttrPathContext)
 
-	// EnterBoolean is called when entering the boolean production.
-	EnterBoolean(c *BooleanContext)
-
 	// EnterNull is called when entering the null production.
 	EnterNull(c *NullContext)
 
 	// EnterString is called when entering the string production.
 	EnterString(c *StringContext)
-
-	// EnterDouble is called when entering the double production.
-	EnterDouble(c *DoubleContext)
-
-	// EnterLong is called when entering the long production.
-	EnterLong(c *LongContext)
 
 	// ExitStart is called when exiting the start production.
 	ExitStart(c *StartContext)
@@ -65,18 +56,9 @@ type FOFAListener interface {
 	// ExitAttrPath is called when exiting the attrPath production.
 	ExitAttrPath(c *AttrPathContext)
 
-	// ExitBoolean is called when exiting the boolean production.
-	ExitBoolean(c *BooleanContext)
-
 	// ExitNull is called when exiting the null production.
 	ExitNull(c *NullContext)
 
 	// ExitString is called when exiting the string production.
 	ExitString(c *StringContext)
-
-	// ExitDouble is called when exiting the double production.
-	ExitDouble(c *DoubleContext)
-
-	// ExitLong is called when exiting the long production.
-	ExitLong(c *LongContext)
 }
