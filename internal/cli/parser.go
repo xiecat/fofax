@@ -232,17 +232,6 @@ func ParseOptions() *Options {
 		ShowUsage()
 		os.Exit(0)
 	}
-	if args.Open {
-		if args.Query == "" {
-			printer.Fatal("The query cannot be empty when opening the statement with a browser")
-		}
-		if args.FofaExt {
-			utils.OpenFofa(fxparser.Query(args.Query))
-			os.Exit(0)
-		}
-		utils.OpenFofa(args.Query)
-		os.Exit(0)
-	}
 
 	// 检查基本信息
 	checkFoFaInfo()

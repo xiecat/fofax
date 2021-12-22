@@ -43,6 +43,17 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 			if fofaQuery == "" {
 				continue
 			}
+
+			// 用浏览器打开
+			if options.Open {
+				if options.FofaExt {
+					utils.OpenFofa(fxparser.Query(fofaQuery))
+					os.Exit(0)
+				}
+				utils.OpenFofa(fofaQuery)
+				os.Exit(0)
+			}
+
 			if options.FofaExt {
 				fofaQuery = fxparser.Query(fofaQuery)
 			}
@@ -55,6 +66,16 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 		// query -q
 		if len(options.Query) != 0 {
 			runner.inputCount++
+			// 用浏览器打开
+			if options.Open {
+				if options.FofaExt {
+					utils.OpenFofa(fxparser.Query(options.Query))
+					os.Exit(0)
+				}
+				utils.OpenFofa(options.Query)
+				os.Exit(0)
+			}
+
 			if options.FofaExt {
 				options.Query = fxparser.Query(options.Query)
 			}
