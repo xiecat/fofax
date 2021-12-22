@@ -221,10 +221,10 @@ func ParseOptions() *Options {
 
 	if args.Version {
 		printer.Infof("Version: %s", FoFaXVersion)
-		printer.Infof("Branch: %s", Branch)
-		printer.Infof("Commit: %s", Commit)
+		// printer.Infof("Branch: %s", Branch)
+		// printer.Infof("Commit: %s", Commit)
 		printer.Infof("Date: %s", Date)
-		fmt.Println("fofaX is a command line fofa query tool, simple is the best!")
+		fmt.Print("fofaX is a command line fofa query tool, simple is the best!\n\n")
 		os.Exit(0)
 	}
 
@@ -285,7 +285,9 @@ func checkMutFlags() error {
 	}
 	// 不输入 query 也应当提醒
 	if flagNum == 0 && args.Mode != Stdin_Mode {
-		return errors.New("query are empty")
+		// return errors.New("query are empty")
+		fmt.Print("fofaX is a command line fofa query tool, simple is the best!\n\n")
+		os.Exit(0)
 	}
 	if args.Mode != Query_Mode {
 		args.Mode = File_Mode
