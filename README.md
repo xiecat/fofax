@@ -1,59 +1,58 @@
 # fofaX
 
-## 简介
+[![Latest release](https://img.shields.io/github/v/release/xiecat/fofax)](https://github.com/xiecat/fofax/releases/latest)![GitHub Release Date](https://img.shields.io/github/release-date/xiecat/fofax)![GitHub All Releases](https://img.shields.io/github/downloads/xiecat/fofax/total)[![GitHub issues](https://img.shields.io/github/issues/xiecat/fofax)](https://github.com/xiecat/fofax/issues)[![Twitter](https://img.shields.io/twitter/follow/_0xf4n9x_?style=social)](https://twitter.com/_0xf4n9x_)
 
-fofaX是一款命令行fofa查询工具，简单就是最好的！
+## 0x00 简介
 
-## 下载
+fofaX是一款命令行fofa查询工具，定位命令行，简单就是最好的！
+
+## 0x01 下载
 
 点击 [Releases下载链接](https://github.com/xiecat/fofax/releases) ，按照自己的系统来选择相应的发行版本。
 
-## 使用
+## 0x02 配置
+
+### Windows
+
+
+
+### macOS/Linux
+
+
+
+
+
+## 0x03 使用
+
+可以使用 `fofax -h` 显示帮助信息。
+
+![fofax&httpx](./docs/images/help.png)
+
+### 基础查询
+
+有如下两种方式查询 `app="APACHE-Solr"`，不指定数量默认会输出100个host，并且默认会对数据进行去重。
 
 ```bash
->fofax.exe -h
-
-fofaX is a command line fofa query tool, simple is the best!
-
-Usage:
-  fofax.exe [flags]
-
-Flags:
-配置项:
-   -email, -fofa-email string  Fofa API Email
-   -key, -fofakey string       Fofa API Key
-   -p, -proxy string           proxy for http like http://127.0.0.1:8080
-   -fofa-url string            Fofa url (default "https://fofa.so")
-   -debug                      开启 debug 模式
-
-过滤项:
-   -fs, -fetch-size int           最大查询数,默认 100 (default 100)
-   -e, -exclude                   排除干扰
-   -ec, -exclude-country          过滤 CN
-   -ffi, -fetch-fullHost-info     提取完整的 hostinfo,带有 protocol
-   -fto, -fetch-titles-ofDomain   提取指定根域名的 title
-   -fof, -fetch-one-field string  填写需要的另一个字段如，port
-
-单个 QUERY/CERT/ICON 搜索项:
-   -q, -query string              FoFa 查询语句
-   -uc, -url-cert string          输入 url(https) 查询证书
-   -ui, -url-to-icon-hash string  通过 URL，计算 icon hash 后进行查询
-   -if, -icon-file-path string    通过 ico 文件，计算 icon hash 后进行查询
-
-多个 QUERY/CERT/ICON 搜索项:
-   -qf, -query-file string           加载文件，查询多个语句
-   -ucf, -url-cert-file string       读取文件中的URL，计算 cert 后进行查询
-   -iuf, -icon-hash-url-file string  读取文件中的URL，计算 icon hash 后进行查询
-
-OTHER OPTIONS:
-   -v, -version  Show version of fofadump
-   -use          Query syntax reference
-
+fofax -q 'app="APACHE-Solr"'
 ```
 
+```bash
+echo 'app="APACHE-Solr"' | fofax
+```
+
+![fofax&httpx](./docs/images/query.png)
+
+### 指定数量查询
 
 
-## 联动案例
+
+
+
+### 用法
+
+
+
+## 0x04 联动使用案例
 
 ### fofax && httpx
 
