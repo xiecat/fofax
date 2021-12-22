@@ -101,7 +101,8 @@ func (flagSet *FlagSet) Parse() error {
 		if err != nil {
 			printer.Fatal("create config file fail %s", config)
 		}
-		printer.Fatalf("create config file %s", config)
+		printer.Successf("create config file %s. please modify and use", config)
+		os.Exit(0)
 		return err
 	}
 	_ = flagSet.MergeConfigFile(config) // try to read default config after parsing flags

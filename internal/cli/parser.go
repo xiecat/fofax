@@ -31,6 +31,7 @@ type Options struct {
 	FxQuery *fx.FoFaxQuery
 	Version bool
 	Use     bool
+	Open    bool
 	// 标准输入
 	Stdin bool
 }
@@ -147,17 +148,18 @@ func init() {
 	)
 	createGroup(
 		flags, "fxgroup", "fx grammer",
-		flags.StringVarP(&args.GenFx, "gen", "g", args.GenFx, "生成 fx 语法文件 eg: default_fx.yaml"),
-		flags.StringVarP(&args.FxDir, "fxdir", "fd", args.FxDir, "fxdir 目录"),
-		flags.BoolVarP(&args.FxList, "lists", "l", false, "列出fx语法列表"),
-		flags.BoolVarP(&args.Fxtags, "list-tags", "lt", false, "列出fx语法列表"),
-		flags.StringVarP(&args.FxSearch, "search", "s", args.FxSearch, "搜索 语句用分号分开 eg: id=fx-2021-01;query=\"jupyter Unauth\""),
-		flags.BoolVar(&args.FxParseTree, "tree", false, "打印语法树"),
-		flags.BoolVar(&args.FofaExt, "fofa-ext", true, "使用扩展语法(fx)"),
+		flags.StringVarP(&args.GenFx, "gen", "g", args.GenFx, "Generate fx statement files eg: default_fx.yaml"),
+		flags.StringVarP(&args.FxDir, "fxdir", "fd", args.FxDir, "fxdir directory"),
+		flags.BoolVarP(&args.FxList, "lists", "l", false, "List of fx statements"),
+		flags.BoolVarP(&args.Fxtags, "list-tags", "lt", false, "List fx tags "),
+		flags.StringVarP(&args.FxSearch, "search", "s", args.FxSearch, "Search for fx statements. Statements are separated by semicolons eg: id=fx-2021-01;query=\"jupyter Unauth\""),
+		flags.BoolVar(&args.FxParseTree, "tree", false, "Print syntax tree"),
+		flags.BoolVar(&args.FofaExt, "fofa-ext", true, "Using extended syntax(fx)"),
 		flags.StringVarP(&args.FxSearchSingle, "show-single", "ss", args.QueryFile, "显示单个 fx 信息"),
 	)
 	flags.BoolVarP(&args.Version, "version", "v", false, "Show fofaX version")
 	flags.BoolVar(&args.Use, "use", false, "Syntax queries")
+	flags.BoolVar(&args.Open, "open", false, "Open with your browser")
 	err := flags.Parse()
 	if err != nil {
 		printer.Error(printer.HandlerLine("Parse err :" + err.Error()))
@@ -173,10 +175,10 @@ func createGroup(flagSet *goflags.FlagSet, name, desc string, flags ...*goflags.
 }
 func ParseFxOptions() {
 	if !utils.FileExist(args.FxDir) {
-		printer.Infof("create  dir fxdir: %s", args.FxDir)
+		printer.Infof("Create fx statements File storage directory: %s", args.FxDir)
 		err := os.Mkdir(args.FxDir, os.ModePerm)
 		if err != nil {
-			printer.Fatalf("无法创建目录: %s", err.Error())
+			printer.Fatalf("Unable to create a directory: %s", err.Error())
 		}
 	}
 
@@ -229,6 +231,17 @@ func ParseOptions() *Options {
 
 	if args.Use {
 		ShowUsage()
+		os.Exit(0)
+	}
+	if args.Open {
+		if args.Query == "" {
+			printer.Fatal("The query cannot be empty when opening the statement with a browser")
+		}
+		if args.FofaExt {
+			utils.OpenFofa(fxparser.Query(args.Query))
+			os.Exit(0)
+		}
+		utils.OpenFofa(args.Query)
 		os.Exit(0)
 	}
 

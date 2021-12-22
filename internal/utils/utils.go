@@ -2,19 +2,18 @@ package utils
 
 import (
 	"bufio"
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"github.com/pkg/browser"
 	"golang.org/x/text/encoding/simplifiedchinese"
 	"os"
 	"path/filepath"
 	"reflect"
+	"runtime"
 )
 
-var ConfDefaultPath []string = []string{
-	"fofax.yaml",
-	filepath.Join(getHomedir(), "fofax.yaml"),
-	"/etc/fofa.yaml",
-}
+var ConfDefaultPath = getConfList()
 
 // StructToMap Struct 转 Map
 func StructToMap(in interface{}, tagName string) (map[string]interface{}, error) {
@@ -151,4 +150,29 @@ func getHomedir() (home string) {
 		return ""
 	}
 	return filepath.Join(home, ".config", "fofax")
+}
+
+func getConfList() []string {
+
+	switch os := runtime.GOOS; os {
+	case "windows":
+		return []string{
+			"fofax.yaml",
+			filepath.Join(getHomedir(), "fofax.yaml"),
+			"/etc/fofa.yaml",
+		}
+	default:
+		return []string{
+			filepath.Join(getHomedir(), "fofax.yaml"),
+			"fofax.yaml",
+			"/etc/fofa.yaml",
+		}
+	}
+}
+
+func OpenFofa(query string) {
+	b := []byte(query)
+
+	qbase64 := base64.StdEncoding.EncodeToString(b)
+	browser.OpenURL(fmt.Sprintf("https://fofa.so/result?qbase64=%s", qbase64))
 }

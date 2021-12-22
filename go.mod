@@ -7,6 +7,7 @@ require (
 	github.com/cnf/structhash v0.0.0-20201127153200-e1b16c1ebc08
 	github.com/fatih/color v1.13.0
 	github.com/jweny/xhttp v0.0.0-20211209064339-2c93342bd421
+	github.com/pkg/browser v0.0.0-20210911075715-681adbf594b8
 	github.com/pkg/errors v0.9.1
 	github.com/projectdiscovery/stringsutil v0.0.0-20210804142656-fd3c28dbaafe
 	github.com/twmb/murmur3 v1.1.6
