@@ -243,6 +243,7 @@ func getFxLists(path string) {
 			if strings.HasSuffix(yp, "yaml") || strings.HasSuffix(yp, "yml") {
 				p, err := LoadPlugin(yp)
 				p.Type = TypeYaml
+				p.FileDir = yp
 				if err != nil {
 					printer.Fatalf("load plugins error:%s", err.Error())
 				}

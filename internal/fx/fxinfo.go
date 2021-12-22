@@ -134,4 +134,16 @@ var defalutPlugins = []Plugin{
 		Type:        TypeInline,
 		Source:      "",
 	},
+	{
+		Id:          "fx-2021-1012",
+		Query:       "jupyter unauthorized",
+		RuleName:    "jupyter 未授权访问",
+		RuleEnglish: "jupyter unauthorized",
+		Description: "jupyter 未授权访问",
+		Author:      "xiecat",
+		FofaQuery:   `(body="ipython-main-app" && title="Home Page - Select or create a notebook")"`,
+		Tag:         []string{"xiecat"},
+		Type:        TypeInline,
+		Source:      "",
+	},
 }

@@ -40,6 +40,7 @@ type Plugin struct {
 	Tag         []string `table:"Tag" yaml:"tag"`                  // 标签
 	Type        FxType   `table:"Type" yaml:"-"`                   // 类别
 	Source      string   `table:"Source" yaml:"source"`            // 来源
+	FileDir     string   `table:"Source" yaml:"-"`                 // 来源
 }
 
 func (q *Plugin) ShowInfoTable() {
@@ -53,6 +54,7 @@ func (q *Plugin) ShowInfoTable() {
 		{"Tag", strings.Join(q.Tag, ",")},
 		{"Type", q.Type.String()},
 		{"Description", q.Description},
+		{"FileDir", q.FileDir},
 	}
 	table.Output(results)
 }

@@ -154,8 +154,8 @@ func init() {
 		flags.BoolVarP(&args.Fxtags, "list-tags", "lt", false, "List fx tags "),
 		flags.StringVarP(&args.FxSearch, "search", "s", args.FxSearch, "Search for fx statements. Statements are separated by semicolons eg: id=fx-2021-01;query=\"jupyter Unauth\""),
 		flags.BoolVar(&args.FxParseTree, "tree", false, "Print syntax tree"),
-		flags.BoolVar(&args.FofaExt, "close-fofa-ext", false, "Using extended syntax(fx)"),
-		flags.StringVarP(&args.FxSearchSingle, "show-single", "ss", args.QueryFile, "显示单个 fx 信息"),
+		flags.BoolVarP(&args.FofaExt, "fofa-ext", "fe", false, "Using extended syntax(fx)"),
+		flags.StringVarP(&args.FxSearchSingle, "show-single", "ss", args.QueryFile, "Display a single fx message"),
 	)
 	flags.BoolVarP(&args.Version, "version", "v", false, "Show fofaX version")
 	flags.BoolVar(&args.Use, "use", false, "Syntax queries")

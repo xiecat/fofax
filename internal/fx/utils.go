@@ -22,7 +22,7 @@ func GenDefaultPlugin(pluginFile string) error {
 		RuleName:    "规则名称 eg:(jupyter 未授权)",
 		RuleEnglish: "jupyter unauthorized",
 		Description: "规则描述",
-		Author:      "作者<邮箱>eg:(becivells)",
+		Author:      "作者<邮箱>eg:(xiecat)",
 		FofaQuery:   `fofa语句 eg:(body="ipython-main-app" && title="Home Page - Select or create a notebook")"`,
 		Tag:         []string{"标签1 eg(unauthorized)", "标签2"},
 		Source:      "语句来源",
