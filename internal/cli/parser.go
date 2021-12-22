@@ -7,9 +7,11 @@ import (
 	"fofax/internal/fxparser"
 	"fofax/internal/printer"
 	"fofax/internal/utils"
+	"math/rand"
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 
 	"fofax/internal/goflags"
 )
@@ -100,6 +102,7 @@ var (
 )
 
 func initOptions() {
+	rand.Seed(time.Now().UnixNano())
 	args = new(Options)
 	args.FoFaEmail = os.Getenv("FOFA_EMAIL")
 	args.FoFaKey = os.Getenv("FOFA_KEY")
@@ -287,6 +290,7 @@ func checkMutFlags() error {
 	if flagNum == 0 && args.Mode != Stdin_Mode {
 		// return errors.New("query are empty")
 		fmt.Print("fofaX is a command line fofa query tool, simple is the best!\n\n")
+		PrintSingleUsage()
 		os.Exit(0)
 	}
 	if args.Mode != Query_Mode {
