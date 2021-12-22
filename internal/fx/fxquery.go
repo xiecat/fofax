@@ -103,13 +103,13 @@ func (fx FoFaxQuery) SearchExpTab(rawStrs string) {
 
 func (fx FoFaxQuery) SearchOrTable(id, query, ruleName, ruleEnglish, Author, tag string) {
 	type qTable struct {
-		Id          string `table:"Id" yaml:"Id"`
-		Query       string `table:"Query" yaml:"Query"`             // 查询语法
-		RuleName    string `table:"RuleName" yaml:"RuleName"`       // 标题名
-		RuleEnglish string `table:"RuleEnglish" yaml:"RuleEnglish"` // 规则英文名
-		Author      string `table:"Author" yaml:"Author"`           // 作者
-		Tag         string `table:"Tag" yaml:"Tag"`                 // 标签
-		Type        FxType `table:"Type" yaml:"-"`                  // 类别
+		Id       string `table:"Id" yaml:"Id"`
+		Query    string `table:"Query" yaml:"Query"`       // 查询语法
+		RuleName string `table:"RuleName" yaml:"RuleName"` // 标题名
+		//RuleEnglish string `table:"RuleEnglish" yaml:"RuleEnglish"` // 规则英文名
+		Author string `table:"Author" yaml:"Author"` // 作者
+		Tag    string `table:"Tag" yaml:"Tag"`       // 标签
+		Type   FxType `table:"Type" yaml:"-"`        // 类别
 	}
 
 	var results []qTable
@@ -119,13 +119,13 @@ func (fx FoFaxQuery) SearchOrTable(id, query, ruleName, ruleEnglish, Author, tag
 			StrContain(ruleEnglish, q.RuleEnglish) || StrContain(Author, q.Author) ||
 			StrEqualInList(tag, q.Tag) {
 			results = append(results, qTable{
-				Id:          q.Id,
-				Query:       q.Query,
-				RuleEnglish: q.RuleEnglish,
-				RuleName:    q.RuleName,
-				Author:      q.Author,
-				Tag:         strings.Join(q.Tag, ","),
-				Type:        q.Type,
+				Id:    q.Id,
+				Query: q.Query,
+				//RuleEnglish: q.RuleEnglish,
+				RuleName: q.RuleName,
+				Author:   q.Author,
+				Tag:      strings.Join(q.Tag, ","),
+				Type:     q.Type,
 			})
 		}
 	}

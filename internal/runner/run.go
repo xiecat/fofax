@@ -62,6 +62,7 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 		// query -q
 		if len(options.Query) != 0 {
 			runner.inputCount++
+
 			// 用浏览器打开
 			if options.Open {
 				runner.openURL(options.Query)
@@ -225,8 +226,10 @@ func (r *Runner) openURL(query string) {
 	printer.Successf("the query %s will be opened with a browser", query)
 	if r.options.FofaExt {
 		utils.OpenFofa(fxparser.Query(query))
+		return
 	}
 	utils.OpenFofa(query)
+
 }
 
 func (r *Runner) Run() *sync.Map {
