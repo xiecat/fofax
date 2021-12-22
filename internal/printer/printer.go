@@ -20,7 +20,7 @@ const (
 
 var (
 	strC   = color.New(color.FgHiCyan).SprintfFunc()
-	outPut = color.Output
+	outPut = color.Error
 )
 
 type errInfo struct {

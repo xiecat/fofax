@@ -143,7 +143,6 @@ func GetDefaultConf() string {
 		return ConfDefaultPath[1]
 	}
 }
-
 func BinBaseDir() string {
 	ex, err := os.Executable()
 	if err != nil {

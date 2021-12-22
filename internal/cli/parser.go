@@ -255,8 +255,6 @@ func ParseOptions() *Options {
 		os.Exit(1)
 	}
 
-	printer.Debugf("query args: %s", args.Query)
-
 	return args
 }
 
