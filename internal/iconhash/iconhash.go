@@ -5,6 +5,7 @@ import (
 	"crypto/tls"
 	"encoding/base64"
 	"fmt"
+	"fofax/internal/printer"
 	"github.com/twmb/murmur3"
 	"hash"
 	"io/ioutil"
@@ -91,8 +92,9 @@ func (c *Config) FromUrlGetContent() (string, error) {
 func (c *Config) FromFileGetContent() (string, error) {
 
 	if c.Debug {
-		fmt.Print("---------------------------start From file get content--------------------------------\n")
-		defer fmt.Print("---------------------------end  From file get content--------------------------------\n")
+		printer.Debug("---------------------------start From file get content--------------------------------\n")
+		printer.Debugf("file path: %s", c.HashFilePath)
+		defer printer.Debug("---------------------------end  From file get content--------------------------------\n")
 	}
 
 	fi, err := os.Open(c.HashFilePath)
@@ -102,7 +104,7 @@ func (c *Config) FromFileGetContent() (string, error) {
 	defer fi.Close()
 	content, err := ioutil.ReadAll(fi)
 	if c.Debug {
-		fmt.Printf("====> fileContent:\n %s\n", content)
+		printer.Debugf("====> fileContent:\n %s\n", content)
 	}
 	// fmt.Println(string(fd))
 	if err != nil {
@@ -132,9 +134,9 @@ func StandBase64(braw []byte) []byte {
 	}
 	buffer.WriteByte('\n')
 	if config.Debug {
-		fmt.Print("---------------------------start base64 content--------------------------------\n")
-		fmt.Printf("====> base64:\n%s\n", buffer.String())
-		defer func() { fmt.Print("---------------------------end base64 content--------------------------------\n") }()
+		printer.Debugf("---------------------------start base64 content--------------------------------\n")
+		printer.Debugf("====> base64:\n%s\n", buffer.String())
+		defer printer.Debugf("---------------------------end base64 content--------------------------------\n")
 	}
 	return buffer.Bytes()
 
@@ -157,11 +159,9 @@ func (c *Config) SplitChar76(braw []byte) []byte {
 	buffer.WriteByte('\n')
 
 	if c.Debug {
-		fmt.Print("---------------------------start base64 content--------------------------------\n")
-		fmt.Printf("====> base64 split 76:\n %s\n", buffer.String())
-		defer func() {
-			fmt.Print("---------------------------end base64 content--------------------------------\n")
-		}()
+		printer.Debugf("---------------------------start base64 content--------------------------------\n")
+		printer.Debugf("====> base64 split 76:\n %s\n", buffer.String())
+		printer.Debugf("---------------------------end base64 content--------------------------------\n")
 	}
 
 	return buffer.Bytes()

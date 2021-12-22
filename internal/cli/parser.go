@@ -143,7 +143,7 @@ func init() {
 		flags, "query", "Single query/ert/icon",
 		flags.StringVarP(&args.Query, "query", "q", args.Query, "FoFa query statement"),
 		flags.StringVarP(&args.PeerCertificates, "url-cert", "uc", args.PeerCertificates, "Enter the certificate of the https URL to query"),
-		flags.StringVarP(&args.UrlIcon, "url-to-icon-hash", "ui", args.UrlIcon, "Enter the URL of an icon, calculate it and query it"),
+		flags.StringVarP(&args.UrlIcon, "url-to-icon-hash", "iu", args.UrlIcon, "Enter the URL of an icon, calculate it and query it"),
 		flags.StringVarP(&args.IconFilePath, "icon-file-path", "if", args.IconFilePath, "Calculate the hash of the local icon file, then query it"),
 	)
 	createGroup(
@@ -165,7 +165,7 @@ func init() {
 	)
 	flags.BoolVarP(&args.Version, "version", "v", false, "Show fofaX version")
 	flags.BoolVar(&args.Use, "use", false, "Syntax queries")
-	flags.BoolVar(&args.Open, "open", false, "Open with your browser")
+	flags.BoolVar(&args.Open, "open", false, "Open with your browser only support pipline/-q/-uc/-iu/-if")
 	err := flags.Parse()
 	if err != nil {
 		printer.Error(printer.HandlerLine("Parse err :" + err.Error()))

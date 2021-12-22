@@ -46,11 +46,7 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 
 			// 用浏览器打开
 			if options.Open {
-				if options.FofaExt {
-					utils.OpenFofa(fxparser.Query(fofaQuery))
-					os.Exit(0)
-				}
-				utils.OpenFofa(fofaQuery)
+				runner.openURL(fofaQuery)
 				os.Exit(0)
 			}
 
@@ -68,11 +64,7 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 			runner.inputCount++
 			// 用浏览器打开
 			if options.Open {
-				if options.FofaExt {
-					utils.OpenFofa(fxparser.Query(options.Query))
-					os.Exit(0)
-				}
-				utils.OpenFofa(options.Query)
+				runner.openURL(options.Query)
 				os.Exit(0)
 			}
 
@@ -83,6 +75,11 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 		}
 		// 通过 url 查询证书 -uc
 		if options.PeerCertificates != "" {
+			// 用浏览器打开
+			if options.Open {
+				runner.openURL(utils.GetSerialNumber(options.PeerCertificates))
+				os.Exit(0)
+			}
 			runner.query.Push(utils.GetSerialNumber(options.PeerCertificates))
 		}
 		// 通 url 计算 hash，然后查询 -ui
@@ -91,15 +88,26 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 			// 通过 url
 			if iHash, err := iconConfig.FromUrlGetContent(); err == nil {
 				runner.inputCount++
+				// 用浏览器打开
+				if options.Open {
+					runner.openURL(iconConfig.MakeQuery(iHash))
+					os.Exit(0)
+				}
 				runner.query.Push(iconConfig.MakeQuery(iHash))
 			}
 		}
 		// 通过文件，计算 icon hash 后进行查询 -if
 		if options.IconFilePath != "" && utils.FileExist(options.IconFilePath) {
-			iconConfig := iconhash.NewIconHashConfig(options.UrlIcon, options.Debug)
+			iconConfig := iconhash.NewIconHashConfig("", options.Debug)
+			iconConfig.HashFilePath = options.IconFilePath
 			// 通过文件
 			if iHash, err := iconConfig.FromFileGetContent(); err == nil {
 				runner.inputCount++
+				// 用浏览器打开
+				if options.Open {
+					runner.openURL(iconConfig.MakeQuery(iHash))
+					os.Exit(0)
+				}
 				runner.query.Push(iconConfig.MakeQuery(iHash))
 			}
 		}
@@ -210,6 +218,15 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 	}
 
 	return runner, nil
+}
+
+func (r *Runner) openURL(query string) {
+	// 用浏览器打开
+	printer.Successf("the query %s will be opened with a browser", query)
+	if r.options.FofaExt {
+		utils.OpenFofa(fxparser.Query(query))
+	}
+	utils.OpenFofa(query)
 }
 
 func (r *Runner) Run() *sync.Map {
