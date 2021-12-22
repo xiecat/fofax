@@ -21,11 +21,11 @@ type FxType int
 func (f FxType) String() string {
 	switch f {
 	case TypeYaml:
-		return "文件规则"
+		return "文件"
 	case TypeInline:
-		return "内置规则"
+		return "内置"
 	default:
-		return "未知规则类型"
+		return "未知"
 	}
 }
 
