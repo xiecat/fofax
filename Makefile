@@ -32,9 +32,13 @@ fparse:		## gen fofax parse
 
 .PHONY: build
 build:  fmt   	## build current target
-	@echo "$(CGREEN)beye build snapshot no publish ...$(CEND)"
+	@echo "$(CGREEN)fofax build snapshot no publish ...$(CEND)"
 	@goreleaser build --snapshot --rm-dist  --single-target -f scripts/gorelease.yml
 
+.PHONY: buildf
+buildf:  fmt fparse  	## build fparse and build current target
+	@echo "$(CGREEN)fofax build fparse and build snapshot no publish ...$(CEND)"
+	@goreleaser build --snapshot --rm-dist  --single-target -f scripts/gorelease.yml
 .PHONY: buildall
 buildall:      	## build all
 	@echo "$(CGREEN)beye build snapshot no publish ...$(CEND)"
@@ -42,11 +46,11 @@ buildall:      	## build all
 .PHONY: snapshot
 
 snapshot:   fmt 	## pre snapshot
-	@echo "$(CGREEN)beye release snapshot no publish ...$(CEND)"
+	@echo "$(CGREEN)fofax release snapshot no publish ...$(CEND)"
 	@goreleaser release --skip-publish  --snapshot --rm-dist -f scripts/gorelease.yml
 .PHONY: release
 release:   fmt	## release no publish
-	@echo "$(CGREEN)beye release no publish ...$(CEND)"
+	@echo "$(CGREEN)fofax release no publish ...$(CEND)"
 	@goreleaser release --skip-publish  --rm-dist -f scripts/gorelease.yml
 
 .PHONY: clean

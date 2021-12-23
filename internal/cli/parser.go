@@ -134,12 +134,12 @@ func init() {
 	createGroup(
 		flags, "filters", "FILTERS",
 		flags.IntVarP(&args.FetchSize, "fetch-size", "fs", args.FetchSize, "The maximum number of query"),
-		flags.BoolVarP(&args.Exclude, "exclude", "e", args.Exclude, "Exclude the honeypot."),
+		flags.BoolVarP(&args.Exclude, "exclude", "e", false, "Exclude the honeypot."),
 		flags.BoolVarP(&args.ExcludeCountryCN, "exclude-country-cn", "ec", false, "Exclude CN."),
 		// 好像没用
 		//flags.BoolVarP(&args.UniqByIP, "unique-by-ip", "ubi", args.UniqByIP, "以IP的方式进行去重"),
-		flags.BoolVarP(&args.FetchFullHostInfo, "fetch-fullHost-info", "ffi", args.FetchFullHostInfo, "URL fetch, with scheme, hostname, port"),
-		flags.BoolVarP(&args.FetchTitlesOfDomain, "fetch-titles-ofDomain", "fto", args.FetchTitlesOfDomain, "Fetch website title"),
+		flags.BoolVarP(&args.FetchFullHostInfo, "fetch-fullHost-info", "ffi", false, "URL fetch, with scheme, hostname, port"),
+		flags.BoolVarP(&args.FetchTitlesOfDomain, "fetch-titles-ofDomain", "fto", false, "Fetch website title"),
 		// flags.StringVarP(&args.FetchOneField, "fetch-one-field", "fof", args.FetchOneField, "填写需要的另一个字段如，port"),
 	)
 	createGroup(

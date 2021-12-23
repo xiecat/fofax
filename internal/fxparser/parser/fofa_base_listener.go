@@ -33,6 +33,12 @@ func (s *BaseFOFAListener) EnterCompareExp(ctx *CompareExpContext) {}
 // ExitCompareExp is called when production compareExp is exited.
 func (s *BaseFOFAListener) ExitCompareExp(ctx *CompareExpContext) {}
 
+// EnterNoCompareExp is called when production noCompareExp is entered.
+func (s *BaseFOFAListener) EnterNoCompareExp(ctx *NoCompareExpContext) {}
+
+// ExitNoCompareExp is called when production noCompareExp is exited.
+func (s *BaseFOFAListener) ExitNoCompareExp(ctx *NoCompareExpContext) {}
+
 // EnterAndLogicalExp is called when production andLogicalExp is entered.
 func (s *BaseFOFAListener) EnterAndLogicalExp(ctx *AndLogicalExpContext) {}
 
@@ -57,17 +63,17 @@ func (s *BaseFOFAListener) EnterOrLogicalExp(ctx *OrLogicalExpContext) {}
 // ExitOrLogicalExp is called when production orLogicalExp is exited.
 func (s *BaseFOFAListener) ExitOrLogicalExp(ctx *OrLogicalExpContext) {}
 
-// EnterAttrPath is called when production attrPath is entered.
-func (s *BaseFOFAListener) EnterAttrPath(ctx *AttrPathContext) {}
+// EnterFofaKeyword is called when production fofaKeyword is entered.
+func (s *BaseFOFAListener) EnterFofaKeyword(ctx *FofaKeywordContext) {}
 
-// ExitAttrPath is called when production attrPath is exited.
-func (s *BaseFOFAListener) ExitAttrPath(ctx *AttrPathContext) {}
+// ExitFofaKeyword is called when production fofaKeyword is exited.
+func (s *BaseFOFAListener) ExitFofaKeyword(ctx *FofaKeywordContext) {}
 
-// EnterNull is called when production null is entered.
-func (s *BaseFOFAListener) EnterNull(ctx *NullContext) {}
+// EnterBoolean is called when production boolean is entered.
+func (s *BaseFOFAListener) EnterBoolean(ctx *BooleanContext) {}
 
-// ExitNull is called when production null is exited.
-func (s *BaseFOFAListener) ExitNull(ctx *NullContext) {}
+// ExitBoolean is called when production boolean is exited.
+func (s *BaseFOFAListener) ExitBoolean(ctx *BooleanContext) {}
 
 // EnterString is called when production string is entered.
 func (s *BaseFOFAListener) EnterString(ctx *StringContext) {}

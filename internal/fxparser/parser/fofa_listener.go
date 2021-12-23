@@ -14,6 +14,9 @@ type FOFAListener interface {
 	// EnterCompareExp is called when entering the compareExp production.
 	EnterCompareExp(c *CompareExpContext)
 
+	// EnterNoCompareExp is called when entering the noCompareExp production.
+	EnterNoCompareExp(c *NoCompareExpContext)
+
 	// EnterAndLogicalExp is called when entering the andLogicalExp production.
 	EnterAndLogicalExp(c *AndLogicalExpContext)
 
@@ -26,11 +29,11 @@ type FOFAListener interface {
 	// EnterOrLogicalExp is called when entering the orLogicalExp production.
 	EnterOrLogicalExp(c *OrLogicalExpContext)
 
-	// EnterAttrPath is called when entering the attrPath production.
-	EnterAttrPath(c *AttrPathContext)
+	// EnterFofaKeyword is called when entering the fofaKeyword production.
+	EnterFofaKeyword(c *FofaKeywordContext)
 
-	// EnterNull is called when entering the null production.
-	EnterNull(c *NullContext)
+	// EnterBoolean is called when entering the boolean production.
+	EnterBoolean(c *BooleanContext)
 
 	// EnterString is called when entering the string production.
 	EnterString(c *StringContext)
@@ -40,6 +43,9 @@ type FOFAListener interface {
 
 	// ExitCompareExp is called when exiting the compareExp production.
 	ExitCompareExp(c *CompareExpContext)
+
+	// ExitNoCompareExp is called when exiting the noCompareExp production.
+	ExitNoCompareExp(c *NoCompareExpContext)
 
 	// ExitAndLogicalExp is called when exiting the andLogicalExp production.
 	ExitAndLogicalExp(c *AndLogicalExpContext)
@@ -53,11 +59,11 @@ type FOFAListener interface {
 	// ExitOrLogicalExp is called when exiting the orLogicalExp production.
 	ExitOrLogicalExp(c *OrLogicalExpContext)
 
-	// ExitAttrPath is called when exiting the attrPath production.
-	ExitAttrPath(c *AttrPathContext)
+	// ExitFofaKeyword is called when exiting the fofaKeyword production.
+	ExitFofaKeyword(c *FofaKeywordContext)
 
-	// ExitNull is called when exiting the null production.
-	ExitNull(c *NullContext)
+	// ExitBoolean is called when exiting the boolean production.
+	ExitBoolean(c *BooleanContext)
 
 	// ExitString is called when exiting the string production.
 	ExitString(c *StringContext)

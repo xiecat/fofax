@@ -1,6 +1,9 @@
 package fxparser
 
-import "github.com/antlr/antlr4/runtime/Go/antlr"
+import (
+	"fofax/internal/printer"
+	"github.com/antlr/antlr4/runtime/Go/antlr"
+)
 
 // https://github.com/antlr/antlr4/issues/2158
 
@@ -15,6 +18,7 @@ type FxErrorListener struct {
 }
 
 func (l *FxErrorListener) SyntaxError(recognizer antlr.Recognizer, offendingSymbol interface{}, line, column int, msg string, e antlr.RecognitionException) {
+	printer.Info(msg)
 	l.errors += 1
 }
 

@@ -12,13 +12,14 @@ query
    | leftQuery=query op=OR rightQuery=query                                 #orLogicalExp
    | propertyName=fofaKeyword op=EQ propertyValue=fofaValue                    #compareExp
    | propertyName=fofaKeyword op=SEQ propertyValue=fofaValue                   #scompareExp
+   | propertyName=fofaKeyword op=NOT propertyValue=fofaValue                   #noCompareExp
    ;
 
 fofaKeyword
-   : FOFA_KEY;
+   : FOFA_KEY('.' FOFA_KEY)?;
 
 fofaValue
-   : BOOLEAN              #null
+   : BOOLEAN              #boolean
    | STRING               #string
    ;
 
@@ -40,12 +41,12 @@ BOOLEAN
 
 AND:   '&&';
 OR:    '||';
+NOT: '!=';
 EQ : '=';
 SEQ: '==';
 BR_OPEN: '(';
 BR_CLOSE: ')';
 
-FOFA_KEY_EXT: 'fx';
 
 FOFA_KEY
    : 'title'
@@ -92,11 +93,11 @@ FOFA_KEY
    | 'ip_city'
    | 'ip_after'
    | 'ip_before'
-   | FOFA_KEY_EXT
+   | 'fx'
    ;
 
 STRING
-   : '"' (ESC | ~ ["\\])* |  '"'
+   : '"' (ESC | ~ ["\\])* '"'
    ;
 
 WS: [\t ]+ -> skip;

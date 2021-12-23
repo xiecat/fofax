@@ -44,11 +44,11 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 				continue
 			}
 
-			// 用浏览器打开
-			if options.Open {
-				runner.openURL(fofaQuery)
-				os.Exit(0)
-			}
+			//// 用浏览器打开
+			//if options.Open {
+			//	runner.openURL(fofaQuery)
+			//	os.Exit(0)
+			//}
 
 			if options.FofaExt {
 				fofaQuery = fxparser.Query(fofaQuery)
@@ -63,11 +63,11 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 		if len(options.Query) != 0 {
 			runner.inputCount++
 
-			// 用浏览器打开
-			if options.Open {
-				runner.openURL(options.Query)
-				os.Exit(0)
-			}
+			//// 用浏览器打开
+			//if options.Open {
+			//	runner.openURL(options.Query)
+			//	os.Exit(0)
+			//}
 
 			if options.FofaExt {
 				options.Query = fxparser.Query(options.Query)
@@ -76,11 +76,11 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 		}
 		// 通过 url 查询证书 -uc
 		if options.PeerCertificates != "" {
-			// 用浏览器打开
-			if options.Open {
-				runner.openURL(utils.GetSerialNumber(options.PeerCertificates))
-				os.Exit(0)
-			}
+			//// 用浏览器打开
+			//if options.Open {
+			//	runner.openURL(utils.GetSerialNumber(options.PeerCertificates))
+			//	os.Exit(0)
+			//}
 			runner.query.Push(utils.GetSerialNumber(options.PeerCertificates))
 		}
 		// 通 url 计算 hash，然后查询 -ui
@@ -89,11 +89,11 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 			// 通过 url
 			if iHash, err := iconConfig.FromUrlGetContent(); err == nil {
 				runner.inputCount++
-				// 用浏览器打开
-				if options.Open {
-					runner.openURL(iconConfig.MakeQuery(iHash))
-					os.Exit(0)
-				}
+				//// 用浏览器打开
+				//if options.Open {
+				//	runner.openURL(iconConfig.MakeQuery(iHash))
+				//	os.Exit(0)
+				//}
 				runner.query.Push(iconConfig.MakeQuery(iHash))
 			}
 		}
@@ -104,11 +104,11 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 			// 通过文件
 			if iHash, err := iconConfig.FromFileGetContent(); err == nil {
 				runner.inputCount++
-				// 用浏览器打开
-				if options.Open {
-					runner.openURL(iconConfig.MakeQuery(iHash))
-					os.Exit(0)
-				}
+				//// 用浏览器打开
+				//if options.Open {
+				//	runner.openURL(iconConfig.MakeQuery(iHash))
+				//	os.Exit(0)
+				//}
 				runner.query.Push(iconConfig.MakeQuery(iHash))
 			}
 		}
@@ -215,6 +215,25 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 				}
 				runner.query.Push(fofaQuery)
 			}
+		}
+
+		// 用浏览器打开
+		if options.Open {
+			for i := 0; i < runner.query.Len(); i++ {
+				if !runner.query.Any() {
+					break
+				}
+				fofaQuery := runner.query.Peek()
+				runner.query.Pop()
+				if !(strings.HasPrefix(fofaQuery, "(") && strings.HasSuffix(fofaQuery, ")")) {
+					fofaQuery = "(" + fofaQuery + ")" + " && (is_honeypot=false && is_fraud=false)"
+				} else {
+					fofaQuery = fofaQuery + " && (is_honeypot=false && is_fraud=false)"
+				}
+				runner.openURL(fofaQuery)
+				runner.query.Push(fofaQuery)
+			}
+			os.Exit(0)
 		}
 	}
 

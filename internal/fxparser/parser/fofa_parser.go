@@ -16,35 +16,38 @@ var _ = reflect.Copy
 var _ = strconv.Itoa
 
 var parserATN = []uint16{
-	3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 14, 45, 4,
+	3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 14, 52, 4,
 	2, 9, 2, 4, 3, 9, 3, 4, 4, 9, 4, 4, 5, 9, 5, 3, 2, 3, 2, 3, 3, 3, 3, 3,
-	3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 5, 3, 26,
-	10, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 7, 3, 34, 10, 3, 12, 3, 14,
-	3, 37, 11, 3, 3, 4, 3, 4, 3, 5, 3, 5, 5, 5, 43, 10, 5, 3, 5, 2, 3, 4, 6,
-	2, 4, 6, 8, 2, 2, 2, 45, 2, 10, 3, 2, 2, 2, 4, 25, 3, 2, 2, 2, 6, 38, 3,
-	2, 2, 2, 8, 42, 3, 2, 2, 2, 10, 11, 5, 4, 3, 2, 11, 3, 3, 2, 2, 2, 12,
-	13, 8, 3, 1, 2, 13, 14, 7, 10, 2, 2, 14, 15, 5, 4, 3, 2, 15, 16, 7, 11,
-	2, 2, 16, 26, 3, 2, 2, 2, 17, 18, 5, 6, 4, 2, 18, 19, 7, 4, 2, 2, 19, 20,
-	5, 8, 5, 2, 20, 26, 3, 2, 2, 2, 21, 22, 5, 6, 4, 2, 22, 23, 7, 5, 2, 2,
-	23, 24, 5, 8, 5, 2, 24, 26, 3, 2, 2, 2, 25, 12, 3, 2, 2, 2, 25, 17, 3,
-	2, 2, 2, 25, 21, 3, 2, 2, 2, 26, 35, 3, 2, 2, 2, 27, 28, 12, 6, 2, 2, 28,
-	29, 7, 6, 2, 2, 29, 34, 5, 4, 3, 7, 30, 31, 12, 5, 2, 2, 31, 32, 7, 7,
-	2, 2, 32, 34, 5, 4, 3, 6, 33, 27, 3, 2, 2, 2, 33, 30, 3, 2, 2, 2, 34, 37,
-	3, 2, 2, 2, 35, 33, 3, 2, 2, 2, 35, 36, 3, 2, 2, 2, 36, 5, 3, 2, 2, 2,
-	37, 35, 3, 2, 2, 2, 38, 39, 7, 12, 2, 2, 39, 7, 3, 2, 2, 2, 40, 43, 7,
-	3, 2, 2, 41, 43, 7, 13, 2, 2, 42, 40, 3, 2, 2, 2, 42, 41, 3, 2, 2, 2, 43,
-	9, 3, 2, 2, 2, 6, 25, 33, 35, 42,
+	3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+	3, 3, 3, 3, 3, 5, 3, 30, 10, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 7,
+	3, 38, 10, 3, 12, 3, 14, 3, 41, 11, 3, 3, 4, 3, 4, 3, 4, 5, 4, 46, 10,
+	4, 3, 5, 3, 5, 5, 5, 50, 10, 5, 3, 5, 2, 3, 4, 6, 2, 4, 6, 8, 2, 2, 2,
+	54, 2, 10, 3, 2, 2, 2, 4, 29, 3, 2, 2, 2, 6, 42, 3, 2, 2, 2, 8, 49, 3,
+	2, 2, 2, 10, 11, 5, 4, 3, 2, 11, 3, 3, 2, 2, 2, 12, 13, 8, 3, 1, 2, 13,
+	14, 7, 10, 2, 2, 14, 15, 5, 4, 3, 2, 15, 16, 7, 11, 2, 2, 16, 30, 3, 2,
+	2, 2, 17, 18, 5, 6, 4, 2, 18, 19, 7, 8, 2, 2, 19, 20, 5, 8, 5, 2, 20, 30,
+	3, 2, 2, 2, 21, 22, 5, 6, 4, 2, 22, 23, 7, 9, 2, 2, 23, 24, 5, 8, 5, 2,
+	24, 30, 3, 2, 2, 2, 25, 26, 5, 6, 4, 2, 26, 27, 7, 7, 2, 2, 27, 28, 5,
+	8, 5, 2, 28, 30, 3, 2, 2, 2, 29, 12, 3, 2, 2, 2, 29, 17, 3, 2, 2, 2, 29,
+	21, 3, 2, 2, 2, 29, 25, 3, 2, 2, 2, 30, 39, 3, 2, 2, 2, 31, 32, 12, 7,
+	2, 2, 32, 33, 7, 5, 2, 2, 33, 38, 5, 4, 3, 8, 34, 35, 12, 6, 2, 2, 35,
+	36, 7, 6, 2, 2, 36, 38, 5, 4, 3, 7, 37, 31, 3, 2, 2, 2, 37, 34, 3, 2, 2,
+	2, 38, 41, 3, 2, 2, 2, 39, 37, 3, 2, 2, 2, 39, 40, 3, 2, 2, 2, 40, 5, 3,
+	2, 2, 2, 41, 39, 3, 2, 2, 2, 42, 45, 7, 12, 2, 2, 43, 44, 7, 3, 2, 2, 44,
+	46, 7, 12, 2, 2, 45, 43, 3, 2, 2, 2, 45, 46, 3, 2, 2, 2, 46, 7, 3, 2, 2,
+	2, 47, 50, 7, 4, 2, 2, 48, 50, 7, 13, 2, 2, 49, 47, 3, 2, 2, 2, 49, 48,
+	3, 2, 2, 2, 50, 9, 3, 2, 2, 2, 7, 29, 37, 39, 45, 49,
 }
 var literalNames = []string{
-	"", "", "", "", "'&&'", "'||'", "'='", "'=='", "'('", "')'",
+	"", "'.'", "", "'&&'", "'||'", "'!='", "'='", "'=='", "'('", "')'",
 }
 var symbolicNames = []string{
-	"", "BOOLEAN", "COMPARISON_OPERATOR", "SCOMPARISON_OPERATOR", "AND", "OR",
-	"EQ", "SEQ", "BR_OPEN", "BR_CLOSE", "ATTRNAME", "STRING", "WS",
+	"", "", "BOOLEAN", "AND", "OR", "NOT", "EQ", "SEQ", "BR_OPEN", "BR_CLOSE",
+	"FOFA_KEY", "STRING", "WS",
 }
 
 var ruleNames = []string{
-	"start", "query", "attrPath", "attrValue",
+	"start", "query", "fofaKeyword", "fofaValue",
 }
 
 type FOFAParser struct {
@@ -78,27 +81,27 @@ func NewFOFAParser(input antlr.TokenStream) *FOFAParser {
 
 // FOFAParser tokens.
 const (
-	FOFAParserEOF                  = antlr.TokenEOF
-	FOFAParserBOOLEAN              = 1
-	FOFAParserCOMPARISON_OPERATOR  = 2
-	FOFAParserSCOMPARISON_OPERATOR = 3
-	FOFAParserAND                  = 4
-	FOFAParserOR                   = 5
-	FOFAParserEQ                   = 6
-	FOFAParserSEQ                  = 7
-	FOFAParserBR_OPEN              = 8
-	FOFAParserBR_CLOSE             = 9
-	FOFAParserATTRNAME             = 10
-	FOFAParserSTRING               = 11
-	FOFAParserWS                   = 12
+	FOFAParserEOF      = antlr.TokenEOF
+	FOFAParserT__0     = 1
+	FOFAParserBOOLEAN  = 2
+	FOFAParserAND      = 3
+	FOFAParserOR       = 4
+	FOFAParserNOT      = 5
+	FOFAParserEQ       = 6
+	FOFAParserSEQ      = 7
+	FOFAParserBR_OPEN  = 8
+	FOFAParserBR_CLOSE = 9
+	FOFAParserFOFA_KEY = 10
+	FOFAParserSTRING   = 11
+	FOFAParserWS       = 12
 )
 
 // FOFAParser rules.
 const (
-	FOFAParserRULE_start     = 0
-	FOFAParserRULE_query     = 1
-	FOFAParserRULE_attrPath  = 2
-	FOFAParserRULE_attrValue = 3
+	FOFAParserRULE_start       = 0
+	FOFAParserRULE_query       = 1
+	FOFAParserRULE_fofaKeyword = 2
+	FOFAParserRULE_fofaValue   = 3
 )
 
 // IStartContext is an interface to support dynamic dispatch.
@@ -250,9 +253,9 @@ func (s *QueryContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) 
 
 type CompareExpContext struct {
 	*QueryContext
-	propertyName  IAttrPathContext
+	propertyName  IFofaKeywordContext
 	op            antlr.Token
-	propertyValue IAttrValueContext
+	propertyValue IFofaValueContext
 }
 
 func NewCompareExpContext(parser antlr.Parser, ctx antlr.ParserRuleContext) *CompareExpContext {
@@ -269,40 +272,40 @@ func (s *CompareExpContext) GetOp() antlr.Token { return s.op }
 
 func (s *CompareExpContext) SetOp(v antlr.Token) { s.op = v }
 
-func (s *CompareExpContext) GetPropertyName() IAttrPathContext { return s.propertyName }
+func (s *CompareExpContext) GetPropertyName() IFofaKeywordContext { return s.propertyName }
 
-func (s *CompareExpContext) GetPropertyValue() IAttrValueContext { return s.propertyValue }
+func (s *CompareExpContext) GetPropertyValue() IFofaValueContext { return s.propertyValue }
 
-func (s *CompareExpContext) SetPropertyName(v IAttrPathContext) { s.propertyName = v }
+func (s *CompareExpContext) SetPropertyName(v IFofaKeywordContext) { s.propertyName = v }
 
-func (s *CompareExpContext) SetPropertyValue(v IAttrValueContext) { s.propertyValue = v }
+func (s *CompareExpContext) SetPropertyValue(v IFofaValueContext) { s.propertyValue = v }
 
 func (s *CompareExpContext) GetRuleContext() antlr.RuleContext {
 	return s
 }
 
-func (s *CompareExpContext) AttrPath() IAttrPathContext {
-	var t = s.GetTypedRuleContext(reflect.TypeOf((*IAttrPathContext)(nil)).Elem(), 0)
+func (s *CompareExpContext) FofaKeyword() IFofaKeywordContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*IFofaKeywordContext)(nil)).Elem(), 0)
 
 	if t == nil {
 		return nil
 	}
 
-	return t.(IAttrPathContext)
+	return t.(IFofaKeywordContext)
 }
 
-func (s *CompareExpContext) COMPARISON_OPERATOR() antlr.TerminalNode {
-	return s.GetToken(FOFAParserCOMPARISON_OPERATOR, 0)
+func (s *CompareExpContext) EQ() antlr.TerminalNode {
+	return s.GetToken(FOFAParserEQ, 0)
 }
 
-func (s *CompareExpContext) AttrValue() IAttrValueContext {
-	var t = s.GetTypedRuleContext(reflect.TypeOf((*IAttrValueContext)(nil)).Elem(), 0)
+func (s *CompareExpContext) FofaValue() IFofaValueContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*IFofaValueContext)(nil)).Elem(), 0)
 
 	if t == nil {
 		return nil
 	}
 
-	return t.(IAttrValueContext)
+	return t.(IFofaValueContext)
 }
 
 func (s *CompareExpContext) EnterRule(listener antlr.ParseTreeListener) {
@@ -314,6 +317,75 @@ func (s *CompareExpContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *CompareExpContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(FOFAListener); ok {
 		listenerT.ExitCompareExp(s)
+	}
+}
+
+type NoCompareExpContext struct {
+	*QueryContext
+	propertyName  IFofaKeywordContext
+	op            antlr.Token
+	propertyValue IFofaValueContext
+}
+
+func NewNoCompareExpContext(parser antlr.Parser, ctx antlr.ParserRuleContext) *NoCompareExpContext {
+	var p = new(NoCompareExpContext)
+
+	p.QueryContext = NewEmptyQueryContext()
+	p.parser = parser
+	p.CopyFrom(ctx.(*QueryContext))
+
+	return p
+}
+
+func (s *NoCompareExpContext) GetOp() antlr.Token { return s.op }
+
+func (s *NoCompareExpContext) SetOp(v antlr.Token) { s.op = v }
+
+func (s *NoCompareExpContext) GetPropertyName() IFofaKeywordContext { return s.propertyName }
+
+func (s *NoCompareExpContext) GetPropertyValue() IFofaValueContext { return s.propertyValue }
+
+func (s *NoCompareExpContext) SetPropertyName(v IFofaKeywordContext) { s.propertyName = v }
+
+func (s *NoCompareExpContext) SetPropertyValue(v IFofaValueContext) { s.propertyValue = v }
+
+func (s *NoCompareExpContext) GetRuleContext() antlr.RuleContext {
+	return s
+}
+
+func (s *NoCompareExpContext) FofaKeyword() IFofaKeywordContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*IFofaKeywordContext)(nil)).Elem(), 0)
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(IFofaKeywordContext)
+}
+
+func (s *NoCompareExpContext) NOT() antlr.TerminalNode {
+	return s.GetToken(FOFAParserNOT, 0)
+}
+
+func (s *NoCompareExpContext) FofaValue() IFofaValueContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*IFofaValueContext)(nil)).Elem(), 0)
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(IFofaValueContext)
+}
+
+func (s *NoCompareExpContext) EnterRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(FOFAListener); ok {
+		listenerT.EnterNoCompareExp(s)
+	}
+}
+
+func (s *NoCompareExpContext) ExitRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(FOFAListener); ok {
+		listenerT.ExitNoCompareExp(s)
 	}
 }
 
@@ -449,9 +521,9 @@ func (s *BracketExpContext) ExitRule(listener antlr.ParseTreeListener) {
 
 type ScompareExpContext struct {
 	*QueryContext
-	propertyName  IAttrPathContext
+	propertyName  IFofaKeywordContext
 	op            antlr.Token
-	propertyValue IAttrValueContext
+	propertyValue IFofaValueContext
 }
 
 func NewScompareExpContext(parser antlr.Parser, ctx antlr.ParserRuleContext) *ScompareExpContext {
@@ -468,40 +540,40 @@ func (s *ScompareExpContext) GetOp() antlr.Token { return s.op }
 
 func (s *ScompareExpContext) SetOp(v antlr.Token) { s.op = v }
 
-func (s *ScompareExpContext) GetPropertyName() IAttrPathContext { return s.propertyName }
+func (s *ScompareExpContext) GetPropertyName() IFofaKeywordContext { return s.propertyName }
 
-func (s *ScompareExpContext) GetPropertyValue() IAttrValueContext { return s.propertyValue }
+func (s *ScompareExpContext) GetPropertyValue() IFofaValueContext { return s.propertyValue }
 
-func (s *ScompareExpContext) SetPropertyName(v IAttrPathContext) { s.propertyName = v }
+func (s *ScompareExpContext) SetPropertyName(v IFofaKeywordContext) { s.propertyName = v }
 
-func (s *ScompareExpContext) SetPropertyValue(v IAttrValueContext) { s.propertyValue = v }
+func (s *ScompareExpContext) SetPropertyValue(v IFofaValueContext) { s.propertyValue = v }
 
 func (s *ScompareExpContext) GetRuleContext() antlr.RuleContext {
 	return s
 }
 
-func (s *ScompareExpContext) AttrPath() IAttrPathContext {
-	var t = s.GetTypedRuleContext(reflect.TypeOf((*IAttrPathContext)(nil)).Elem(), 0)
+func (s *ScompareExpContext) FofaKeyword() IFofaKeywordContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*IFofaKeywordContext)(nil)).Elem(), 0)
 
 	if t == nil {
 		return nil
 	}
 
-	return t.(IAttrPathContext)
+	return t.(IFofaKeywordContext)
 }
 
-func (s *ScompareExpContext) SCOMPARISON_OPERATOR() antlr.TerminalNode {
-	return s.GetToken(FOFAParserSCOMPARISON_OPERATOR, 0)
+func (s *ScompareExpContext) SEQ() antlr.TerminalNode {
+	return s.GetToken(FOFAParserSEQ, 0)
 }
 
-func (s *ScompareExpContext) AttrValue() IAttrValueContext {
-	var t = s.GetTypedRuleContext(reflect.TypeOf((*IAttrValueContext)(nil)).Elem(), 0)
+func (s *ScompareExpContext) FofaValue() IFofaValueContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*IFofaValueContext)(nil)).Elem(), 0)
 
 	if t == nil {
 		return nil
 	}
 
-	return t.(IAttrValueContext)
+	return t.(IFofaValueContext)
 }
 
 func (s *ScompareExpContext) EnterRule(listener antlr.ParseTreeListener) {
@@ -620,7 +692,7 @@ func (p *FOFAParser) query(_p int) (localctx IQueryContext) {
 	var _alt int
 
 	p.EnterOuterAlt(localctx, 1)
-	p.SetState(23)
+	p.SetState(27)
 	p.GetErrorHandler().Sync(p)
 	switch p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 0, p.GetParserRuleContext()) {
 	case 1:
@@ -654,21 +726,21 @@ func (p *FOFAParser) query(_p int) (localctx IQueryContext) {
 		{
 			p.SetState(15)
 
-			var _x = p.AttrPath()
+			var _x = p.FofaKeyword()
 
 			localctx.(*CompareExpContext).propertyName = _x
 		}
 		{
 			p.SetState(16)
 
-			var _m = p.Match(FOFAParserCOMPARISON_OPERATOR)
+			var _m = p.Match(FOFAParserEQ)
 
 			localctx.(*CompareExpContext).op = _m
 		}
 		{
 			p.SetState(17)
 
-			var _x = p.AttrValue()
+			var _x = p.FofaValue()
 
 			localctx.(*CompareExpContext).propertyValue = _x
 		}
@@ -680,28 +752,54 @@ func (p *FOFAParser) query(_p int) (localctx IQueryContext) {
 		{
 			p.SetState(19)
 
-			var _x = p.AttrPath()
+			var _x = p.FofaKeyword()
 
 			localctx.(*ScompareExpContext).propertyName = _x
 		}
 		{
 			p.SetState(20)
 
-			var _m = p.Match(FOFAParserSCOMPARISON_OPERATOR)
+			var _m = p.Match(FOFAParserSEQ)
 
 			localctx.(*ScompareExpContext).op = _m
 		}
 		{
 			p.SetState(21)
 
-			var _x = p.AttrValue()
+			var _x = p.FofaValue()
 
 			localctx.(*ScompareExpContext).propertyValue = _x
 		}
 
+	case 4:
+		localctx = NewNoCompareExpContext(p, localctx)
+		p.SetParserRuleContext(localctx)
+		_prevctx = localctx
+		{
+			p.SetState(23)
+
+			var _x = p.FofaKeyword()
+
+			localctx.(*NoCompareExpContext).propertyName = _x
+		}
+		{
+			p.SetState(24)
+
+			var _m = p.Match(FOFAParserNOT)
+
+			localctx.(*NoCompareExpContext).op = _m
+		}
+		{
+			p.SetState(25)
+
+			var _x = p.FofaValue()
+
+			localctx.(*NoCompareExpContext).propertyValue = _x
+		}
+
 	}
 	p.GetParserRuleContext().SetStop(p.GetTokenStream().LT(-1))
-	p.SetState(33)
+	p.SetState(37)
 	p.GetErrorHandler().Sync(p)
 	_alt = p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 2, p.GetParserRuleContext())
 
@@ -711,7 +809,7 @@ func (p *FOFAParser) query(_p int) (localctx IQueryContext) {
 				p.TriggerExitRuleEvent()
 			}
 			_prevctx = localctx
-			p.SetState(31)
+			p.SetState(35)
 			p.GetErrorHandler().Sync(p)
 			switch p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 1, p.GetParserRuleContext()) {
 			case 1:
@@ -719,22 +817,22 @@ func (p *FOFAParser) query(_p int) (localctx IQueryContext) {
 				localctx.(*AndLogicalExpContext).leftQuery = _prevctx
 
 				p.PushNewRecursionContext(localctx, _startState, FOFAParserRULE_query)
-				p.SetState(25)
+				p.SetState(29)
 
-				if !(p.Precpred(p.GetParserRuleContext(), 4)) {
-					panic(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 4)", ""))
+				if !(p.Precpred(p.GetParserRuleContext(), 5)) {
+					panic(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 5)", ""))
 				}
 				{
-					p.SetState(26)
+					p.SetState(30)
 
 					var _m = p.Match(FOFAParserAND)
 
 					localctx.(*AndLogicalExpContext).op = _m
 				}
 				{
-					p.SetState(27)
+					p.SetState(31)
 
-					var _x = p.query(5)
+					var _x = p.query(6)
 
 					localctx.(*AndLogicalExpContext).rightQuery = _x
 				}
@@ -744,22 +842,22 @@ func (p *FOFAParser) query(_p int) (localctx IQueryContext) {
 				localctx.(*OrLogicalExpContext).leftQuery = _prevctx
 
 				p.PushNewRecursionContext(localctx, _startState, FOFAParserRULE_query)
-				p.SetState(28)
+				p.SetState(32)
 
-				if !(p.Precpred(p.GetParserRuleContext(), 3)) {
-					panic(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 3)", ""))
+				if !(p.Precpred(p.GetParserRuleContext(), 4)) {
+					panic(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 4)", ""))
 				}
 				{
-					p.SetState(29)
+					p.SetState(33)
 
 					var _m = p.Match(FOFAParserOR)
 
 					localctx.(*OrLogicalExpContext).op = _m
 				}
 				{
-					p.SetState(30)
+					p.SetState(34)
 
-					var _x = p.query(4)
+					var _x = p.query(5)
 
 					localctx.(*OrLogicalExpContext).rightQuery = _x
 				}
@@ -767,7 +865,7 @@ func (p *FOFAParser) query(_p int) (localctx IQueryContext) {
 			}
 
 		}
-		p.SetState(35)
+		p.SetState(39)
 		p.GetErrorHandler().Sync(p)
 		_alt = p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 2, p.GetParserRuleContext())
 	}
@@ -775,71 +873,76 @@ func (p *FOFAParser) query(_p int) (localctx IQueryContext) {
 	return localctx
 }
 
-// IAttrPathContext is an interface to support dynamic dispatch.
-type IAttrPathContext interface {
+// IFofaKeywordContext is an interface to support dynamic dispatch.
+type IFofaKeywordContext interface {
 	antlr.ParserRuleContext
 
 	// GetParser returns the parser.
 	GetParser() antlr.Parser
 
-	// IsAttrPathContext differentiates from other interfaces.
-	IsAttrPathContext()
+	// IsFofaKeywordContext differentiates from other interfaces.
+	IsFofaKeywordContext()
 }
 
-type AttrPathContext struct {
+type FofaKeywordContext struct {
 	*antlr.BaseParserRuleContext
 	parser antlr.Parser
 }
 
-func NewEmptyAttrPathContext() *AttrPathContext {
-	var p = new(AttrPathContext)
+func NewEmptyFofaKeywordContext() *FofaKeywordContext {
+	var p = new(FofaKeywordContext)
 	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(nil, -1)
-	p.RuleIndex = FOFAParserRULE_attrPath
+	p.RuleIndex = FOFAParserRULE_fofaKeyword
 	return p
 }
 
-func (*AttrPathContext) IsAttrPathContext() {}
+func (*FofaKeywordContext) IsFofaKeywordContext() {}
 
-func NewAttrPathContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *AttrPathContext {
-	var p = new(AttrPathContext)
+func NewFofaKeywordContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *FofaKeywordContext {
+	var p = new(FofaKeywordContext)
 
 	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(parent, invokingState)
 
 	p.parser = parser
-	p.RuleIndex = FOFAParserRULE_attrPath
+	p.RuleIndex = FOFAParserRULE_fofaKeyword
 
 	return p
 }
 
-func (s *AttrPathContext) GetParser() antlr.Parser { return s.parser }
+func (s *FofaKeywordContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *AttrPathContext) ATTRNAME() antlr.TerminalNode {
-	return s.GetToken(FOFAParserATTRNAME, 0)
+func (s *FofaKeywordContext) AllFOFA_KEY() []antlr.TerminalNode {
+	return s.GetTokens(FOFAParserFOFA_KEY)
 }
 
-func (s *AttrPathContext) GetRuleContext() antlr.RuleContext {
+func (s *FofaKeywordContext) FOFA_KEY(i int) antlr.TerminalNode {
+	return s.GetToken(FOFAParserFOFA_KEY, i)
+}
+
+func (s *FofaKeywordContext) GetRuleContext() antlr.RuleContext {
 	return s
 }
 
-func (s *AttrPathContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+func (s *FofaKeywordContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *AttrPathContext) EnterRule(listener antlr.ParseTreeListener) {
+func (s *FofaKeywordContext) EnterRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(FOFAListener); ok {
-		listenerT.EnterAttrPath(s)
+		listenerT.EnterFofaKeyword(s)
 	}
 }
 
-func (s *AttrPathContext) ExitRule(listener antlr.ParseTreeListener) {
+func (s *FofaKeywordContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(FOFAListener); ok {
-		listenerT.ExitAttrPath(s)
+		listenerT.ExitFofaKeyword(s)
 	}
 }
 
-func (p *FOFAParser) AttrPath() (localctx IAttrPathContext) {
-	localctx = NewAttrPathContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 4, FOFAParserRULE_attrPath)
+func (p *FOFAParser) FofaKeyword() (localctx IFofaKeywordContext) {
+	localctx = NewFofaKeywordContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 4, FOFAParserRULE_fofaKeyword)
+	var _la int
 
 	defer func() {
 		p.ExitRule()
@@ -859,107 +962,122 @@ func (p *FOFAParser) AttrPath() (localctx IAttrPathContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(36)
-		p.Match(FOFAParserATTRNAME)
+		p.SetState(40)
+		p.Match(FOFAParserFOFA_KEY)
+	}
+	p.SetState(43)
+	p.GetErrorHandler().Sync(p)
+	_la = p.GetTokenStream().LA(1)
+
+	if _la == FOFAParserT__0 {
+		{
+			p.SetState(41)
+			p.Match(FOFAParserT__0)
+		}
+		{
+			p.SetState(42)
+			p.Match(FOFAParserFOFA_KEY)
+		}
+
 	}
 
 	return localctx
 }
 
-// IAttrValueContext is an interface to support dynamic dispatch.
-type IAttrValueContext interface {
+// IFofaValueContext is an interface to support dynamic dispatch.
+type IFofaValueContext interface {
 	antlr.ParserRuleContext
 
 	// GetParser returns the parser.
 	GetParser() antlr.Parser
 
-	// IsAttrValueContext differentiates from other interfaces.
-	IsAttrValueContext()
+	// IsFofaValueContext differentiates from other interfaces.
+	IsFofaValueContext()
 }
 
-type AttrValueContext struct {
+type FofaValueContext struct {
 	*antlr.BaseParserRuleContext
 	parser antlr.Parser
 }
 
-func NewEmptyAttrValueContext() *AttrValueContext {
-	var p = new(AttrValueContext)
+func NewEmptyFofaValueContext() *FofaValueContext {
+	var p = new(FofaValueContext)
 	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(nil, -1)
-	p.RuleIndex = FOFAParserRULE_attrValue
+	p.RuleIndex = FOFAParserRULE_fofaValue
 	return p
 }
 
-func (*AttrValueContext) IsAttrValueContext() {}
+func (*FofaValueContext) IsFofaValueContext() {}
 
-func NewAttrValueContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *AttrValueContext {
-	var p = new(AttrValueContext)
+func NewFofaValueContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *FofaValueContext {
+	var p = new(FofaValueContext)
 
 	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(parent, invokingState)
 
 	p.parser = parser
-	p.RuleIndex = FOFAParserRULE_attrValue
+	p.RuleIndex = FOFAParserRULE_fofaValue
 
 	return p
 }
 
-func (s *AttrValueContext) GetParser() antlr.Parser { return s.parser }
+func (s *FofaValueContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *AttrValueContext) CopyFrom(ctx *AttrValueContext) {
+func (s *FofaValueContext) CopyFrom(ctx *FofaValueContext) {
 	s.BaseParserRuleContext.CopyFrom(ctx.BaseParserRuleContext)
 }
 
-func (s *AttrValueContext) GetRuleContext() antlr.RuleContext {
+func (s *FofaValueContext) GetRuleContext() antlr.RuleContext {
 	return s
 }
 
-func (s *AttrValueContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+func (s *FofaValueContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-type NullContext struct {
-	*AttrValueContext
+type BooleanContext struct {
+	*FofaValueContext
 }
 
-func NewNullContext(parser antlr.Parser, ctx antlr.ParserRuleContext) *NullContext {
-	var p = new(NullContext)
+func NewBooleanContext(parser antlr.Parser, ctx antlr.ParserRuleContext) *BooleanContext {
+	var p = new(BooleanContext)
 
-	p.AttrValueContext = NewEmptyAttrValueContext()
+	p.FofaValueContext = NewEmptyFofaValueContext()
 	p.parser = parser
-	p.CopyFrom(ctx.(*AttrValueContext))
+	p.CopyFrom(ctx.(*FofaValueContext))
 
 	return p
 }
 
-func (s *NullContext) GetRuleContext() antlr.RuleContext {
+func (s *BooleanContext) GetRuleContext() antlr.RuleContext {
 	return s
 }
 
-func (s *NullContext) BOOLEAN() antlr.TerminalNode {
+func (s *BooleanContext) BOOLEAN() antlr.TerminalNode {
 	return s.GetToken(FOFAParserBOOLEAN, 0)
 }
 
-func (s *NullContext) EnterRule(listener antlr.ParseTreeListener) {
+func (s *BooleanContext) EnterRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(FOFAListener); ok {
-		listenerT.EnterNull(s)
+		listenerT.EnterBoolean(s)
 	}
 }
 
-func (s *NullContext) ExitRule(listener antlr.ParseTreeListener) {
+func (s *BooleanContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(FOFAListener); ok {
-		listenerT.ExitNull(s)
+		listenerT.ExitBoolean(s)
 	}
 }
 
 type StringContext struct {
-	*AttrValueContext
+	*FofaValueContext
 }
 
 func NewStringContext(parser antlr.Parser, ctx antlr.ParserRuleContext) *StringContext {
 	var p = new(StringContext)
 
-	p.AttrValueContext = NewEmptyAttrValueContext()
+	p.FofaValueContext = NewEmptyFofaValueContext()
 	p.parser = parser
-	p.CopyFrom(ctx.(*AttrValueContext))
+	p.CopyFrom(ctx.(*FofaValueContext))
 
 	return p
 }
@@ -984,9 +1102,9 @@ func (s *StringContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
-func (p *FOFAParser) AttrValue() (localctx IAttrValueContext) {
-	localctx = NewAttrValueContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 6, FOFAParserRULE_attrValue)
+func (p *FOFAParser) FofaValue() (localctx IFofaValueContext) {
+	localctx = NewFofaValueContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 6, FOFAParserRULE_fofaValue)
 
 	defer func() {
 		p.ExitRule()
@@ -1004,15 +1122,15 @@ func (p *FOFAParser) AttrValue() (localctx IAttrValueContext) {
 		}
 	}()
 
-	p.SetState(40)
+	p.SetState(47)
 	p.GetErrorHandler().Sync(p)
 
 	switch p.GetTokenStream().LA(1) {
 	case FOFAParserBOOLEAN:
-		localctx = NewNullContext(p, localctx)
+		localctx = NewBooleanContext(p, localctx)
 		p.EnterOuterAlt(localctx, 1)
 		{
-			p.SetState(38)
+			p.SetState(45)
 			p.Match(FOFAParserBOOLEAN)
 		}
 
@@ -1020,7 +1138,7 @@ func (p *FOFAParser) AttrValue() (localctx IAttrValueContext) {
 		localctx = NewStringContext(p, localctx)
 		p.EnterOuterAlt(localctx, 2)
 		{
-			p.SetState(39)
+			p.SetState(46)
 			p.Match(FOFAParserSTRING)
 		}
 
@@ -1048,10 +1166,10 @@ func (p *FOFAParser) Sempred(localctx antlr.RuleContext, ruleIndex, predIndex in
 func (p *FOFAParser) Query_Sempred(localctx antlr.RuleContext, predIndex int) bool {
 	switch predIndex {
 	case 0:
-		return p.Precpred(p.GetParserRuleContext(), 4)
+		return p.Precpred(p.GetParserRuleContext(), 5)
 
 	case 1:
-		return p.Precpred(p.GetParserRuleContext(), 3)
+		return p.Precpred(p.GetParserRuleContext(), 4)
 
 	default:
 		panic("No predicate with index: " + fmt.Sprint(predIndex))
