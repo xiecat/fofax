@@ -26,7 +26,7 @@ var UsageLists = []fgx{
 		Comment: "搜索 fx 中 google-reverse, 查询时使用扩展功能必须加 -fe 参数",
 	},
 	{
-		Usage:   `fofax  app="Grafana" -open`,
+		Usage:   `fofax -q 'app="Grafana"' -open`,
 		Comment: `搜索 fofa 语法 app="Grafana" 并用浏览器打开`,
 	},
 	{

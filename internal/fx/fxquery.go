@@ -7,6 +7,7 @@ import (
 	"fofax/internal/table"
 	"io/ioutil"
 	"path/filepath"
+	"runtime"
 	"strings"
 )
 
@@ -170,13 +171,16 @@ func (fx FoFaxQuery) SearchTable(id, query, ruleName, ruleEnglish, Author, tag s
 }
 
 func (fx FoFaxQuery) ListTags() {
-	tlist := []string{}
+	tlist := []Tinfo{}
 	for k := range fx.Tags {
-		tlist = append(tlist, k)
+		if runtime.GOOS == "windows" {
+			tlist = append(tlist, Tinfo{k, fmt.Sprintf(`fofax.exe -s tag="%s"`, k)})
+		} else {
+			tlist = append(tlist, Tinfo{k, fmt.Sprintf(`fofax -s tag="%s"`, k)})
+		}
+
 	}
-	table.Output([]Tinfo{
-		{"Tags", strings.Join(tlist, ",")},
-	})
+	table.Output(tlist)
 }
 func (fx FoFaxQuery) SearchSingleTable(query string) {
 	if query == "" {
