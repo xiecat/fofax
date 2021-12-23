@@ -97,7 +97,6 @@ func PrintParserTree(query string) {
 	}
 	fmt.Println(tree.GetText())
 	fmt.Println(tree.ToStringTree([]string{""}, fofaxParser))
-
 }
 
 func Query(query string) string {

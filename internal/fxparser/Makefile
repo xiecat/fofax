@@ -2,7 +2,7 @@
 
 .PHONY: build
 build:   	## run snapshot
-	@echo "$(CGREEN) build language golang ...$(CEND)"
+	@echo "$(CGREEN)build fofax parse ...$(CEND)"
 	java -jar script/antlr-4.9.2-complete.jar -Dlanguage=Go -no-visitor -listener FOFA.g4 -o parser
 
 .PHONY: help

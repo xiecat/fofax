@@ -25,6 +25,11 @@ deps:		## deps check
 	@echo "$(CGREEN)deps check ...$(CEND)"
 	@/bin/bash scripts/deps.sh
 
+.PHONY: test
+test:  deps fparse   	## go test
+	@echo "$(CGREEN)go test ...$(CEND)"
+	@go test ./...
+
 .PHONY: fparse
 fparse:		## gen fofax parse
 	@echo "$(CGREEN)deps check ...$(CEND)"

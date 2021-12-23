@@ -99,7 +99,7 @@ func (flagSet *FlagSet) Parse() error {
 		configData := flagSet.generateDefaultConfig()
 		err = ioutil.WriteFile(config, configData, os.ModePerm)
 		if err != nil {
-			printer.Fatal("create config file fail %s", config)
+			printer.Fatalf("create config file fail %s", config)
 		}
 		printer.Successf("create config file %s. please modify and use", config)
 		os.Exit(0)
