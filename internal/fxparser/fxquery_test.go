@@ -3,6 +3,7 @@ package fxparser
 import "testing"
 
 var successCase = []string{
+	// 原始语法
 	`title="beijing"`,
 	`header="elastic"`,
 	`body="网络空间测绘"`,
@@ -49,17 +50,30 @@ var successCase = []string{
 	`ip_city="Hangzhou"`,
 	`ip_after="2021-03-18"`,
 	`ip_before="2019-09-09"`,
+
+	// and
+	`ip_after="2021-03-18"||ip_before="2019-09-09"`,
+	`title="beijing"&&header="elastic"`,
 }
 
 var failCase = []string{
-	``,
+	`ip_after=2021-03-18`,
 }
 
-func TestParserTree(t *testing.T) {
+func TestParserTreeSuccess(t *testing.T) {
 	for _, v := range successCase {
 		_, err := parseTree(v)
 		if err != nil {
-			t.Fatal(err)
+			t.Fatal(v, err)
+		}
+	}
+}
+
+func TestParserTreeFail(t *testing.T) {
+	for _, v := range failCase {
+		_, err := parseTree(v)
+		if err == nil {
+			t.Fatal(v, "不应该被解析成功")
 		}
 	}
 }
