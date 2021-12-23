@@ -225,13 +225,7 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 				}
 				fofaQuery := runner.query.Peek()
 				runner.query.Pop()
-				if !(strings.HasPrefix(fofaQuery, "(") && strings.HasSuffix(fofaQuery, ")")) {
-					fofaQuery = "(" + fofaQuery + ")" + " && (is_honeypot=false && is_fraud=false)"
-				} else {
-					fofaQuery = fofaQuery + " && (is_honeypot=false && is_fraud=false)"
-				}
 				runner.openURL(fofaQuery)
-				runner.query.Push(fofaQuery)
 			}
 			os.Exit(0)
 		}
