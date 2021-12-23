@@ -226,6 +226,9 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 				fofaQuery := runner.query.Peek()
 				runner.query.Pop()
 				runner.openURL(fofaQuery)
+				if !options.NolimitOpen {
+					os.Exit(0)
+				}
 			}
 			os.Exit(0)
 		}

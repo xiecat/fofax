@@ -30,10 +30,11 @@ type Options struct {
 	filter
 	config
 	fxconfig
-	FxQuery *fx.FoFaxQuery
-	Version bool
-	Use     bool
-	Open    bool
+	FxQuery     *fx.FoFaxQuery
+	Version     bool
+	Use         bool
+	Open        bool // 浏览器打开
+	NolimitOpen bool
 	// 标准输入
 	Stdin bool
 }
@@ -169,6 +170,7 @@ func init() {
 	flags.BoolVarP(&args.Version, "version", "v", false, "Show fofaX version")
 	flags.BoolVar(&args.Use, "use", false, "Syntax queries")
 	flags.BoolVar(&args.Open, "open", false, "Open with your browser only support pipline/-q/-uc/-iu/-if")
+	flags.BoolVar(&args.NolimitOpen, "no-limit-open", false, "No limit to the number of openings in your browser")
 	err := flags.Parse()
 	if err != nil {
 		printer.Error(printer.HandlerLine("Parse err :" + err.Error()))
