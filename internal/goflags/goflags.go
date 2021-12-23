@@ -99,10 +99,9 @@ func (flagSet *FlagSet) Parse() error {
 		configData := flagSet.generateDefaultConfig()
 		err = ioutil.WriteFile(config, configData, os.ModePerm)
 		if err != nil {
-			printer.Fatalf("create config file fail %s", config)
+			printer.Errorf("create config file fail %s", config)
 		}
 		printer.Successf("create config file %s. please modify and use", config)
-		os.Exit(0)
 		return err
 	}
 	_ = flagSet.MergeConfigFile(config) // try to read default config after parsing flags

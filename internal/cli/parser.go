@@ -186,7 +186,7 @@ func createGroup(flagSet *goflags.FlagSet, name, desc string, flags ...*goflags.
 }
 func ParseFxOptions() {
 	if !utils.FileExist(args.FxDir) {
-		printer.Infof("Create fx statements File storage directory: %s", args.FxDir)
+		printer.Successf("Create fx statements File storage directory: %s", args.FxDir)
 		err := os.Mkdir(args.FxDir, os.ModePerm)
 		if err != nil {
 			printer.Fatalf("Unable to create a directory: %s", err.Error())
