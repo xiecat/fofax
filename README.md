@@ -4,7 +4,7 @@
 
 ## 0x00 简介
 
-fofaX是一款命令行fofa查询工具，定位命令行，简单就是最好的！
+fofaX是一款命令行fofa查询工具，定位于命令行简单快速，简单就是最好的！
 
 ## 0x01 下载
 
@@ -18,9 +18,25 @@ fofaX是一款命令行fofa查询工具，定位命令行，简单就是最好�
 
 ### macOS/Linux
 
+将下载下来的fofax解压，并建议放在 `/usr/local/bin/` 目录下，这样的目的是在任何一个目录都可以运行 `fofax` 命令。
 
+```bash
+tar -zxvf ~/Downloads/fofax_v0.1.6_darwin_amd64.tar.gz -C /usr/local/bin/
+```
 
+![tar](./docs/images/tar.png)
 
+第一次运行 `fofax` 命令会自动生成一个配置文件，位于 `~/.config/fofax/fofax.yaml`。
+
+![createconf](./docs/images/createconf.png)
+
+接下来就是对此配置文件进行配置了，一般来说只需要配置完 `email` 和 `key` 就可以了。
+
+```bash
+vim ~/.config/fofax/fofax.yaml
+```
+
+![confkey](./docs/images/confkey.png)
 
 ## 0x03 使用
 
@@ -33,8 +49,6 @@ fofax
 ```
 
 ![tips](./docs/images/tips.png)
-
-
 
 ### 帮助信息
 
@@ -128,8 +142,6 @@ fofax -iu https://www.baidu.com/favicon.ico -fs 5
 
 
 
-
-
 ## 0x04 联动使用案例
 
 ### fofax && httpx
@@ -139,3 +151,5 @@ CVE-2021-43798 Grafana未授权目录遍历。
 ![fofax&httpx](./docs/images/fofax&httpx.png)
 
 ### fofax && nuclei
+
+![fofax&nuclei](./docs/images/fofax&nuclei.png)
