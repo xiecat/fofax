@@ -132,7 +132,7 @@ func init() {
 		flags.BoolVar(&args.Debug, "debug", false, "Debug mode"),
 	)
 	createGroup(
-		flags, "filters", "FILTERS:",
+		flags, "filters", "FILTERS",
 		flags.IntVarP(&args.FetchSize, "fetch-size", "fs", args.FetchSize, "The maximum number of query"),
 		flags.BoolVarP(&args.Exclude, "exclude", "e", args.Exclude, "Exclude the honeypot."),
 		flags.BoolVarP(&args.ExcludeCountryCN, "exclude-country-cn", "ec", false, "Exclude CN."),
