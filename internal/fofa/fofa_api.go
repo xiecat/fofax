@@ -153,7 +153,7 @@ func (f *FoFa) FetchOneField(field, queryStr string) bool {
 
 // FetchTitlesOfDomain 提取 title
 func (f *FoFa) FetchTitlesOfDomain(queryStr string) bool {
-	return f.fetchByFields("host,title,lastupdatetime", queryStr)
+	return f.fetchByFields("protocol,ip,port,host,title,lastupdatetime", queryStr)
 }
 
 func (f *FoFa) Fetch(queryStr string) bool {

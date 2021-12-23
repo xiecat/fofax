@@ -271,8 +271,14 @@ func (r *Runner) Run() *sync.Map {
 			// 提取指定根域名的 title -fto
 		} else if r.options.FetchTitlesOfDomain {
 			fo.FetchFn = func(fields []string, allSize int32) bool {
-				if host := fields[0]; len(host) > 0 {
-					r.resMap.LoadOrStore(host, fields[1])
+				if host := fields[3]; len(host) > 0 {
+					fullUrl, err := utils.NewFixUrl(
+						utils.FixFullHostInfoScheme(fields))
+					if err != nil {
+						printer.Errorf("url.Parse %s", err)
+						os.Exit(1)
+					}
+					r.resMap.LoadOrStore(fullUrl, fmt.Sprintf("[%s]", fields[4]))
 				}
 				return true
 			}
