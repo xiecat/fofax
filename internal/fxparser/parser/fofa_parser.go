@@ -16,27 +16,28 @@ var _ = reflect.Copy
 var _ = strconv.Itoa
 
 var parserATN = []uint16{
-	3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 14, 52, 4,
+	3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 14, 53, 4,
 	2, 9, 2, 4, 3, 9, 3, 4, 4, 9, 4, 4, 5, 9, 5, 3, 2, 3, 2, 3, 3, 3, 3, 3,
 	3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-	3, 3, 3, 3, 3, 5, 3, 30, 10, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 7,
-	3, 38, 10, 3, 12, 3, 14, 3, 41, 11, 3, 3, 4, 3, 4, 3, 4, 5, 4, 46, 10,
-	4, 3, 5, 3, 5, 5, 5, 50, 10, 5, 3, 5, 2, 3, 4, 6, 2, 4, 6, 8, 2, 2, 2,
-	54, 2, 10, 3, 2, 2, 2, 4, 29, 3, 2, 2, 2, 6, 42, 3, 2, 2, 2, 8, 49, 3,
-	2, 2, 2, 10, 11, 5, 4, 3, 2, 11, 3, 3, 2, 2, 2, 12, 13, 8, 3, 1, 2, 13,
-	14, 7, 10, 2, 2, 14, 15, 5, 4, 3, 2, 15, 16, 7, 11, 2, 2, 16, 30, 3, 2,
-	2, 2, 17, 18, 5, 6, 4, 2, 18, 19, 7, 8, 2, 2, 19, 20, 5, 8, 5, 2, 20, 30,
-	3, 2, 2, 2, 21, 22, 5, 6, 4, 2, 22, 23, 7, 9, 2, 2, 23, 24, 5, 8, 5, 2,
-	24, 30, 3, 2, 2, 2, 25, 26, 5, 6, 4, 2, 26, 27, 7, 7, 2, 2, 27, 28, 5,
-	8, 5, 2, 28, 30, 3, 2, 2, 2, 29, 12, 3, 2, 2, 2, 29, 17, 3, 2, 2, 2, 29,
-	21, 3, 2, 2, 2, 29, 25, 3, 2, 2, 2, 30, 39, 3, 2, 2, 2, 31, 32, 12, 7,
-	2, 2, 32, 33, 7, 5, 2, 2, 33, 38, 5, 4, 3, 8, 34, 35, 12, 6, 2, 2, 35,
-	36, 7, 6, 2, 2, 36, 38, 5, 4, 3, 7, 37, 31, 3, 2, 2, 2, 37, 34, 3, 2, 2,
-	2, 38, 41, 3, 2, 2, 2, 39, 37, 3, 2, 2, 2, 39, 40, 3, 2, 2, 2, 40, 5, 3,
-	2, 2, 2, 41, 39, 3, 2, 2, 2, 42, 45, 7, 12, 2, 2, 43, 44, 7, 3, 2, 2, 44,
-	46, 7, 12, 2, 2, 45, 43, 3, 2, 2, 2, 45, 46, 3, 2, 2, 2, 46, 7, 3, 2, 2,
-	2, 47, 50, 7, 4, 2, 2, 48, 50, 7, 13, 2, 2, 49, 47, 3, 2, 2, 2, 49, 48,
-	3, 2, 2, 2, 50, 9, 3, 2, 2, 2, 7, 29, 37, 39, 45, 49,
+	3, 3, 3, 3, 3, 3, 3, 5, 3, 31, 10, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+	3, 7, 3, 39, 10, 3, 12, 3, 14, 3, 42, 11, 3, 3, 4, 3, 4, 3, 4, 5, 4, 47,
+	10, 4, 3, 5, 3, 5, 5, 5, 51, 10, 5, 3, 5, 2, 3, 4, 6, 2, 4, 6, 8, 2, 2,
+	2, 56, 2, 10, 3, 2, 2, 2, 4, 30, 3, 2, 2, 2, 6, 43, 3, 2, 2, 2, 8, 50,
+	3, 2, 2, 2, 10, 11, 5, 4, 3, 2, 11, 3, 3, 2, 2, 2, 12, 13, 8, 3, 1, 2,
+	13, 14, 7, 10, 2, 2, 14, 15, 5, 4, 3, 2, 15, 16, 7, 11, 2, 2, 16, 31, 3,
+	2, 2, 2, 17, 18, 5, 6, 4, 2, 18, 19, 7, 8, 2, 2, 19, 20, 5, 8, 5, 2, 20,
+	31, 3, 2, 2, 2, 21, 22, 5, 6, 4, 2, 22, 23, 7, 9, 2, 2, 23, 24, 5, 8, 5,
+	2, 24, 31, 3, 2, 2, 2, 25, 26, 5, 6, 4, 2, 26, 27, 7, 7, 2, 2, 27, 28,
+	5, 8, 5, 2, 28, 31, 3, 2, 2, 2, 29, 31, 5, 8, 5, 2, 30, 12, 3, 2, 2, 2,
+	30, 17, 3, 2, 2, 2, 30, 21, 3, 2, 2, 2, 30, 25, 3, 2, 2, 2, 30, 29, 3,
+	2, 2, 2, 31, 40, 3, 2, 2, 2, 32, 33, 12, 8, 2, 2, 33, 34, 7, 5, 2, 2, 34,
+	39, 5, 4, 3, 9, 35, 36, 12, 7, 2, 2, 36, 37, 7, 6, 2, 2, 37, 39, 5, 4,
+	3, 8, 38, 32, 3, 2, 2, 2, 38, 35, 3, 2, 2, 2, 39, 42, 3, 2, 2, 2, 40, 38,
+	3, 2, 2, 2, 40, 41, 3, 2, 2, 2, 41, 5, 3, 2, 2, 2, 42, 40, 3, 2, 2, 2,
+	43, 46, 7, 12, 2, 2, 44, 45, 7, 3, 2, 2, 45, 47, 7, 12, 2, 2, 46, 44, 3,
+	2, 2, 2, 46, 47, 3, 2, 2, 2, 47, 7, 3, 2, 2, 2, 48, 51, 7, 4, 2, 2, 49,
+	51, 7, 13, 2, 2, 50, 48, 3, 2, 2, 2, 50, 49, 3, 2, 2, 2, 51, 9, 3, 2, 2,
+	2, 7, 30, 38, 40, 46, 50,
 }
 var literalNames = []string{
 	"", "'.'", "", "'&&'", "'||'", "'!='", "'='", "'=='", "'('", "')'",
@@ -519,6 +520,51 @@ func (s *BracketExpContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+type SgExpContext struct {
+	*QueryContext
+	sgatom IFofaValueContext
+}
+
+func NewSgExpContext(parser antlr.Parser, ctx antlr.ParserRuleContext) *SgExpContext {
+	var p = new(SgExpContext)
+
+	p.QueryContext = NewEmptyQueryContext()
+	p.parser = parser
+	p.CopyFrom(ctx.(*QueryContext))
+
+	return p
+}
+
+func (s *SgExpContext) GetSgatom() IFofaValueContext { return s.sgatom }
+
+func (s *SgExpContext) SetSgatom(v IFofaValueContext) { s.sgatom = v }
+
+func (s *SgExpContext) GetRuleContext() antlr.RuleContext {
+	return s
+}
+
+func (s *SgExpContext) FofaValue() IFofaValueContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*IFofaValueContext)(nil)).Elem(), 0)
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(IFofaValueContext)
+}
+
+func (s *SgExpContext) EnterRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(FOFAListener); ok {
+		listenerT.EnterSgExp(s)
+	}
+}
+
+func (s *SgExpContext) ExitRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(FOFAListener); ok {
+		listenerT.ExitSgExp(s)
+	}
+}
+
 type ScompareExpContext struct {
 	*QueryContext
 	propertyName  IFofaKeywordContext
@@ -692,7 +738,7 @@ func (p *FOFAParser) query(_p int) (localctx IQueryContext) {
 	var _alt int
 
 	p.EnterOuterAlt(localctx, 1)
-	p.SetState(27)
+	p.SetState(28)
 	p.GetErrorHandler().Sync(p)
 	switch p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 0, p.GetParserRuleContext()) {
 	case 1:
@@ -797,9 +843,21 @@ func (p *FOFAParser) query(_p int) (localctx IQueryContext) {
 			localctx.(*NoCompareExpContext).propertyValue = _x
 		}
 
+	case 5:
+		localctx = NewSgExpContext(p, localctx)
+		p.SetParserRuleContext(localctx)
+		_prevctx = localctx
+		{
+			p.SetState(27)
+
+			var _x = p.FofaValue()
+
+			localctx.(*SgExpContext).sgatom = _x
+		}
+
 	}
 	p.GetParserRuleContext().SetStop(p.GetTokenStream().LT(-1))
-	p.SetState(37)
+	p.SetState(38)
 	p.GetErrorHandler().Sync(p)
 	_alt = p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 2, p.GetParserRuleContext())
 
@@ -809,7 +867,7 @@ func (p *FOFAParser) query(_p int) (localctx IQueryContext) {
 				p.TriggerExitRuleEvent()
 			}
 			_prevctx = localctx
-			p.SetState(35)
+			p.SetState(36)
 			p.GetErrorHandler().Sync(p)
 			switch p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 1, p.GetParserRuleContext()) {
 			case 1:
@@ -817,22 +875,22 @@ func (p *FOFAParser) query(_p int) (localctx IQueryContext) {
 				localctx.(*AndLogicalExpContext).leftQuery = _prevctx
 
 				p.PushNewRecursionContext(localctx, _startState, FOFAParserRULE_query)
-				p.SetState(29)
+				p.SetState(30)
 
-				if !(p.Precpred(p.GetParserRuleContext(), 5)) {
-					panic(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 5)", ""))
+				if !(p.Precpred(p.GetParserRuleContext(), 6)) {
+					panic(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 6)", ""))
 				}
 				{
-					p.SetState(30)
+					p.SetState(31)
 
 					var _m = p.Match(FOFAParserAND)
 
 					localctx.(*AndLogicalExpContext).op = _m
 				}
 				{
-					p.SetState(31)
+					p.SetState(32)
 
-					var _x = p.query(6)
+					var _x = p.query(7)
 
 					localctx.(*AndLogicalExpContext).rightQuery = _x
 				}
@@ -842,22 +900,22 @@ func (p *FOFAParser) query(_p int) (localctx IQueryContext) {
 				localctx.(*OrLogicalExpContext).leftQuery = _prevctx
 
 				p.PushNewRecursionContext(localctx, _startState, FOFAParserRULE_query)
-				p.SetState(32)
+				p.SetState(33)
 
-				if !(p.Precpred(p.GetParserRuleContext(), 4)) {
-					panic(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 4)", ""))
+				if !(p.Precpred(p.GetParserRuleContext(), 5)) {
+					panic(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 5)", ""))
 				}
 				{
-					p.SetState(33)
+					p.SetState(34)
 
 					var _m = p.Match(FOFAParserOR)
 
 					localctx.(*OrLogicalExpContext).op = _m
 				}
 				{
-					p.SetState(34)
+					p.SetState(35)
 
-					var _x = p.query(5)
+					var _x = p.query(6)
 
 					localctx.(*OrLogicalExpContext).rightQuery = _x
 				}
@@ -865,7 +923,7 @@ func (p *FOFAParser) query(_p int) (localctx IQueryContext) {
 			}
 
 		}
-		p.SetState(39)
+		p.SetState(40)
 		p.GetErrorHandler().Sync(p)
 		_alt = p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 2, p.GetParserRuleContext())
 	}
@@ -962,20 +1020,20 @@ func (p *FOFAParser) FofaKeyword() (localctx IFofaKeywordContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(40)
+		p.SetState(41)
 		p.Match(FOFAParserFOFA_KEY)
 	}
-	p.SetState(43)
+	p.SetState(44)
 	p.GetErrorHandler().Sync(p)
 	_la = p.GetTokenStream().LA(1)
 
 	if _la == FOFAParserT__0 {
 		{
-			p.SetState(41)
+			p.SetState(42)
 			p.Match(FOFAParserT__0)
 		}
 		{
-			p.SetState(42)
+			p.SetState(43)
 			p.Match(FOFAParserFOFA_KEY)
 		}
 
@@ -1122,7 +1180,7 @@ func (p *FOFAParser) FofaValue() (localctx IFofaValueContext) {
 		}
 	}()
 
-	p.SetState(47)
+	p.SetState(48)
 	p.GetErrorHandler().Sync(p)
 
 	switch p.GetTokenStream().LA(1) {
@@ -1130,7 +1188,7 @@ func (p *FOFAParser) FofaValue() (localctx IFofaValueContext) {
 		localctx = NewBooleanContext(p, localctx)
 		p.EnterOuterAlt(localctx, 1)
 		{
-			p.SetState(45)
+			p.SetState(46)
 			p.Match(FOFAParserBOOLEAN)
 		}
 
@@ -1138,7 +1196,7 @@ func (p *FOFAParser) FofaValue() (localctx IFofaValueContext) {
 		localctx = NewStringContext(p, localctx)
 		p.EnterOuterAlt(localctx, 2)
 		{
-			p.SetState(46)
+			p.SetState(47)
 			p.Match(FOFAParserSTRING)
 		}
 
@@ -1166,10 +1224,10 @@ func (p *FOFAParser) Sempred(localctx antlr.RuleContext, ruleIndex, predIndex in
 func (p *FOFAParser) Query_Sempred(localctx antlr.RuleContext, predIndex int) bool {
 	switch predIndex {
 	case 0:
-		return p.Precpred(p.GetParserRuleContext(), 5)
+		return p.Precpred(p.GetParserRuleContext(), 6)
 
 	case 1:
-		return p.Precpred(p.GetParserRuleContext(), 4)
+		return p.Precpred(p.GetParserRuleContext(), 5)
 
 	default:
 		panic("No predicate with index: " + fmt.Sprint(predIndex))

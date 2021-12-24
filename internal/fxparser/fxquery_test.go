@@ -250,7 +250,9 @@ var successCase = []ps{
 		Source: `title="beijing"&&header="elastic"`,
 		Parse:  `title="beijing"&&header="elastic"`,
 	},
+}
 
+var fofaTx = []ps{
 	{
 		Source: `banner`,
 		Parse:  `"banner"`,

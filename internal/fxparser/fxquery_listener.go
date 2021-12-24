@@ -8,7 +8,6 @@ import (
 	"fofax/internal/fxparser/stack"
 	"fofax/internal/printer"
 	"github.com/antlr/antlr4/runtime/Go/antlr"
-	"os"
 	"strings"
 )
 
@@ -58,14 +57,14 @@ func (ql *FxQueryListener) ExitAndLogicalExp(c *parser.AndLogicalExpContext) {
 	ql.Stack.Push(fmt.Sprintf("%s&&%s", left, right))
 }
 
+func (ql *FxQueryListener) ExitSgExp(c *parser.SgExpContext) {
+	ql.Stack.Push(c.GetText())
+}
+
 func (ql *FxQueryListener) ExitOrLogicalExp(c *parser.OrLogicalExpContext) {
 	right := ql.Stack.Pop()
 	left := ql.Stack.Pop()
 	ql.Stack.Push(fmt.Sprintf("%s||%s", left, right))
-}
-func (ql *FxQueryListener) VisitErrorNode(node antlr.ErrorNode) {
-	fmt.Printf("error:%s", node.GetText())
-	os.Exit(1)
 }
 
 func parseTree(query string) (parser.IStartContext, error) {
@@ -95,8 +94,11 @@ func PrintParserTree(query string) {
 	if errListener.errors > 0 {
 		printer.Fatal("found syntax errors in input")
 	}
-	fmt.Println(tree.GetText())
-	fmt.Println(tree.ToStringTree([]string{""}, fofaxParser))
+	fmt.Println("Source: ", query)
+	fmt.Println("Parse: ")
+	printer.Infof("Source: %s", query)
+	printer.Infof("Parse: %s", tree.GetText())
+	printer.Infof("Tree: %s", tree.ToStringTree([]string{""}, fofaxParser))
 }
 
 func Query(query string) string {

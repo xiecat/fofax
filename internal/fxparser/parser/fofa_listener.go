@@ -23,6 +23,9 @@ type FOFAListener interface {
 	// EnterBracketExp is called when entering the bracketExp production.
 	EnterBracketExp(c *BracketExpContext)
 
+	// EnterSgExp is called when entering the sgExp production.
+	EnterSgExp(c *SgExpContext)
+
 	// EnterScompareExp is called when entering the scompareExp production.
 	EnterScompareExp(c *ScompareExpContext)
 
@@ -52,6 +55,9 @@ type FOFAListener interface {
 
 	// ExitBracketExp is called when exiting the bracketExp production.
 	ExitBracketExp(c *BracketExpContext)
+
+	// ExitSgExp is called when exiting the sgExp production.
+	ExitSgExp(c *SgExpContext)
 
 	// ExitScompareExp is called when exiting the scompareExp production.
 	ExitScompareExp(c *ScompareExpContext)

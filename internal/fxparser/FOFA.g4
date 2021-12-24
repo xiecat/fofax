@@ -13,6 +13,7 @@ query
    | propertyName=fofaKeyword op=EQ propertyValue=fofaValue                    #compareExp
    | propertyName=fofaKeyword op=SEQ propertyValue=fofaValue                   #scompareExp
    | propertyName=fofaKeyword op=NOT propertyValue=fofaValue                   #noCompareExp
+   | sgatom=fofaValue              #sgExp
    ;
 
 fofaKeyword
@@ -100,7 +101,7 @@ FOFA_KEY
 
 STRING
    : '"' (ESC | ~ ["\\])* '"'
-//   | ([a-zA-Z0-9.]|('\\' ["\\/bfnrt]))*
+   | ([a-zA-Z0-9.]|('\\' ["\\/bfnrt]))*
    ;
 
 WS: [\t ]+ -> skip;

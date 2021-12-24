@@ -51,6 +51,12 @@ func (s *BaseFOFAListener) EnterBracketExp(ctx *BracketExpContext) {}
 // ExitBracketExp is called when production bracketExp is exited.
 func (s *BaseFOFAListener) ExitBracketExp(ctx *BracketExpContext) {}
 
+// EnterSgExp is called when production sgExp is entered.
+func (s *BaseFOFAListener) EnterSgExp(ctx *SgExpContext) {}
+
+// ExitSgExp is called when production sgExp is exited.
+func (s *BaseFOFAListener) ExitSgExp(ctx *SgExpContext) {}
+
 // EnterScompareExp is called when production scompareExp is entered.
 func (s *BaseFOFAListener) EnterScompareExp(ctx *ScompareExpContext) {}
 
