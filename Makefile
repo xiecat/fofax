@@ -41,7 +41,7 @@ build:  fmt   	## build current target
 	@goreleaser build --snapshot --rm-dist  --single-target -f scripts/gorelease.yml
 
 .PHONY: buildf
-buildf:  fmt fparse  	## build fparse and build current target
+buildf:  fmt fparse test 	## build fparse and build current target
 	@echo "$(CGREEN)fofax build fparse and build snapshot no publish ...$(CEND)"
 	@goreleaser build --snapshot --rm-dist  --single-target -f scripts/gorelease.yml
 .PHONY: buildall

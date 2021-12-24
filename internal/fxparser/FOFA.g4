@@ -80,6 +80,8 @@ FOFA_KEY
    | 'server'
    | 'app'
    | 'asn'
+   | 'cname'
+   | 'cname_domain'
    | 'is_fraud'
    | 'is_honeypot'
    | 'is_ipv6'
@@ -98,6 +100,7 @@ FOFA_KEY
 
 STRING
    : '"' (ESC | ~ ["\\])* '"'
+//   | ([a-zA-Z0-9.]|('\\' ["\\/bfnrt]))*
    ;
 
 WS: [\t ]+ -> skip;
