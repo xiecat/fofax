@@ -567,7 +567,7 @@ source: 语句来源
 
 ```yaml
 id: fx-2021-01
-query: 查询的字符串用于fx="jupyter Unauth" eg:(jupyter Unauth)
+query: redteam-info-gathering
 rule_name: 红队信息收集
 rule_english: redteam-info-gathering
 description: 使用fofa针对某个目标进行红队常见的高关注CMS/OA系统的信息收集
