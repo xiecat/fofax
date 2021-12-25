@@ -179,15 +179,15 @@ fofax -use
 ├───────────────────────────────────────────┼──────────────────────────────────────────────────┤
 │ title="beijing"                           │ 从标题中搜索"北京"                               	  │
 │ header="elastic"                          │ 从http头中搜索"elastic"                          	 │
-│ body="网络空间测绘"                       	 │ 从html正文中搜索"网络空间测绘"                   	  │
+│ body="网络空间测绘"                         │ 从html正文中搜索"网络空间测绘"                       │
 │ title="beijing"                           │ 从标题中搜索"北京"                              	  │
-│ header="elastic"                          │ 从http头中搜索"elastic"                          	 │
-│ body="网络空间测绘"                       	 │ 从html正文中搜索"网络空间测绘"                   	   │
-│ fid="kIlUsGZ8pT6AtgKSKD63iw=="            │ 查找相同的网站指纹                               	   │
-│ domain="google.com"                       │ 搜索根域名带有google.com的网站                   		│
-│ icp="京ICP证030173号"                     	│ 查找备案号为"京ICP证030173号"的网站              	 │
-│ js_name="js/jquery.js"                    │ 查找网站正文中包含js/jquery.js的资产             		│
-│ js_md5="82ac3f14327a8b7ba49baa208d4eaa15" │ 查找js源码与之匹配的资产                         		│
+│ header="elastic"                          │ 从http头中搜索"elastic"                            │
+│ body="网络空间测绘"                         │ 从html正文中搜索"网络空间测绘"                       │
+│ fid="kIlUsGZ8pT6AtgKSKD63iw=="            │ 查找相同的网站指纹                               	  │
+│ domain="google.com"                       │ 搜索根域名带有google.com的网站                   	  │
+│ icp="京ICP证030173号"                      │ 查找备案号为"京ICP证030173号"的网站                  │
+│ js_name="js/jquery.js"                    │ 查找网站正文中包含js/jquery.js的资产             	   │
+│ js_md5="82ac3f14327a8b7ba49baa208d4eaa15" │ 查找js源码与之匹配的资产                         	   │
 └───────────────────────────────────────────┴──────────────────────────────────────────────────┘
 ```
 
@@ -272,7 +272,7 @@ echo 'app="APACHE-Solr"' | fofax -fs 5
 添加 `-e` 参数，排除蜜罐的干扰。
 
 ```console
-echo 'app="APACHE-Solr"' | fofax -fs 10 -e                                           system: ruby 2.6.3p62
+echo 'app="APACHE-Solr"' | fofax -fs 10 -e
 2021/12/23 22:56:14 [SUCC] Fetch Data From FoFa: [10/30849]
 13.126.128.253:80
 185.22.235.14:8983
@@ -286,7 +286,7 @@ echo 'app="APACHE-Solr"' | fofax -fs 10 -e                                      
 添加 `-ec` 参数，排除中国的数据。
 
 ```console
-echo 'app="APACHE-Solr"' | fofax -fs 10 -ec                                            system: ruby 2.6.3p62
+echo 'app="APACHE-Solr"' | fofax -fs 10 -ec
 2021/12/23 22:56:36 [SUCC] Fetch Data From FoFa: [10/26044]
 15.113.170.101:8443
 52.58.201.109:80
