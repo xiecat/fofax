@@ -17,7 +17,7 @@ fofax 是一款使用 go 编写的命令行 fofa 查询工具，定位于命令�
 - 更多（等待您使用后的反馈）……
 
 
-除此之外还可以自定义 fx 语法查询，用户可以通过 yaml 格式的配置文件编写自己的特定fx查询规则。
+除此之外还可以自定义 fx 语法查询，用户可以通过 yaml 格式的配置文件编写自己的特定 fx 查询规则。
 
 ## 0x01 下载
 
@@ -411,7 +411,7 @@ owa2.leiqiang8.cn:80
 
 在使用 fofa 做信息收集或者其他事情的时候，有可能这条查询语句会非常非常的长，非常不好记忆，我们总不可能专门拿个小本本去记这个 fofa 查询语句吧。
 
-这个时候，就可以使用 fofax 的 fx 功能。目前 fofax 已经内置几十条fx语法查询规则，用户可直接使用相应参数进行查询。同时用户还可以通过 yaml 格式的配置文件，编写自己特定的 fx 语法查询规则。
+这个时候，就可以使用 fofax 的 fx 功能。目前 fofax 已经内置几十条 fx 语法查询规则，用户可直接使用相应参数进行查询。同时用户还可以通过 yaml 格式的配置文件，编写自己特定的 fx 语法查询规则。
 
 #### 显示内置 fx 查询语句
 
@@ -430,17 +430,17 @@ owa2.leiqiang8.cn:80
 │ Id            │ Query                          │ RuleName                       │ Author │ Tag         │ Type   │
 ├───────────────┼────────────────────────────────┼────────────────────────────────┼────────┼─────────────┼────────┤
 │ fx-2021-1001  │ google-reverse                 │ Google反代服务器               │ fofa   │ google      │ 内置   │
-│ fx-2021-1002  │ python-simplehttp              │ Python SimpleHTTP              │ fofa   │ python      │ 内置   │
+│ fx-2021-1002  │ python-simplehttp              │ Python SimpleHTTP              │ fofa  │ python      │ 内置   │
 │ fx-2021-1003  │ data-leak                      │ 社工库                         │ fofa   │ fun         │ 内置   │
 │ fx-2021-1004  │ hfs-rce                        │ 存在命令执行的HFS服务          │ fofa   │ fun         │ 内置   │
 │ fx-2021-1005  │ satellite-ftp                  │ 一键日卫星FTP？                │ fofa   │ fun         │ 内置   │
-│ fx-2021-1006  │ mk-mining                      │ mk路由器全球挖矿感染           │ fofa   │ fun         │ 内置   │
-│ fx-2021-1007  │ ss-manager-login               │ ss-Manager 登录                │ fofa   │ fun         │ 内置   │
+│ fx-2021-1006  │ mk-mining                      │ mk路由器全球挖矿感染            │ fofa   │ fun         │ 内置   │
+│ fx-2021-1007  │ ss-manager-login               │ ss-Manager 登录               │ fofa   │ fun         │ 内置   │
 │ fx-2021-1008  │ heating-monitor                │ 供暖监控系统                   │ fofa   │ fun         │ 内置   │
 │ fx-2021-1009  │ free-proxy                     │ 免费代理池                     │ fofa   │ fun         │ 内置   │
 │ fx-2021-1010  │ honeypot                       │ 蜜罐                           │ fofa   │ fun         │ 内置   │
-│ fx-2021-1011  │ hacked-website                 │ 被挂黑的站点                   │ fofa   │ fun         │ 内置   │
-│ fx-2021-1012  │ jupyter-unauth                 │ Jupyter 未授权                 │ xiecat │ unauth      │ 内置   │
+│ fx-2021-1011  │ hacked-website                 │ 被挂黑的站点                    │ fofa   │ fun         │ 内置   │
+│ fx-2021-1012  │ jupyter-unauth                 │ Jupyter 未授权                  │ xiecat │ unauth      │ 内置   │
 │ fx-2021-11001 │ APACHE-ActiveMQ                │ APACHE ActiveMQ                │ fofa   │ log4j2,fofa │ 内置   │
 │ fx-2021-11002 │ Apache_OFBiz                   │ Apache OFBiz                   │ fofa   │ log4j2,fofa │ 内置   │
 │ fx-2021-11003 │ Jenkins                        │ Jenkins                        │ fofa   │ log4j2,fofa │ 内置   │
