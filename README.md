@@ -10,7 +10,7 @@ fofax 是一款使用 go 编写的命令行 fofa 查询工具，定位于命令�
 - Icon Hash 本地/在线计算查询
 - URL 证书计算查询
 - 排除蜜罐干扰
-- 排除国内的资产
+- 排除国内资产
 - 一键浏览器中打开
 - 联动其他安全工具
 - 更多（等待您使用后的反馈）……
@@ -23,14 +23,6 @@ fofax 是一款使用 go 编写的命令行 fofa 查询工具，定位于命令�
 点击 [Releases下载链接](https://github.com/xiecat/fofax/releases) ，按照自己的系统来选择相应的发行版本。
 
 ## 0x02 配置
-
-### Windows
-
-解压压缩包，第一次运行 fofax.exe 会在同级目录下生成一个 fofax.yaml 的配置文件。
-
-![windows](./docs/images/windows.png)
-
-然后打开此配置文件，并填写 `email` 和 `key`。
 
 ### macOS/Linux
 
@@ -71,6 +63,13 @@ fofa-email: ******@gmail.com
 fofakey: ***************
 ```
 
+### Windows
+
+解压压缩包，第一次运行 fofax.exe 会在同级目录下生成一个 fofax.yaml 的配置文件。
+
+![windows](./docs/images/windows.png)
+
+然后打开此配置文件，并填写 `email` 和 `key`。
 
 ## 0x03 使用方法
 
@@ -266,7 +265,7 @@ echo 'app="APACHE-Solr"' | fofax -fs 5
 
 如上只输出了4条数据，是因为 fofax 自动对重复的数据进行了去重（不信可以看 fofa API 的返回数据）。
 
-![fofaapi](./docs/images/fofaapi.png)
+<img src="./docs/images/fofaapi.png" alt="fofaapi" style="zoom:50%;" />
 
 ### 排除查询
 
