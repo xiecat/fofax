@@ -8,12 +8,13 @@ import (
 )
 
 type fgx struct {
-	Usage   string
-	Comment string
+	Usage     string
+	Comment   string
+	CommentEn string
 }
 
 func (f *fgx) String() string {
-	return fmt.Sprintf("Comment: %s\nUsage: %s\n", f.Comment, f.Usage)
+	return fmt.Sprintf("Comment: %s\nCommentEn: %s\nUsage: %s\n", f.Comment, f.CommentEn, f.Usage)
 }
 
 var UsageLists = []fgx{
