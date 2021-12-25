@@ -635,3 +635,9 @@ CVE-2021-43798 Grafana 未授权目录遍历。
 将 fofax 获取的数据传递到 nuclei，然后使用 CVE-2021-43798 Template 批量漏洞扫描。
 
 ![fofax&nuclei](./docs/images/fofax&nuclei.png)
+
+
+
+## Stargazers
+
+[![Stargazers over time](https://starchart.cc/xiecat/fofax.svg)](https://starchart.cc/xiecat/fofax)
