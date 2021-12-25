@@ -130,6 +130,7 @@ func (fx FoFaxQuery) SearchOrTable(id, query, ruleName, ruleEnglish, Author, tag
 			})
 		}
 	}
+	printer.Infof("Total: %d", len(results))
 	if len(results) == 0 {
 		table.Output([]Tinfo{{"Info", "Not found"}})
 	}
@@ -164,6 +165,7 @@ func (fx FoFaxQuery) SearchTable(id, query, ruleName, ruleEnglish, Author, tag s
 			})
 		}
 	}
+	printer.Infof("Total: %d", len(results))
 	if len(results) == 0 {
 		table.Output([]Tinfo{{"Info", "Not found"}})
 	}
@@ -180,6 +182,7 @@ func (fx FoFaxQuery) ListTags() {
 		}
 
 	}
+	printer.Infof("Total: %d", len(tlist))
 	table.Output(tlist)
 }
 func (fx FoFaxQuery) SearchSingleTable(query string) {
