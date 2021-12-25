@@ -37,16 +37,15 @@ fofax 是一款使用 go 编写的命令行 fofa 查询工具，定位于命令�
 
 将下载下来的 fofax 压缩包解压，并建议放在 `/usr/local/bin/` 目录下，这样的目的是在任何一个目录都可以运行 fofax 命令。
 
-```bash
+```console
 tar -zxvf ~/Downloads/fofax_v0.1.10_darwin_amd64.tar.gz -C /usr/local/bin/
 ```
 
-![tar](./docs/images/tar.png)
 
 第一次运行 fofax 命令会自动生成一个配置文件，位于 `~/.config/fofax/fofax.yaml`。
 
-```bash
-➜  ~  fofax
+```console
+fofax
 
       ____        ____       _  __
      / __/____   / __/____ _| |/ /
@@ -61,11 +60,18 @@ tar -zxvf ~/Downloads/fofax_v0.1.10_darwin_amd64.tar.gz -C /usr/local/bin/
 
 接下来就是对此配置文件进行配置了，一般来说只需要配置完 `email` 和 `key` 就可以了。
 
-```bash
+```console
 vim ~/.config/fofax/fofax.yaml
 ```
 
-![confkey](./docs/images/confkey.png)
+```console
+# fofa api email
+fofa-email: ******@gmail.com
+
+# fofa api key
+fofakey: ***************
+```
+
 
 ## 0x03 使用方法
 
@@ -73,8 +79,8 @@ vim ~/.config/fofax/fofax.yaml
 
 不带任何参数时，除了会输出 ASCII Logo，还会随机输出一条使用 Tips。
 
-```bash
-➜  ~  fofax
+```console
+fofax
 
       ____        ____       _  __
      / __/____   / __/____ _| |/ /
@@ -95,8 +101,8 @@ Usage: fofax -q 'fx="google-reverse"' -fe
 
 可以使用 `fofax -h` 显示帮助信息。
 
-```bash
-➜  ~  fofax -h
+```console
+fofax -h
 
       ____        ____       _  __
      / __/____   / __/____ _| |/ /
@@ -159,8 +165,8 @@ OTHER OPTIONS:
 
 使用 `-use` 参数，显示 FOFA 语法查询规则。
 
-```bash
-➜  ~  fofax -use
+```console
+fofax -use
 
       ____        ____       _  __
      / __/____   / __/____ _| |/ /
@@ -191,8 +197,8 @@ OTHER OPTIONS:
 
 有如下两种方式查询 `app="APACHE-Solr"`，不指定数量默认会输出100个 host，并且默认会对数据进行去重。
 
-```bash
-➜  ~  fofax -q 'app="APACHE-Solr"'
+```console
+fofax -q 'app="APACHE-Solr"'
 
       ____        ____       _  __
      / __/____   / __/____ _| |/ /
@@ -224,8 +230,8 @@ OTHER OPTIONS:
 …………
 ```
 
-```bash
-➜  ~  echo 'app="APACHE-Solr"' | fofax
+```console
+echo 'app="APACHE-Solr"' | fofax
 2021/12/23 20:17:59 [SUCC] Fetch Data From FoFa: [100/30830]
 54.114.20.168:8443
 193.8.4.43:8983
@@ -250,8 +256,8 @@ OTHER OPTIONS:
 
 ### 指定查询数量
 
-```bash
-➜  ~  echo 'app="APACHE-Solr"' | fofax -fs 5
+```console
+echo 'app="APACHE-Solr"' | fofax -fs 5
 2021/12/23 20:19:00 [SUCC] Fetch Data From FoFa: [5/30830]
 13.57.71.190:8443
 165.22.215.32:8983
@@ -267,8 +273,8 @@ OTHER OPTIONS:
 
 添加 `-e` 参数，排除蜜罐的干扰。
 
-```bash
-➜  ~  echo 'app="APACHE-Solr"' | fofax -fs 10 -e                                           system: ruby 2.6.3p62
+```console
+echo 'app="APACHE-Solr"' | fofax -fs 10 -e                                           system: ruby 2.6.3p62
 2021/12/23 22:56:14 [SUCC] Fetch Data From FoFa: [10/30849]
 13.126.128.253:80
 185.22.235.14:8983
@@ -281,8 +287,8 @@ OTHER OPTIONS:
 
 添加 `-ec` 参数，排除中国的数据。
 
-```bash
-➜  ~  echo 'app="APACHE-Solr"' | fofax -fs 10 -ec                                            system: ruby 2.6.3p62
+```console
+echo 'app="APACHE-Solr"' | fofax -fs 10 -ec                                            system: ruby 2.6.3p62
 2021/12/23 22:56:36 [SUCC] Fetch Data From FoFa: [10/26044]
 15.113.170.101:8443
 52.58.201.109:80
@@ -297,8 +303,8 @@ OTHER OPTIONS:
 
 添加 `-ffi` 参数，根据查询语句直接获取对应的 URL（[scheme]://[host]:[port]）。
 
-```bash
-➜  ~  echo 'app="APACHE-Solr"' | fofax -fs 5
+```console
+echo 'app="APACHE-Solr"' | fofax -fs 5
 2021/12/23 20:21:03 [SUCC] Fetch Data From FoFa: [5/30830]
 https://184.73.40.143:8443
 http://120.24.42.244:8983
@@ -308,8 +314,8 @@ http://165.22.215.32:8983
 
 ### 获取 Title
 
-```bash
-➜  ~  echo 'domain="baidu.com" && status_code="200"' | fofax -fs 10 -fto
+```console
+echo 'domain="baidu.com" && status_code="200"' | fofax -fs 10 -fto
 2021/12/23 20:21:19 [SUCC] Fetch Data From FoFa: [10/1124]
 https://home.baidu.com [关于百度]
 http://research.baidu.com [Baidu Research]
@@ -327,15 +333,23 @@ http://usa.baidu.com [Baidu USA]
 
 添加 `-debug` 参数，开启 Debug 详细模式。
 
-```bash
+```console
 echo 'app="APACHE-Solr"' | fofax -fs 5 -ffi -debug
+2021/12/25 21:28:57 [DEBUG] FoFa Size : 5
+2021/12/25 21:28:57 [DEBUG] FoFa Query of: app="APACHE-Solr"
+2021/12/25 21:28:57 [DEBUG] https://fofa.so/api/v1/search/all?email=**********@gmail.com&key=**************************&qbase64=YXBwPSJBUEFDSEUtU29sciI=&size=5&page=1&fields=protocol,ip,port,host
+2021/12/25 21:28:57 [DEBUG] Resp Time: 432/millis
+2021/12/25 21:28:57 [SUCC] Fetch Data From FoFa: [5/30942]
+http://35.183.115.103
+http://3.17.203.145:8983
+http://195.201.119.15:49154
+https://18.169.23.120
+http://174.138.127.51:8983
 ```
-
-![debug](./docs/images/debug.png)
 
 ### 浏览器中打开
 
-```bash
+```console
 echo 'app="APACHE-Solr"' | fofax -open
 ```
 
@@ -345,8 +359,8 @@ echo 'app="APACHE-Solr"' | fofax -open
 
 两种方式，第一种是直接根据提供 icon 的 URL 来查询。
 
-```bash
-➜  ~  fofax -iu https://www.baidu.com/favicon.ico -fs 5
+```console
+fofax -iu https://www.baidu.com/favicon.ico -fs 5
 
       ____        ____       _  __
      / __/____   / __/____ _| |/ /
@@ -366,9 +380,9 @@ xueshu.mrsb.tk:80
 
 第二种是根据本地 icon 文件，来计算 hash 并查询。
 
-```bash
-➜  ~  wget https://www.baidu.com/favicon.ico
-➜  ~  fofax -if favicon.ico -fs 5
+```console
+wget https://www.baidu.com/favicon.ico
+fofax -if favicon.ico -fs 5
 
       ____        ____       _  __
      / __/____   / __/____ _| |/ /
@@ -388,8 +402,8 @@ xueshu.mrsb.tk:80
 
 ### 计算证书并查询
 
-```bash
-➜  ~  fofax -fs 5 -uc https://www.baidu.com/
+```console
+fofax -fs 5 -uc https://www.baidu.com/
 
       ____        ____       _  __
      / __/____   / __/____ _| |/ /
@@ -415,8 +429,8 @@ owa2.leiqiang8.cn:80
 
 #### 显示内置 fx 查询语句
 
-```bash
-➜  ~  fofax -l
+```console
+fofax -l
 
       ____        ____       _  __
      / __/____   / __/____ _| |/ /
@@ -454,8 +468,8 @@ owa2.leiqiang8.cn:80
 
 ### 列出 fx 语句的详细内容
 
-```bash
-➜  ~  fofax -ss fx-2021-1001
+```console
+fofax -ss fx-2021-1001
 
       ____        ____       _  __
      / __/____   / __/____ _| |/ /
@@ -484,7 +498,7 @@ fx-2021-1001 fx-2021-1001
 
 ### 添加 `-fe` 参数通过 fx 语法进行查询
 
-```bash
+```console
 [~] fofax -q 'fx="google-reverse"' -fe -fs 5
 
       ____        ____       _  __
@@ -506,8 +520,8 @@ fx-2021-1001 fx-2021-1001
 
 ### 浏览器中直接打开
 
-```bash
-➜  ~  fofax -q 'fx="google-reverse"' -fe -open
+```console
+fofax -q 'fx="google-reverse"' -fe -open
 
       ____        ____       _  __
      / __/____   / __/____ _| |/ /
@@ -529,8 +543,8 @@ fx-2021-1001 fx-2021-1001
 
 使用 `-g` 并指定生成的文件名指定路径，这样便生成了一个模版文件。
 
-```bash
-➜  ~  fofax -g .config/fofax/fxrules/info-gathering.yaml
+```console
+fofax -g .config/fofax/fxrules/info-gathering.yaml
 
       ____        ____       _  __
      / __/____   / __/____ _| |/ /
@@ -545,7 +559,7 @@ fx-2021-1001 fx-2021-1001
 
 查看此 yaml 文件，其内容如下。
 
-```bash
+```console
 id: fx-2021-01
 query: 查询的字符串用于fx="jupyter Unauth" eg:(jupyter Unauth)
 rule_name: 规则名称 eg:(jupyter 未授权)
@@ -581,11 +595,29 @@ source:
 
 下面就可以使用此 fx 查询规则了。
 
-```bash
+```console
 fofax -q 'fx="redteam-info-gathering"' -fe -ffi
-```
 
-![fx-info-gathering](./docs/images/fx-info-gathering.png)
+      ____        ____       _  __
+     / __/____   / __/____ _| |/ /
+    / /_ / __ \ / /_ / __ `/|   /
+   / __// /_/ // __// /_/ //   |
+  /_/   \____//_/   \__,_//_/|_|
+                                    0.1.10
+                         fofax.xiecat.fun
+
+2021/12/25 21:31:01 [SUCC] fx query id:redteam-info-gathering
+2021/12/25 21:31:01 [SUCC] Fetch Data From FoFa: [27/27]
+http://60.205.169.36:9080
+https://43.243.13.187
+http://806f52.ylhskhgyn.com
+https://119.28.47.98:8443
+http://124.70.197.255:8088
+https://223.72.236.165
+http://192.144.212.92:8080
+https://114.255.204.149
+......
+```
 
 此查询不可以说不方便。
 
