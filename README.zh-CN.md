@@ -2,6 +2,9 @@
 
 [![Latest release](https://img.shields.io/github/v/release/xiecat/fofax)](https://github.com/xiecat/fofax/releases/latest)![GitHub Release Date](https://img.shields.io/github/release-date/xiecat/fofax)![GitHub All Releases](https://img.shields.io/github/downloads/xiecat/fofax/total)[![GitHub issues](https://img.shields.io/github/issues/xiecat/fofax)](https://github.com/xiecat/fofax/issues)
 
+
+[:ledger: English README](https://github.com/xiecat/fofax/blob/main/README.md)   |   [:pushpin: Releases Download](https://github.com/xiecat/fofax/releases) 
+
 ## 0x00 简介
 
 fofax 是一款使用 go 编写的命令行 fofa 查询工具，定位于命令行，特点是简单并快速。目前已拥有如下功能：
@@ -43,7 +46,7 @@ fofax
     / /_ / __ \ / /_ / __ `/|   /
    / __// /_/ // __// /_/ //   |
   /_/   \____//_/   \__,_//_/|_|
-                                    0.1.11
+                              
                          fofax.xiecat.fun
 
 2021/12/23 21:21:28 [SUCC] create config file /Users/user/.config/fofax/fofax.yaml. please modify and use
@@ -81,7 +84,7 @@ fofax
     / /_ / __ \ / /_ / __ `/|   /
    / __// /_/ // __// /_/ //   |
   /_/   \____//_/   \__,_//_/|_|
-                                    0.1.11
+                              
                          fofax.xiecat.fun
 
 fofaX is a command line fofa query tool, simple is the best!
@@ -97,14 +100,6 @@ Usage: fofax -q 'fx="google-reverse"' -fe
 
 ```console
 fofax -h
-
-      ____        ____       _  __
-     / __/____   / __/____ _| |/ /
-    / /_ / __ \ / /_ / __ `/|   /
-   / __// /_/ // __// /_/ //   |
-  /_/   \____//_/   \__,_//_/|_|
-                                    0.1.11
-                         fofax.xiecat.fun
 
 fofaX is a command line fofa query tool, simple is the best!
 
@@ -162,14 +157,6 @@ OTHER OPTIONS:
 ```console
 fofax -use
 
-      ____        ____       _  __
-     / __/____   / __/____ _| |/ /
-    / /_ / __ \ / /_ / __ `/|   /
-   / __// /_/ // __// /_/ //   |
-  /_/   \____//_/   \__,_//_/|_|
-                                    0.1.11
-                         fofax.xiecat.fun
-
 ┌───────────────────────────────────────────┬──────────────────────────────────────────────────┐
 │ Query                                     │ Explanation                                      │
 ├───────────────────────────────────────────┼──────────────────────────────────────────────────┤
@@ -193,14 +180,6 @@ fofax -use
 
 ```console
 fofax -q 'app="APACHE-Solr"'
-
-      ____        ____       _  __
-     / __/____   / __/____ _| |/ /
-    / /_ / __ \ / /_ / __ `/|   /
-   / __// /_/ // __// /_/ //   |
-  /_/   \____//_/   \__,_//_/|_|
-                                    0.1.11
-                         fofax.xiecat.fun
 
 2021/12/23 20:17:32 [SUCC] Fetch Data From FoFa: [100/30830]
 54.114.20.168:8443
@@ -335,14 +314,6 @@ echo 'app="APACHE-Solr"' | fofax -open
 ```console
 fofax -iu https://www.baidu.com/favicon.ico -fs 5
 
-      ____        ____       _  __
-     / __/____   / __/____ _| |/ /
-    / /_ / __ \ / /_ / __ `/|   /
-   / __// /_/ // __// /_/ //   |
-  /_/   \____//_/   \__,_//_/|_|
-                                    0.1.11
-                         fofax.xiecat.fun
-
 2021/12/23 20:21:59 [SUCC] Fetch Data From FoFa: [5/13284]
 47.98.104.77:8088
 154.39.217.22:80
@@ -357,14 +328,6 @@ xueshu.mrsb.tk:80
 wget https://www.baidu.com/favicon.ico
 fofax -if favicon.ico -fs 5
 
-      ____        ____       _  __
-     / __/____   / __/____ _| |/ /
-    / /_ / __ \ / /_ / __ `/|   /
-   / __// /_/ // __// /_/ //   |
-  /_/   \____//_/   \__,_//_/|_|
-                                    0.1.11
-                         fofax.xiecat.fun
-
 2021/12/23 21:25:24 [SUCC] Fetch Data From FoFa: [5/13284]
 47.98.104.77:8088
 154.39.217.22:80
@@ -377,14 +340,6 @@ xueshu.mrsb.tk:80
 
 ```console
 fofax -fs 5 -uc https://www.baidu.com/
-
-      ____        ____       _  __
-     / __/____   / __/____ _| |/ /
-    / /_ / __ \ / /_ / __ `/|   /
-   / __// /_/ // __// /_/ //   |
-  /_/   \____//_/   \__,_//_/|_|
-                                    0.1.11
-                         fofax.xiecat.fun
 
 2021/12/23 21:29:54 [SUCC] Fetch Data From FoFa: [5/361619]
 180.97.93.146:443
@@ -405,38 +360,29 @@ owa2.leiqiang8.cn:80
 ```console
 fofax -l
 
-      ____        ____       _  __
-     / __/____   / __/____ _| |/ /
-    / /_ / __ \ / /_ / __ `/|   /
-   / __// /_/ // __// /_/ //   |
-  /_/   \____//_/   \__,_//_/|_|
-                                    0.1.11
-                         fofax.xiecat.fun
-
-┌───────────────┬────────────────────────────────┬────────────────────────────────┬────────┬─────────────┬────────┐
-│ Id            │ Query                          │ RuleName                       │ Author │ Tag         │ Type   │
-├───────────────┼────────────────────────────────┼────────────────────────────────┼────────┼─────────────┼────────┤
-│ fx-2021-1001  │ google-reverse                 │ Google反代服务器               │ fofa   │ google      │ 内置   │
-│ fx-2021-1002  │ python-simplehttp              │ Python SimpleHTTP              │ fofa  │ python      │ 内置   │
-│ fx-2021-1003  │ data-leak                      │ 社工库                         │ fofa   │ fun         │ 内置   │
-│ fx-2021-1004  │ hfs-rce                        │ 存在命令执行的HFS服务          │ fofa   │ fun         │ 内置   │
-│ fx-2021-1005  │ satellite-ftp                  │ 一键日卫星FTP？                │ fofa   │ fun         │ 内置   │
-│ fx-2021-1006  │ mk-mining                      │ mk路由器全球挖矿感染            │ fofa   │ fun         │ 内置   │
-│ fx-2021-1007  │ ss-manager-login               │ ss-Manager 登录               │ fofa   │ fun         │ 内置   │
-│ fx-2021-1008  │ heating-monitor                │ 供暖监控系统                   │ fofa   │ fun         │ 内置   │
-│ fx-2021-1009  │ free-proxy                     │ 免费代理池                     │ fofa   │ fun         │ 内置   │
-│ fx-2021-1010  │ honeypot                       │ 蜜罐                           │ fofa   │ fun         │ 内置   │
-│ fx-2021-1011  │ hacked-website                 │ 被挂黑的站点                    │ fofa   │ fun         │ 内置   │
-│ fx-2021-1012  │ jupyter-unauth                 │ Jupyter 未授权                  │ xiecat │ unauth      │ 内置   │
-│ fx-2021-11001 │ APACHE-ActiveMQ                │ APACHE ActiveMQ                │ fofa   │ log4j2,fofa │ 内置   │
-│ fx-2021-11002 │ Apache_OFBiz                   │ Apache OFBiz                   │ fofa   │ log4j2,fofa │ 内置   │
-│ fx-2021-11003 │ Jenkins                        │ Jenkins                        │ fofa   │ log4j2,fofa │ 内置   │
-│ fx-2021-11004 │ RabbitMQ                       │ RabbitMQ                       │ fofa   │ log4j2,fofa │ 内置   │
-│ fx-2021-11005 │ Apache-log4j2-Web              │ Apache log4j2 Web              │ fofa   │ log4j2,fofa │ 内置   │
-│ fx-2021-11006 │ Jedis                          │ Jedis                          │ fofa   │ log4j2,fofa │ 内置   │
-│ fx-2021-11007 │ APACHE-tika                    │ APACHE tika                    │ fofa   │ log4j2,fofa │ 内置   │
-│ fx-2021-11009 │ 致远互联-FE                     │ 致远互联 FE                    │ fofa   │ log4j2,fofa │ 内置   │
-└───────────────┴────────────────────────────────┴────────────────────────────────┴────────┴─────────────┴────────┘
+┌───────────────┬────────────────────┬────────────────────────────────┬────────┬─────────────┬───────┐
+│ Id            │ Query              │ RuleName                       │ Author │ Tag         │ Type  │
+├───────────────┼────────────────────┼────────────────────────────────┼────────┼─────────────┼───────┤
+│ fx-2021-1001  │ google-reverse     │ Google反代服务器                 │ fofa   │ google      │ 内置   │
+│ fx-2021-1002  │ python-simplehttp  │ Python SimpleHTTP              │ fofa   │ python      │ 内置   │
+│ fx-2021-1003  │ data-leak          │ 社工库                          │ fofa   │ fun         │ 内置   │
+│ fx-2021-1004  │ hfs-rce            │ 存在命令执行的HFS服务             │ fofa   │ fun         │ 内置   │
+│ fx-2021-1005  │ satellite-ftp      │ 一键日卫星FTP？                  │ fofa   │ fun         │ 内置   │
+│ fx-2021-1006  │ mk-mining          │ mk路由器全球挖矿感染              │ fofa   │ fun         │ 内置   │
+│ fx-2021-1007  │ ss-manager-login   │ ss-Manager 登录                 │ fofa   │ fun         │ 内置   │
+│ fx-2021-1008  │ heating-monitor    │ 供暖监控系统                     │ fofa   │ fun         │ 内置   │
+│ fx-2021-1009  │ free-proxy         │ 免费代理池                      │ fofa    │ fun         │ 内置   │
+│ fx-2021-1010  │ honeypot           │ 蜜罐                           │ fofa    │ fun         │ 内置   │
+│ fx-2021-1011  │ hacked-website     │ 被挂黑的站点                     │ fofa   │ fun         │ 内置   │
+│ fx-2021-1012  │ jupyter-unauth     │ Jupyter 未授权                  │ xiecat │ unauth      │ 内置   │
+│ fx-2021-11001 │ APACHE-ActiveMQ    │ APACHE ActiveMQ                │ fofa   │ log4j2,fofa │ 内置   │
+│ fx-2021-11002 │ Apache_OFBiz       │ Apache OFBiz                   │ fofa   │ log4j2,fofa │ 内置   │
+│ fx-2021-11003 │ Jenkins            │ Jenkins                        │ fofa   │ log4j2,fofa │ 内置   │
+│ fx-2021-11004 │ RabbitMQ           │ RabbitMQ                       │ fofa   │ log4j2,fofa │ 内置   │
+│ fx-2021-11005 │ Apache-log4j2-Web  │ Apache log4j2 Web              │ fofa   │ log4j2,fofa │ 内置   │
+│ fx-2021-11006 │ Jedis              │ Jedis                          │ fofa   │ log4j2,fofa │ 内置   │
+│ fx-2021-11007 │ APACHE-tika        │ APACHE tika                    │ fofa   │ log4j2,fofa │ 内置   │
+└───────────────┴────────────────────┴────────────────────────────────┴────────┴─────────────┴───────┘
 ```
 
 ### 列出 fx 语句的详细内容
@@ -444,27 +390,19 @@ fofax -l
 ```console
 fofax -ss fx-2021-1001
 
-      ____        ____       _  __
-     / __/____   / __/____ _| |/ /
-    / /_ / __ \ / /_ / __ `/|   /
-   / __// /_/ // __// /_/ //   |
-  /_/   \____//_/   \__,_//_/|_|
-                                    0.1.11
-                         fofax.xiecat.fun
-
 fx-2021-1001 fx-2021-1001
 ┌─────────────┬─────────────────────────────────────────────────────────────────────────────────────────────┐
 │ Name        │ Value                                                                                       │
 ├─────────────┼─────────────────────────────────────────────────────────────────────────────────────────────┤
 │ ID          │ fx-2021-1001                                                                                │
 │ Query       │ google-reverse                                                                              │
-│ RuleName    │ Google反代服务器                                                                            │
+│ RuleName    │ Google反代服务器                                                                              │
 │ RuleEnglish │ Google Reverse proxy                                                                        │
 │ Author      │ fofa                                                                                        │
 │ FofaQuery   │ body="var c = Array.prototype.slice.call(arguments, 1);return function() {var d=c.slice();" │
 │ Tag         │ google                                                                                      │
-│ Type        │ 内置                                                                                        │
-│ Description │ 不用挂代理就可以访问的Google搜索，但搜索记录可能会被记录。                                  │
+│ Type        │ 内置                                                                                         │
+│ Description │ 不用挂代理就可以访问的Google搜索，但搜索记录可能会被记录。                                           │
 │ FileDir     │                                                                                             │
 └─────────────┴─────────────────────────────────────────────────────────────────────────────────────────────┘
 ```
@@ -473,14 +411,6 @@ fx-2021-1001 fx-2021-1001
 
 ```console
 [~] fofax -q 'fx="google-reverse"' -fe -fs 5
-
-      ____        ____       _  __
-     / __/____   / __/____ _| |/ /
-    / /_ / __ \ / /_ / __ `/|   /
-   / __// /_/ // __// /_/ //   |
-  /_/   \____//_/   \__,_//_/|_|
-                                    0.1.11
-                         fofax.xiecat.fun
 
 2021/12/23 22:27:02 [SUCC] fx query id:google-reverse
 2021/12/23 22:27:03 [SUCC] Fetch Data From FoFa: [5/5834]
@@ -496,14 +426,6 @@ fx-2021-1001 fx-2021-1001
 ```console
 fofax -q 'fx="google-reverse"' -fe -open
 
-      ____        ____       _  __
-     / __/____   / __/____ _| |/ /
-    / /_ / __ \ / /_ / __ `/|   /
-   / __// /_/ // __// /_/ //   |
-  /_/   \____//_/   \__,_//_/|_|
-                                    0.1.11
-                         fofax.xiecat.fun
-
 2021/12/23 22:22:21 [SUCC] fx query id:google-reverse
 2021/12/23 22:22:21 [SUCC] the query body="var c = Array.prototype.slice.call(arguments, 1);return function() {var d=c.slice();" will be opened with a browser
 ```
@@ -518,14 +440,6 @@ fofax -q 'fx="google-reverse"' -fe -open
 
 ```console
 fofax -g .config/fofax/fxrules/info-gathering.yaml
-
-      ____        ____       _  __
-     / __/____   / __/____ _| |/ /
-    / /_ / __ \ / /_ / __ `/|   /
-   / __// /_/ // __// /_/ //   |
-  /_/   \____//_/   \__,_//_/|_|
-                                    0.1.11
-                         fofax.xiecat.fun
 
 2021/12/24 20:09:27 [INFO] Will Write Plugin file: .config/fofax/fxrules/info-gathering.yaml
 ```
@@ -568,14 +482,6 @@ source:
 
 ```console
 fofax -q 'fx="redteam-info-gathering"' -fe -ffi
-
-      ____        ____       _  __
-     / __/____   / __/____ _| |/ /
-    / /_ / __ \ / /_ / __ `/|   /
-   / __// /_/ // __// /_/ //   |
-  /_/   \____//_/   \__,_//_/|_|
-                                    0.1.11
-                         fofax.xiecat.fun
 
 2021/12/25 21:31:01 [SUCC] fx query id:redteam-info-gathering
 2021/12/25 21:31:01 [SUCC] Fetch Data From FoFa: [27/27]
