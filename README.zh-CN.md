@@ -2,36 +2,38 @@
 
 [![Latest release](https://img.shields.io/github/v/release/xiecat/fofax)](https://github.com/xiecat/fofax/releases/latest)![GitHub Release Date](https://img.shields.io/github/release-date/xiecat/fofax)![GitHub All Releases](https://img.shields.io/github/downloads/xiecat/fofax/total)[![GitHub issues](https://img.shields.io/github/issues/xiecat/fofax)](https://github.com/xiecat/fofax/issues)
 
-## 0x00 Introduction
+## 0x00 简介
 
-fofax is a fofa query tool written in go, positioned as a command-line tool and characterized by simplicity and speed. The following features are currently available:
+fofax 是一款使用 go 编写的命令行 fofa 查询工具，定位于命令行，特点是简单并快速。目前已拥有如下功能：
 
-- Basic FOFA syntax queries
-- Icon Hash local/online calculation query
-- Asset filtering
-- Opening in browser
-- Linking other security tools
-- More (waiting for your feedback after using) ......
+- 基本 FOFA 语法查询
+- Icon Hash 本地/在线计算查询
+- URL 证书计算查询
+- 排除蜜罐干扰
+- 排除国内资产
+- 一键浏览器中打开
+- 联动其他安全工具
+- 更多（等待您使用后的反馈）……
 
 
-In addition to this it is possible to customize fx syntax queries, and users can write their own specific fx query rules via a configuration file in yaml format.
+除此之外还可以自定义 fx 语法查询，用户可以通过 yaml 格式的配置文件编写自己的特定 fx 查询规则。
 
-## 0x01 Download
+## 0x01 下载
 
-Click on the [Release download link](https://github.com/xiecat/fofax/releases) and choose the appropriate release for your system architecture.
+点击 [Releases下载链接](https://github.com/xiecat/fofax/releases) ，按照自己的系统架构选择相应的发行版本下载。
 
-## 0x02 Configuration
+## 0x02 配置
 
 ### macOS/Linux
 
-Unzip the downloaded fofax archive and recommend placing it in the `/usr/local/bin/` directory, so that you can run fofax commands from any directory.
+将下载下来的 fofax 压缩包解压，并建议放在 `/usr/local/bin/` 目录下，这样的目的是在任何一个目录都可以运行 fofax 命令。
 
-```Console
-tar -zxvf ~/Downloads/fofax_v0.1.11_darwin_amd64.tar.gz -C /usr/local/bin/.
+```console
+tar -zxvf ~/Downloads/fofax_v0.1.11_darwin_amd64.tar.gz -C /usr/local/bin/
 ```
 
 
-The first time you run the fofax command a configuration file is automatically generated, located at `~/.config/fofax/fofax.yaml`.
+第一次运行 fofax 命令会自动生成一个配置文件，位于 `~/.config/fofax/fofax.yaml`。
 
 ```console
 fofax
@@ -47,7 +49,7 @@ fofax
 2021/12/23 21:21:28 [SUCC] create config file /Users/user/.config/fofax/fofax.yaml. please modify and use
 ```
 
-The next step is to configure this configuration file. Generally you only need to configure `email` and `key`.
+接下来就是对此配置文件进行配置了，一般来说只需要配置完 `email` 和 `key` 就可以了。
 
 ```console
 vim ~/.config/fofax/fofax.yaml
@@ -63,13 +65,13 @@ fofakey: ***************
 
 ### Windows
 
-Unzip the archive and run fofax.exe for the first time to generate a fofax.yaml configuration file in the same level directory. Then open this configuration file and fill in `email` and `key`.
+解压压缩包，第一次运行 fofax.exe 会在同级目录下生成一个 fofax.yaml 的配置文件。然后打开此配置文件，并填写 `email` 和 `key`。
 
-## 0x03 How to use
+## 0x03 使用方法
 
-### Usage tips
+### 使用 Tips
 
-Without any parameters, in addition to the ASCII logo, a random usage hint will be output.
+不带任何参数时，除了会输出 ASCII Logo，还会随机输出一条使用 Tips。
 
 ```console
 fofax
@@ -89,9 +91,9 @@ Comment: 搜索 fx 中 google-reverse, 查询时使用扩展功能必须加 -fe 
 Usage: fofax -q 'fx="google-reverse"' -fe
 ```
 
-### Help information
+### 帮助信息
 
-You can use `fofax -h` to display help information.
+可以使用 `fofax -h` 显示帮助信息。
 
 ```console
 fofax -h
@@ -153,9 +155,9 @@ OTHER OPTIONS:
    -no-limit-open  No limit to the number of openings in your browser
 ```
 
-### FOFA Syntax Rules
+### FOFA 语法规则
 
-Use the `-use` argument to display FOFA syntax query rules.
+使用 `-use` 参数，显示 FOFA 语法查询规则。
 
 ```console
 fofax -use
@@ -185,9 +187,9 @@ fofax -use
 └───────────────────────────────────────────┴──────────────────────────────────────────────────┘
 ```
 
-### Basic queries
+### 基础查询
 
-There are two ways to query `app="APACHE-Solr"`, which will output 100 hosts by default without specifying the number, and will de-duplicate the data by default.
+有如下两种方式查询 `app="APACHE-Solr"`，不指定数量默认会输出100个 host，并且默认会对数据进行去重。
 
 ```console
 fofax -q 'app="APACHE-Solr"'
@@ -226,21 +228,7 @@ echo 'app="APACHE-Solr"' | fofax
 …………
 ```
 
-```console
-echo 'app="APACHE-Solr"' | fofax
-2021/12/23 20:17:59 [SUCC] Fetch Data From FoFa: [100/30830]
-54.114.20.168:8443
-193.8.4.43:8983
-208.37.227.95:8983
-3.20.255.140:8983
-3.114.85.178:8983
-82.142.82.197:8983
-159.39.10.212:8983
-199.102.27.69:8983
-............
-```
-
-### Specify the number of queries
+### 指定查询数量
 
 ```console
 echo 'app="APACHE-Solr"' | fofax -fs 5
@@ -251,11 +239,11 @@ echo 'app="APACHE-Solr"' | fofax -fs 5
 3.20.255.140:8983
 ```
 
-As above, only 4 data are output because fofax automatically de-duplicates the data.
+如上只输出了4条数据，是因为 fofax 自动对重复的数据进行了去重。
 
-### Exclude queries
+### 排除查询
 
-Add the `-e` argument to exclude honeypots.
+添加 `-e` 参数，排除蜜罐的干扰。
 
 ```console
 echo 'app="APACHE-Solr"' | fofax -fs 10 -e
@@ -269,7 +257,7 @@ echo 'app="APACHE-Solr"' | fofax -fs 10 -e
 52.58.201.109:80
 ```
 
-Add the `-ec` parameter to exclude data from China.
+添加 `-ec` 参数，排除中国的数据。
 
 ```console
 echo 'app="APACHE-Solr"' | fofax -fs 10 -ec
@@ -283,9 +271,9 @@ echo 'app="APACHE-Solr"' | fofax -fs 10 -ec
 23.102.46.20:443
 ```
 
-### Get the URL
+### 获取 URL
 
-Add the `-ffi` parameter to get the corresponding URL directly based on the query statement ([scheme]://[host]:[port]).
+添加 `-ffi` 参数，根据查询语句直接获取对应的 URL（[scheme]://[host]:[port]）。
 
 ```console
 echo 'app="APACHE-Solr"' | fofax -fs 5
@@ -296,7 +284,7 @@ https://13.57.71.190:8443
 http://165.22.215.32:8983
 ```
 
-### Get Title
+### 获取 Title
 
 ```console
 echo 'domain="baidu.com" && status_code="200"' | fofax -fs 10 -fto
@@ -313,9 +301,9 @@ https://naotu.baidu.com [百度脑图 - 便捷的思维工具]
 http://usa.baidu.com [Baidu USA]
 ```
 
-### Debug mode
+### Debug 模式
 
-Add the `-debug` parameter to enable Debug detail mode.
+添加 `-debug` 参数，开启 Debug 详细模式。
 
 ```console
 echo 'app="APACHE-Solr"' | fofax -fs 5 -ffi -debug
@@ -331,7 +319,7 @@ https://18.169.23.120
 http://174.138.127.51:8983
 ```
 
-### Open in browser
+### 浏览器中打开
 
 ```console
 echo 'app="APACHE-Solr"' | fofax -open
@@ -340,9 +328,9 @@ echo 'app="APACHE-Solr"' | fofax -open
 <!-- ![openinbrowser](./docs/images/openinbrowser.gif) -->
 ![openinbrowser.gif](https://s2.loli.net/2021/12/25/2lvs4njYEUNmkLS.gif)
 
-### Calculate icon hash and query
+### 计算 icon hash 并查询
 
-There are two ways to do this, the first is to query directly based on the URL that provided the icon.
+两种方式，第一种是直接根据提供 icon 的 URL 来查询。
 
 ```console
 fofax -iu https://www.baidu.com/favicon.ico -fs 5
@@ -363,7 +351,7 @@ xueshu.mrsb.tk:80
 154.39.217.28:80
 ```
 
-The second one is to calculate hash and query based on local icon file.
+第二种是根据本地 icon 文件，来计算 hash 并查询。
 
 ```console
 wget https://www.baidu.com/favicon.ico
@@ -385,7 +373,7 @@ xueshu.mrsb.tk:80
 154.39.217.28:80
 ```
 
-### Calculate the certificate and query
+### 计算证书并查询
 
 ```console
 fofax -fs 5 -uc https://www.baidu.com/
@@ -406,13 +394,13 @@ itv.leiqiang8.cn:80
 owa2.leiqiang8.cn:80
 ```
 
-## 0x04 fx syntax query
+## 0x04 fx 语法查询
 
-When using fofa to do information collection or other things, it is possible that the query statement will be very, very long and not easy to remember, so we can't just take a small book to remember the fofa query statement.
+在使用 fofa 做信息收集或者其他事情的时候，有可能这条查询语句会非常非常的长，非常不好记忆，我们总不可能专门拿个小本本去记这个 fofa 查询语句吧。
 
-This time, you can use fofax's fx function. Currently fofax has dozens of built-in fx syntax query rules, users can directly use the corresponding parameters to query. You can also write your own specific fx syntax query rules via yaml format configuration file.
+这个时候，就可以使用 fofax 的 fx 功能。目前 fofax 已经内置几十条 fx 语法查询规则，用户可直接使用相应参数进行查询。同时用户还可以通过 yaml 格式的配置文件，编写自己特定的 fx 语法查询规则。
 
-#### shows the built-in fx query statements
+#### 显示内置 fx 查询语句
 
 ```console
 fofax -l
@@ -451,7 +439,7 @@ fofax -l
 └───────────────┴────────────────────────────────┴────────────────────────────────┴────────┴─────────────┴────────┘
 ```
 
-### List the details of the fx statement
+### 列出 fx 语句的详细内容
 
 ```console
 fofax -ss fx-2021-1001
@@ -481,7 +469,7 @@ fx-2021-1001 fx-2021-1001
 └─────────────┴─────────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
-### Add the `-fe` argument to query by fx syntax
+### 添加 `-fe` 参数通过 fx 语法进行查询
 
 ```console
 [~] fofax -q 'fx="google-reverse"' -fe -fs 5
@@ -503,7 +491,7 @@ fx-2021-1001 fx-2021-1001
 45.76.10.197:8081
 ```
 
-### Open directly in the browser
+### 浏览器中直接打开
 
 ```console
 fofax -q 'fx="google-reverse"' -fe -open
@@ -520,13 +508,13 @@ fofax -q 'fx="google-reverse"' -fe -open
 2021/12/23 22:22:21 [SUCC] the query body="var c = Array.prototype.slice.call(arguments, 1);return function() {var d=c.slice();" will be opened with a browser
 ```
 
-### Writing custom fx syntax rules
+### 编写自定义的 fx 语法规则
 
-An example of using fofa to collect information about a target is given below.
+下面给出一个例子，使用 fofa 对某个目标进行信息收集的案例。
 
-#### generates a template
+#### 生成一个模版
 
-A template file is generated by using `-g` and specifying the path to the generated file name.
+使用 `-g` 并指定生成的文件名指定路径，这样便生成了一个模版文件。
 
 ```console
 fofax -g .config/fofax/fxrules/info-gathering.yaml
@@ -542,7 +530,7 @@ fofax -g .config/fofax/fxrules/info-gathering.yaml
 2021/12/24 20:09:27 [INFO] Will Write Plugin file: .config/fofax/fxrules/info-gathering.yaml
 ```
 
-Check this yaml file, its contents are as follows.
+查看此 yaml 文件，其内容如下。
 
 ```console
 id: fx-2021-01
@@ -558,9 +546,9 @@ tag:
 source: 语句来源
 ```
 
-Follow the above instructions and modify the corresponding content to bring in a new fx syntax rule, regarding the path of this file, please put it in the directory `~/.config/fofax/fxrules/` after it is written.
+按照如上说明，修改相应内容，便携一个新的fx语法规则，关于此文件的路径，在编写完整后请放在 `~/.config/fofax/fxrules/` 这个目录。
 
-For easy reproduction, the details are as follows (note that the title is filled with your target name)
+为方便复制，详细内容如下（注意 title 处填写自己的目标名）：
 
 ```yaml
 id: fx-2021-01
@@ -576,7 +564,7 @@ source:
 
 ```
 
-The following can use this fx query rule, this query can not be said to be inconvenient.
+下面就可以使用此 fx 查询规则了，此查询不可以说不方便。。
 
 ```console
 fofax -q 'fx="redteam-info-gathering"' -fe -ffi
@@ -603,20 +591,20 @@ https://114.255.204.149
 ```
 
 
-## 0x05 Linkage Use Case
+## 0x05 联动使用案例
 
-> Once the red team information is collected, the collected assets can be handed over to the live probing tool, fingerprinting tool and vulnerability scanning tool for live probing, fingerprinting and vulnerability detection.
+> 在红队信息收集完毕后，便可以将收集到的资产交给探活工具、指纹识别工具以及漏洞扫描工具去进行探活、指纹识别和漏洞探测。
 
 ### fofax && httpx
 
-CVE-2021-43798 Grafana Unauthorized Directory Traversal.
+CVE-2021-43798 Grafana 未授权目录遍历。
 
 <!-- ![fofax&httpx](./docs/images/fofax&httpx.png) -->
 ![fofax_httpx.png](https://s2.loli.net/2021/12/25/kNx281ne7Ou5p4L.png)
 
 ### fofax && nuclei
 
-Pass the data obtained by fofax to nuclei and then use the CVE-2021-43798 Template to vulnerability in batch.
+将 fofax 获取的数据传递到 nuclei，然后使用 CVE-2021-43798 Template 批量漏洞扫描。
 
 <!-- ![fofax&nuclei](./docs/images/fofax&nuclei.png) -->
 ![fofax_nuclei.png](https://s2.loli.net/2021/12/25/YztbnOelLZGQAIJ.png)
