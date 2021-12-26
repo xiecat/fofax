@@ -516,6 +516,6 @@ CVE-2021-43798 Grafana 未授权目录遍历。
 ![fofax_nuclei.png](https://s2.loli.net/2021/12/25/YztbnOelLZGQAIJ.png)
 
 
-## Stargazers
+## 0x06 Stargazers
 
 [![Stargazers over time](https://starchart.cc/xiecat/fofax.svg)](https://starchart.cc/xiecat/fofax)
