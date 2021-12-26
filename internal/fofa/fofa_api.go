@@ -35,6 +35,9 @@ type fieldFn func(fields []string, allSize int32) bool
 
 func NewFoFa(option *cli.Options) *FoFa {
 	hOpt := xhttp.NewDefaultClientOptions()
+	hOpt.Headers = map[string]string{
+		"user-agent": fmt.Sprintf("fofax-client-%s", cli.FoFaXVersion),
+	}
 	if len(option.Proxy) != 0 {
 		printer.Successf("Use Proxy: %s", option.Proxy)
 		hOpt.Proxy = option.Proxy
