@@ -27,7 +27,7 @@ fofax 是一款使用 go 编写的命令行 fofa 查询工具，在支持fofa查
 
 ## 0x02 配置
 
-### macOS/Linux
+### MacOS/Linux
 
 将下载下来的 fofax 压缩包解压，建议放在 `/usr/local/bin/` 目录下，以达到任意目录都可以运行 fofax 命令的目的。
 
