@@ -1,4 +1,4 @@
-# fofaX
+# FofaX
 
 [![Latest release](https://img.shields.io/github/v/release/xiecat/fofax)](https://github.com/xiecat/fofax/releases/latest)![GitHub Release Date](https://img.shields.io/github/release-date/xiecat/fofax)![GitHub All Releases](https://img.shields.io/github/downloads/xiecat/fofax/total)[![GitHub issues](https://img.shields.io/github/issues/xiecat/fofax)](https://github.com/xiecat/fofax/issues)
 
@@ -7,7 +7,7 @@
 
 ## 0x00 简介
 
-fofax 是一款使用 go 编写的命令行 fofa 查询工具，定位于命令行，特点是简单并快速。目前已拥有如下功能：
+fofax 是一款使用 go 编写的命令行 fofa 查询工具，在支持fofa查询规则上增加了fx语法来方便使用者编写自己的规则，并且内置了一些常用的规则，除此之外还有联动其他安全产品在内的其他多个实用功能。主要的功能介绍如下：
 
 - 基本 FOFA 语法查询
 - Icon Hash 本地/在线计算查询
@@ -29,7 +29,7 @@ fofax 是一款使用 go 编写的命令行 fofa 查询工具，定位于命令�
 
 ### macOS/Linux
 
-将下载下来的 fofax 压缩包解压，并建议放在 `/usr/local/bin/` 目录下，这样的目的是在任何一个目录都可以运行 fofax 命令。
+将下载下来的 fofax 压缩包解压，建议放在 `/usr/local/bin/` 目录下，以达到任意目录都可以运行 fofax 命令的目的。
 
 ```console
 tar -zxvf ~/Downloads/fofax_v0.1.11_darwin_amd64.tar.gz -C /usr/local/bin/
