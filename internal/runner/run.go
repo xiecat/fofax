@@ -246,11 +246,11 @@ func (r *Runner) openURL(query string) {
 
 func (r *Runner) Run() *sync.Map {
 	fo := fofa.NewFoFa(r.options)
-	for i := 0; i < r.query.Len(); i++ {
+	for r.query.Len() != 0 {
 		if !r.query.Any() {
 			break
 		}
-		fofaQuery := r.query.Peek()
+		fofaQuery := r.query.Pop()
 		// 提取完整的 hostInfo，带有 protocol -ffi
 		if r.options.FetchFullHostInfo {
 			fo.FetchFn = func(fields []string, allSize int32) bool {
@@ -292,7 +292,6 @@ func (r *Runner) Run() *sync.Map {
 			}
 			fo.Fetch(fofaQuery)
 		}
-		r.query.Pop()
 	}
 
 	return r.resMap
