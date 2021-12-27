@@ -91,15 +91,15 @@ var UsageLists = []fgx{
 
 func PrintSingleUsage() {
 	ulen := len(UsageLists)
-	sug := UsageLists[rand.Intn(ulen)].String()
+	sug := UsageLists[rand.Intn(ulen)]
 	fmt.Println("Tips:")
 	fmt.Println("If you want to view the trial in your browser, try -open")
 	fmt.Println("")
 	if runtime.GOOS == "windows" {
 		fmt.Println(`windows 命令行下下需要特别注意双引号转义eg: ( 'fx=\"google-reverse\"' )`)
-		sug := "fofax.exe" + strings.TrimPrefix(sug, "fofax")
-		fmt.Println(strings.ReplaceAll(sug, "\"", "\\\""))
+		sug.Usage = strings.ReplaceAll(sug.Usage, "fofax", "fofax.exe")
+		fmt.Println(strings.ReplaceAll(sug.String(), "\"", "\\\""))
 		return
 	}
-	magenta(sug)
+	magenta(sug.String())
 }
