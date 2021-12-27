@@ -439,9 +439,9 @@ fofax -q 'fx="google-reverse"' -fe -open
 使用 `-g` 并指定生成的文件名指定路径，这样便生成了一个模版文件。
 
 ```console
-fofax -g .config/fofax/fxrules/info-gathering.yaml
+fofax -g info-gathering.yaml
 
-2021/12/24 20:09:27 [INFO] Will Write Plugin file: .config/fofax/fxrules/info-gathering.yaml
+2021/12/24 20:09:27 [INFO] Will Write Plugin file: info-gathering.yaml
 ```
 
 查看此 yaml 文件，其内容如下。
