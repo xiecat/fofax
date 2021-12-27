@@ -144,7 +144,7 @@ func init() {
 		// flags.StringVarP(&args.FetchOneField, "fetch-one-field", "fof", args.FetchOneField, "填写需要的另一个字段如，port"),
 	)
 	createGroup(
-		flags, "query", "Single query/ert/icon",
+		flags, "query", "Single query/cert/icon",
 		flags.StringVarP(&args.Query, "query", "q", args.Query, "FoFa query statement"),
 		flags.StringVarP(&args.PeerCertificates, "url-cert", "uc", args.PeerCertificates, "Enter the certificate of the https URL to query"),
 		flags.StringVarP(&args.UrlIcon, "url-to-icon-hash", "iu", args.UrlIcon, "Enter the URL of an icon, calculate it and query it"),
