@@ -19,8 +19,8 @@ func banner() {
 	magenta("    / /_ / __ \\ / /_ / __ `/|   / ")
 	magenta(`   / __// /_/ // __// /_/ //   |  `)
 	magenta(`  /_/   \____//_/   \__,_//_/|_|  `)
-	magenta("                                    " + FoFaXVersion)
-	bannerSite("                         fofax.xiecat.fun\n")
+	magenta("                 	" + FoFaXVersion)
+	bannerSite("			https://fofax.xiecat.fun\n")
 }
 func bannerSite(a ...interface{}) {
 	cl := color.New(color.FgHiGreen).SprintfFunc()

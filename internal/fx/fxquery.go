@@ -190,7 +190,6 @@ func (fx FoFaxQuery) SearchSingleTable(query string) {
 		table.Output([]Tinfo{{"Error", "id or query not null"}})
 	}
 	for _, q := range fx.Plugins {
-		fmt.Println(q.Id, query)
 		if StrEqual(query, q.Id) || StrEqual(query, q.Query) {
 			q.ShowInfoTable()
 			return
