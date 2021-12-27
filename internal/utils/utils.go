@@ -16,7 +16,7 @@ import (
 var ConfDefaultPath = []string{
 	"fofax.yaml",
 	filepath.Join(getHomedir(), "fofax.yaml"),
-	"/etc/fofa.yaml",
+	"/etc/fofax.yaml",
 }
 
 // StructToMap Struct 转 Map
