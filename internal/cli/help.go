@@ -14,7 +14,7 @@ type fgx struct {
 }
 
 func (f *fgx) String() string {
-	return fmt.Sprintf("Comment: %s\nCommentEn: %s\nUsage: %s\n", f.Comment, f.CommentEn, f.Usage)
+	return fmt.Sprintf("Comment: %s\nUsage: %s\n", f.Comment, f.Usage)
 }
 
 var UsageLists = []fgx{
