@@ -3,10 +3,6 @@ package cli
 import (
 	"errors"
 	"fmt"
-	"fofax/internal/fx"
-	"fofax/internal/fxparser"
-	"fofax/internal/printer"
-	"fofax/internal/utils"
 	"io/ioutil"
 	"math/rand"
 	"os"
@@ -14,7 +10,11 @@ import (
 	"strings"
 	"time"
 
+	"fofax/internal/fx"
+	"fofax/internal/fxparser"
 	"fofax/internal/goflags"
+	"fofax/internal/printer"
+	"fofax/internal/utils"
 )
 
 const (
@@ -336,7 +336,7 @@ func checkUpdateInfo() {
 	if -time.Until(lastime) > 24*time.Hour {
 		err := UpdateTips(FoFaXVersion)
 		if err != nil {
-			printer.Infof(err.Error())
+			printer.Info(err.Error())
 		}
 		ioutil.WriteFile(lastfile, []byte(time.Now().Format("2006-01-02T15:04:05Z")), os.ModePerm)
 	}

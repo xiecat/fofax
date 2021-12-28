@@ -10,10 +10,7 @@ import (
 )
 
 func UpdateTips(tagName string) error {
-	if !strings.HasPrefix(tagName, "v") {
-		return fmt.Errorf("%s", "this file does not have a version number")
-	}
-
+	tagName = fmt.Sprintf("v%s", tagName)
 	if strings.HasSuffix(tagName, "-next") {
 		printer.Debug("Self-compiled versions do not check for updates")
 		return nil
@@ -33,7 +30,7 @@ func UpdateTips(tagName string) error {
 	if err != nil {
 		return err
 	}
-
+	printer.Debugf("github current version: %s\n", gVersion)
 	if gVersion.GreaterThan(bVersion) {
 		bannerSite(fmt.Sprintf("New:\n\nVersion:%s\n\n%s\n", gtag, ginfo))
 		bannerSite("Please go to https://github.com/xiecat/fofax/releases to download\n\n")
