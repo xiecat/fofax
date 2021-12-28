@@ -6,6 +6,8 @@ require (
 	github.com/antlr/antlr4/runtime/Go/antlr v0.0.0-20211221011931-643d94fcab96
 	github.com/cnf/structhash v0.0.0-20201127153200-e1b16c1ebc08
 	github.com/fatih/color v1.13.0
+	github.com/google/go-github v17.0.0+incompatible
+	github.com/hashicorp/go-version v1.3.0
 	github.com/jweny/xhttp v0.0.0-20211209064339-2c93342bd421
 	github.com/pkg/browser v0.0.0-20210911075715-681adbf594b8
 	github.com/pkg/errors v0.9.1
@@ -16,7 +18,9 @@ require (
 )
 
 require (
+	github.com/blang/semver/v4 v4.0.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/google/go-querystring v1.1.0 // indirect
 	github.com/kr/pretty v0.1.0 // indirect
 	github.com/mattn/go-colorable v0.1.9 // indirect
 	github.com/mattn/go-isatty v0.0.14 // indirect

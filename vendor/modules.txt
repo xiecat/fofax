@@ -1,6 +1,8 @@
 # github.com/antlr/antlr4/runtime/Go/antlr v0.0.0-20211221011931-643d94fcab96
 ## explicit; go 1.16
 github.com/antlr/antlr4/runtime/Go/antlr
+# github.com/blang/semver/v4 v4.0.0
+## explicit; go 1.14
 # github.com/cnf/structhash v0.0.0-20201127153200-e1b16c1ebc08
 ## explicit
 github.com/cnf/structhash
@@ -9,6 +11,15 @@ github.com/cnf/structhash
 # github.com/fatih/color v1.13.0
 ## explicit; go 1.13
 github.com/fatih/color
+# github.com/google/go-github v17.0.0+incompatible
+## explicit
+github.com/google/go-github/github
+# github.com/google/go-querystring v1.1.0
+## explicit; go 1.10
+github.com/google/go-querystring/query
+# github.com/hashicorp/go-version v1.3.0
+## explicit
+github.com/hashicorp/go-version
 # github.com/jweny/xhttp v0.0.0-20211209064339-2c93342bd421
 ## explicit; go 1.17
 github.com/jweny/xhttp

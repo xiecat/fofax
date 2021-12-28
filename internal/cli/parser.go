@@ -7,6 +7,7 @@ import (
 	"fofax/internal/fxparser"
 	"fofax/internal/printer"
 	"fofax/internal/utils"
+	"io/ioutil"
 	"math/rand"
 	"os"
 	"path/filepath"
@@ -81,10 +82,12 @@ type config struct {
 	FoFaEmail string
 	FoFaKey   string
 	// 脱敏密码
-	FoFaKeyFake string
-	Proxy       string
-	Debug       bool
-	ConfigFile  string
+	FoFaKeyFake   string
+	Proxy         string
+	Debug         bool
+	ShowPrivacy   bool
+	ConfigFile    string
+	DisableUpdate bool
 }
 type fxconfig struct {
 	FxSearch       string
@@ -131,6 +134,8 @@ func init() {
 		flags.StringVarP(&args.Proxy, "proxy", "p", "", "proxy for http like http://127.0.0.1:8080"),
 		flags.StringVar(&args.FoFaURL, "fofa-url", args.FoFaURL, "Fofa url"),
 		flags.BoolVar(&args.Debug, "debug", false, "Debug mode"),
+		flags.BoolVarP(&args.ShowPrivacy, "show-privacy", "sp", false, "Debug mode Show Privacy"),
+		flags.BoolVarP(&args.DisableUpdate, "disable-update", "du", false, "Close update alerts"),
 	)
 	createGroup(
 		flags, "filters", "FILTERS",
@@ -237,7 +242,10 @@ func ParseOptions() *Options {
 		ShowUsage()
 		os.Exit(0)
 	}
-
+	// 检查更新
+	if !args.DisableUpdate {
+		checkUpdateInfo()
+	}
 	// 检查基本信息
 	checkFoFaInfo()
 
@@ -307,4 +315,30 @@ func checkFoFaInfo() {
 		printer.Error("FoFaKey or FoFaEmail is empty")
 		os.Exit(1)
 	}
+}
+
+func checkUpdateInfo() {
+	lastfile := filepath.Join(filepath.Dir(utils.GetDefaultConf()), ".fofax-last")
+	if !utils.FileExist(lastfile) {
+		_ = os.MkdirAll(filepath.Dir(lastfile), os.ModePerm)
+		ioutil.WriteFile(lastfile, []byte(strings.TrimSpace(Date)), os.ModePerm)
+	}
+	lasttime, err := ioutil.ReadFile(lastfile)
+	if err != nil {
+		printer.Error(err)
+		return
+	}
+	lastime, err := time.Parse("2006-01-02T15:04:05Z", strings.TrimSpace(string(lasttime)))
+	if err != nil {
+		printer.Error(err)
+		return
+	}
+	if -time.Until(lastime) > 24*time.Hour {
+		err := UpdateTips(FoFaXVersion)
+		if err != nil {
+			printer.Infof(err.Error())
+		}
+		ioutil.WriteFile(lastfile, []byte(time.Now().Format("2006-01-02T15:04:05Z")), os.ModePerm)
+	}
+
 }

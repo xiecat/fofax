@@ -16,6 +16,7 @@ import (
 var ConfDefaultPath = []string{
 	"fofax.yaml",
 	filepath.Join(getHomedir(), "fofax.yaml"),
+	"/etc/fofax/fofax.yaml",
 	"/etc/fofax.yaml",
 }
 

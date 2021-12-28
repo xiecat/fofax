@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"fofax/internal/cli"
 	"fofax/internal/printer"
+	"fofax/internal/utils"
 	"github.com/jweny/xhttp"
 	"math"
 	"net/http"
@@ -86,7 +87,20 @@ func (f *FoFa) fetchByFields(fields string, queryStr string) bool {
 
 		fullURL := f.buildQueryUrl(uri)
 		if f.option.Debug {
-			printer.Debug(fullURL)
+			if f.option.ShowPrivacy {
+				printer.Debug(fullURL)
+			} else {
+				hiddenUri := fmt.Sprintf(
+					"/api/v1/search/all?email=%s&key=%s&qbase64=%s&size=%d&page=%d&fields=%s",
+					"*****@*******", utils.GetHidePasswd(f.option.FoFaKey),
+					base64.StdEncoding.EncodeToString([]byte(queryStr)),
+					perPage,
+					f.page,
+					fields,
+				)
+				printer.Debug(f.buildQueryUrl(hiddenUri))
+			}
+
 		}
 		hr, _ := http.NewRequest("GET", fullURL, nil)
 		req := &xhttp.Request{RawRequest: hr}
