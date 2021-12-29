@@ -12,17 +12,17 @@ import (
 	"strings"
 )
 
-func updateTips(tagName string, isDown bool) error {
+func updateTips(tagName string) error {
 	tagName = fmt.Sprintf("v%s", tagName)
 	if strings.HasSuffix(tagName, "-next") {
 		printer.Debug("Self-compiled versions do not check for updates")
 		return nil
 	}
-	latest, err := updateFoFaXVersionToLatest(isDown)
+	latest, err := updateFoFaXVersionToLatest()
 	if err != nil {
 		return err
 	}
-	if !isDown {
+	if !args.Update {
 		bannerSite(fmt.Sprintf("New:\n\nVersion:%s\n\n%s\n", latest.Version, latest.Notes))
 		bannerSite("Please Use [./fofax -update] to download\n\n")
 	}
@@ -30,7 +30,7 @@ func updateTips(tagName string, isDown bool) error {
 }
 
 // updateFoFaXVersionToLatest from nuclei.
-func updateFoFaXVersionToLatest(isDown bool) (*update.Release, error) {
+func updateFoFaXVersionToLatest() (*update.Release, error) {
 	var command string
 	switch runtime.GOOS {
 	case "windows":
@@ -51,10 +51,11 @@ func updateFoFaXVersionToLatest(isDown bool) (*update.Release, error) {
 		return nil, errors.Wrap(err, "could not fetch latest release")
 	}
 	if len(releases) == 0 {
-		return nil, errors.Wrap(err, "No new updates found for fofax engine!")
+		return nil, errors.New("No new updates found for fofax engine!")
 	}
 	latest := releases[0]
-	if isDown {
+	bannerSite(fmt.Sprintf("New:\n\nVersion:%s\n\n%s\n", latest.Version, latest.Notes))
+	if args.Update {
 		currentOS := runtime.GOOS
 		var final *update.Asset
 		switch runtime.GOOS {
