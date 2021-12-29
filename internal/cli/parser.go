@@ -249,7 +249,7 @@ func ParseOptions() *Options {
 	}
 	// 检查更新
 	if !args.DisableUpdate {
-		checkUpdateInfo(args.Update)
+		checkUpdateInfo()
 	}
 	// 检查基本信息
 	checkFoFaInfo()
@@ -326,7 +326,7 @@ func checkFoFaInfo() {
 	}
 }
 
-func checkUpdateInfo(isDown bool) {
+func checkUpdateInfo() {
 	lastFile := filepath.Join(filepath.Dir(utils.GetDefaultConf()), ".fofax-last")
 	if !utils.FileExist(lastFile) {
 		_ = os.MkdirAll(filepath.Dir(lastFile), os.ModePerm)
@@ -342,8 +342,8 @@ func checkUpdateInfo(isDown bool) {
 		printer.Error(err)
 		return
 	}
-	if -time.Until(lasTime) > 24*time.Hour || isDown {
-		err := updateTips(FoFaXVersion, isDown)
+	if -time.Until(lasTime) > 24*time.Hour || args.Update {
+		err := updateTips(FoFaXVersion)
 		if err != nil {
 			printer.Error(err.Error())
 		}
