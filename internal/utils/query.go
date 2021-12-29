@@ -3,9 +3,10 @@ package utils
 import (
 	"crypto/tls"
 	"fmt"
-	"fofax/internal/printer"
 	"net/http"
 	"os"
+
+	"fofax/internal/printer"
 )
 
 // GetSerialNumber 转换证书

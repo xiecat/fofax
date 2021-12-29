@@ -3,12 +3,13 @@ package fx
 import (
 	"errors"
 	"fmt"
-	"fofax/internal/printer"
-	"fofax/internal/table"
 	"io/ioutil"
 	"path/filepath"
 	"runtime"
 	"strings"
+
+	"fofax/internal/printer"
+	"fofax/internal/table"
 )
 
 var Info *FoFaxQuery

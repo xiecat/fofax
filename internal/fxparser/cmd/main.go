@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+
 	"fofax/internal/fxparser"
 )
 

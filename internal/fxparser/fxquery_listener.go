@@ -3,12 +3,14 @@ package fxparser
 import (
 	"errors"
 	"fmt"
+	"strings"
+
+	"github.com/antlr/antlr4/runtime/Go/antlr"
+
 	"fofax/internal/fx"
 	"fofax/internal/fxparser/parser"
 	"fofax/internal/fxparser/stack"
 	"fofax/internal/printer"
-	"github.com/antlr/antlr4/runtime/Go/antlr"
-	"strings"
 )
 
 type FxQueryListener struct {

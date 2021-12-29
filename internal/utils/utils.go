@@ -5,12 +5,13 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"github.com/pkg/browser"
-	"golang.org/x/text/encoding/simplifiedchinese"
 	"os"
 	"path/filepath"
 	"reflect"
 	"runtime"
+
+	"github.com/pkg/browser"
+	"golang.org/x/text/encoding/simplifiedchinese"
 )
 
 var ConfDefaultPath = []string{

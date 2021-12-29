@@ -2,12 +2,13 @@ package fx
 
 import (
 	"fmt"
-	"fofax/internal/printer"
 	"io/ioutil"
 	"os"
 	"strings"
 
 	"gopkg.in/yaml.v2"
+
+	"fofax/internal/printer"
 )
 
 type Tinfo struct {

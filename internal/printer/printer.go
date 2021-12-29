@@ -2,12 +2,13 @@ package printer
 
 import (
 	"fmt"
-	"github.com/fatih/color"
 	"os"
 	"path/filepath"
 	"runtime"
 	"strconv"
 	"time"
+
+	"github.com/fatih/color"
 )
 
 const (

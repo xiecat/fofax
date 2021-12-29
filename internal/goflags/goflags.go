@@ -4,8 +4,6 @@ import (
 	"bytes"
 	"flag"
 	"fmt"
-	"fofax/internal/printer"
-	"fofax/internal/utils"
 	"io"
 	"io/ioutil"
 	"os"
@@ -19,6 +17,9 @@ import (
 	"github.com/cnf/structhash"
 	"github.com/pkg/errors"
 	"gopkg.in/yaml.v2"
+
+	"fofax/internal/printer"
+	"fofax/internal/utils"
 )
 
 // FlagSet is a list of flags for an application

@@ -2,6 +2,8 @@ package cli
 
 import (
 	"fmt"
+	"strings"
+
 	"github.com/fatih/color"
 )
 
@@ -12,6 +14,14 @@ var (
 	Branch       = "unknown"
 )
 
+func getVname(f string) string {
+	if strings.HasPrefix(f, "v0.1.") {
+		return fmt.Sprintf("Capricornus")
+	} else {
+		return f
+	}
+}
+
 func banner() {
 	magenta("")
 	magenta(`      ____        ____       _  __`)
@@ -19,7 +29,7 @@ func banner() {
 	magenta("    / /_ / __ \\ / /_ / __ `/|   / ")
 	magenta(`   / __// /_/ // __// /_/ //   |  `)
 	magenta(`  /_/   \____//_/   \__,_//_/|_|  `)
-	magenta("                 	v" + FoFaXVersion)
+	magenta("                 	" + FoFaXVersion)
 	bannerSite("			https://fofax.xiecat.fun\n")
 }
 func bannerSite(a ...interface{}) {

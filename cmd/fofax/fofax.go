@@ -5,15 +5,13 @@ import (
 	"fofax/internal/cli"
 	"fofax/internal/printer"
 	"fofax/internal/runner"
-	"os"
 )
 
 func main() {
 	option := cli.ParseOptions()
 	fofax, err := runner.NewRunner(option)
 	if err != nil {
-		printer.Error(err)
-		os.Exit(1)
+		printer.Fatal(err)
 	}
 	res := fofax.Run()
 	res.Range(func(key, value interface{}) bool {

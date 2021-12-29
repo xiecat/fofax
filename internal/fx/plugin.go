@@ -2,13 +2,14 @@ package fx
 
 import (
 	"errors"
-	"fofax/internal/printer"
-	"fofax/internal/table"
 	"io/ioutil"
 	"strings"
 
-	"fofax/internal/utils"
 	"gopkg.in/yaml.v2"
+
+	"fofax/internal/printer"
+	"fofax/internal/table"
+	"fofax/internal/utils"
 )
 
 const (

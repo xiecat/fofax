@@ -54,6 +54,7 @@ type query struct {
 type queryOfFile struct {
 	// 从文件中进行查询
 	QueryFile string `key:"-qf"`
+	CoinFile  string `key:"-fcf"`
 	// 批量 URL，计算 icon hash 后进行查询
 	UrlIconFile string `key:"-iuf"`
 	// 通过文件中多个的多个 url 查询其证书
@@ -159,6 +160,7 @@ func init() {
 	)
 	createGroup(
 		flags, "queryFile", "Multiple query/cert/icon",
+		flags.StringVarP(&args.CoinFile, "fofa-coin-file", "fcf", args.CoinFile, "Load files downloaded with fofa coins (only use -ffi -fs or not)"),
 		flags.StringVarP(&args.QueryFile, "query-file", "qf", args.QueryFile, "Load files, query multiple statements"),
 		flags.StringVarP(&args.PeerCertificatesFile, "url-cert-file", "ucf", args.UrlIconFile, "Read the URL from the file, calculate the cert and then query it"),
 		flags.StringVarP(&args.UrlIconFile, "icon-hash-url-file", "iuf", args.UrlIconFile, "Retrieve the URL from the file, calculate the icon hash and query it"),
@@ -236,6 +238,7 @@ func ParseOptions() *Options {
 		printer.Infof("Branch: %s", Branch)
 		printer.Infof("Commit: %s", Commit)
 		printer.Infof("Date: %s", Date)
+		printer.Infof("CodeName: %s", getVname(FoFaXVersion))
 		fmt.Print("fofaX is a command line fofa query tool, simple is the best!\n\n")
 		os.Exit(0)
 	}
@@ -256,6 +259,10 @@ func ParseOptions() *Options {
 	if err != nil {
 		printer.Error(printer.HandlerLine(err.Error()))
 		os.Exit(1)
+	}
+	//检查coinFile 是否存在
+	if args.CoinFile != "" && !utils.FileExist(args.CoinFile) {
+		printer.Fatalf("file: %s not exist\n", args.CoinFile)
 	}
 
 	return args

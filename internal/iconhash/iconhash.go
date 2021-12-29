@@ -5,14 +5,15 @@ import (
 	"crypto/tls"
 	"encoding/base64"
 	"fmt"
-	"fofax/internal/printer"
-	"github.com/twmb/murmur3"
 	"hash"
 	"io/ioutil"
 	"net/http"
 	"os"
 	"strings"
 	"time"
+
+	"fofax/internal/printer"
+	"github.com/twmb/murmur3"
 )
 
 type Config struct {

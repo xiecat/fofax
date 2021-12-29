@@ -3,6 +3,11 @@ package runner
 import (
 	"bufio"
 	"fmt"
+	"os"
+	"runtime"
+	"strings"
+	"sync"
+
 	"fofax/internal/cli"
 	"fofax/internal/fofa"
 	"fofax/internal/fxparser"
@@ -10,10 +15,6 @@ import (
 	"fofax/internal/printer"
 	"fofax/internal/queue"
 	"fofax/internal/utils"
-	"os"
-	"runtime"
-	"strings"
-	"sync"
 )
 
 type Runner struct {
@@ -43,13 +44,6 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 			if fofaQuery == "" {
 				continue
 			}
-
-			//// 用浏览器打开
-			//if options.Open {
-			//	runner.openURL(fofaQuery)
-			//	os.Exit(0)
-			//}
-
 			if options.FofaExt {
 				fofaQuery = fxparser.Query(fofaQuery)
 			}
@@ -62,13 +56,6 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 		// query -q
 		if len(options.Query) != 0 {
 			runner.inputCount++
-
-			//// 用浏览器打开
-			//if options.Open {
-			//	runner.openURL(options.Query)
-			//	os.Exit(0)
-			//}
-
 			if options.FofaExt {
 				options.Query = fxparser.Query(options.Query)
 			}
@@ -76,11 +63,6 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 		}
 		// 通过 url 查询证书 -uc
 		if options.PeerCertificates != "" {
-			//// 用浏览器打开
-			//if options.Open {
-			//	runner.openURL(utils.GetSerialNumber(options.PeerCertificates))
-			//	os.Exit(0)
-			//}
 			runner.query.Push(utils.GetSerialNumber(options.PeerCertificates))
 		}
 		// 通 url 计算 hash，然后查询 -ui
@@ -89,11 +71,6 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 			// 通过 url
 			if iHash, err := iconConfig.FromUrlGetContent(); err == nil {
 				runner.inputCount++
-				//// 用浏览器打开
-				//if options.Open {
-				//	runner.openURL(iconConfig.MakeQuery(iHash))
-				//	os.Exit(0)
-				//}
 				runner.query.Push(iconConfig.MakeQuery(iHash))
 			}
 		}
@@ -104,15 +81,9 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 			// 通过文件
 			if iHash, err := iconConfig.FromFileGetContent(); err == nil {
 				runner.inputCount++
-				//// 用浏览器打开
-				//if options.Open {
-				//	runner.openURL(iconConfig.MakeQuery(iHash))
-				//	os.Exit(0)
-				//}
 				runner.query.Push(iconConfig.MakeQuery(iHash))
 			}
 		}
-
 	}
 
 	// 多个 Query/cert/icon 搜索项 代码块
@@ -131,9 +102,7 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 				if url == "" {
 					continue
 				}
-
 				runner.inputCount++
-
 				if options.FofaExt {
 					url = fxparser.Query(url)
 				}
@@ -245,6 +214,12 @@ func (r *Runner) openURL(query string) {
 }
 
 func (r *Runner) Run() *sync.Map {
+	// Loading files downloaded with fofa coins
+	if r.options.CoinFile != "" {
+		fofa.ImportFile(r.options.CoinFile, r.options.FetchSize, r.options.FetchFullHostInfo, r.resMap)
+		return r.resMap
+	}
+
 	fo := fofa.NewFoFa(r.options)
 	for r.query.Len() != 0 {
 		if !r.query.Any() {
@@ -293,6 +268,5 @@ func (r *Runner) Run() *sync.Map {
 			fo.Fetch(fofaQuery)
 		}
 	}
-
 	return r.resMap
 }

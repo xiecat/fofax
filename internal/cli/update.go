@@ -2,14 +2,16 @@ package cli
 
 import (
 	"fmt"
+	"os"
+	"runtime"
+	"strings"
+
+	fofaxUpdateStore "github.com/tj/go-update/stores/github"
+
 	"fofax/internal/printer"
 	"github.com/pkg/errors"
 	"github.com/tj/go-update"
 	"github.com/tj/go-update/progress"
-	fofaxUpdateStore "github.com/tj/go-update/stores/github"
-	"os"
-	"runtime"
-	"strings"
 )
 
 func updateTips(tagName string, isDown bool) error {

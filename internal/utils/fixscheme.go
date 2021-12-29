@@ -2,8 +2,9 @@ package utils
 
 import (
 	"fmt"
-	"fofax/internal/printer"
 	"strings"
+
+	"fofax/internal/printer"
 )
 
 func FixFullHostInfoScheme(fields []string) string {
@@ -15,10 +16,11 @@ func FixFullHostInfoScheme(fields []string) string {
 	ip := strings.TrimSpace(fields[1])
 	port := strings.TrimSpace(fields[2])
 	host := strings.TrimSpace(fields[3])
+
 	if strings.HasPrefix(protocol, "https") {
 		return fmt.Sprintf("https://%s:%s", ip, port)
 	}
-	if strings.HasPrefix(host, "https://") {
+	if strings.HasPrefix(host, "https://") || strings.HasPrefix(host, "http://") {
 		return host
 	}
 	return fmt.Sprintf("http://%s", host)

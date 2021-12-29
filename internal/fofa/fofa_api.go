@@ -5,12 +5,13 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"math"
+	"net/http"
+
 	"fofax/internal/cli"
 	"fofax/internal/printer"
 	"fofax/internal/utils"
 	"github.com/jweny/xhttp"
-	"math"
-	"net/http"
 )
 
 type FoFa struct {
@@ -52,6 +53,7 @@ func NewFoFa(option *cli.Options) *FoFa {
 		client: client,
 	}
 }
+
 func (f *FoFa) SetFetchCallback(fn func(fields []string, allSize int32) bool) {
 	f.FetchFn = fn
 }
@@ -100,7 +102,6 @@ func (f *FoFa) fetchByFields(fields string, queryStr string) bool {
 				)
 				printer.Debug(f.buildQueryUrl(hiddenUri))
 			}
-
 		}
 		hr, _ := http.NewRequest("GET", fullURL, nil)
 		req := &xhttp.Request{RawRequest: hr}
