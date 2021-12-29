@@ -87,6 +87,7 @@ type config struct {
 	Debug         bool
 	ShowPrivacy   bool
 	ConfigFile    string
+	Update        bool
 	DisableUpdate bool
 }
 type fxconfig struct {
@@ -135,6 +136,7 @@ func init() {
 		flags.StringVar(&args.FoFaURL, "fofa-url", args.FoFaURL, "Fofa url"),
 		flags.BoolVar(&args.Debug, "debug", false, "Debug mode"),
 		flags.BoolVarP(&args.ShowPrivacy, "show-privacy", "sp", false, "Debug mode Show Privacy"),
+		flags.BoolVar(&args.Update, "update", false, "Update fofax"),
 		flags.BoolVarP(&args.DisableUpdate, "disable-update", "du", false, "Close update alerts"),
 	)
 	createGroup(
@@ -244,7 +246,7 @@ func ParseOptions() *Options {
 	}
 	// 检查更新
 	if !args.DisableUpdate {
-		checkUpdateInfo()
+		checkUpdateInfo(args.Update)
 	}
 	// 检查基本信息
 	checkFoFaInfo()
@@ -297,7 +299,7 @@ func checkMutFlags() error {
 		return errors.New("these " + flagStr + " are mutually exclusive")
 	}
 	// 不输入 query 也应当提醒
-	if flagNum == 0 && args.Mode != Stdin_Mode {
+	if flagNum == 0 && args.Mode != Stdin_Mode && !args.Update {
 		// return errors.New("query are empty")
 		fmt.Print("fofaX is a command line fofa query tool, simple is the best!\n\n")
 		PrintSingleUsage()
@@ -317,28 +319,28 @@ func checkFoFaInfo() {
 	}
 }
 
-func checkUpdateInfo() {
-	lastfile := filepath.Join(filepath.Dir(utils.GetDefaultConf()), ".fofax-last")
-	if !utils.FileExist(lastfile) {
-		_ = os.MkdirAll(filepath.Dir(lastfile), os.ModePerm)
-		ioutil.WriteFile(lastfile, []byte(strings.TrimSpace(Date)), os.ModePerm)
+func checkUpdateInfo(isDown bool) {
+	lastFile := filepath.Join(filepath.Dir(utils.GetDefaultConf()), ".fofax-last")
+	if !utils.FileExist(lastFile) {
+		_ = os.MkdirAll(filepath.Dir(lastFile), os.ModePerm)
+		ioutil.WriteFile(lastFile, []byte(strings.TrimSpace(Date)), os.ModePerm)
 	}
-	lasttime, err := ioutil.ReadFile(lastfile)
+	lastTime, err := ioutil.ReadFile(lastFile)
 	if err != nil {
 		printer.Error(err)
 		return
 	}
-	lastime, err := time.Parse("2006-01-02T15:04:05Z", strings.TrimSpace(string(lasttime)))
+	lasTime, err := time.Parse("2006-01-02T15:04:05Z", strings.TrimSpace(string(lastTime)))
 	if err != nil {
 		printer.Error(err)
 		return
 	}
-	if -time.Until(lastime) > 24*time.Hour {
-		err := UpdateTips(FoFaXVersion)
+	if -time.Until(lasTime) > 24*time.Hour || isDown {
+		err := updateTips(FoFaXVersion, isDown)
 		if err != nil {
-			printer.Info(err.Error())
+			printer.Error(err.Error())
 		}
-		ioutil.WriteFile(lastfile, []byte(time.Now().Format("2006-01-02T15:04:05Z")), os.ModePerm)
+		ioutil.WriteFile(lastFile, []byte(time.Now().Format("2006-01-02T15:04:05Z")), os.ModePerm)
 	}
 
 }

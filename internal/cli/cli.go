@@ -6,9 +6,9 @@ import (
 )
 
 var (
-	FoFaXVersion = "unknown"
+	FoFaXVersion = "0.1.14"
 	Commit       = "unknown"
-	Date         = "unknown"
+	Date         = "2021-12-27T10:26:05Z"
 	Branch       = "unknown"
 )
 
@@ -19,7 +19,7 @@ func banner() {
 	magenta("    / /_ / __ \\ / /_ / __ `/|   / ")
 	magenta(`   / __// /_/ // __// /_/ //   |  `)
 	magenta(`  /_/   \____//_/   \__,_//_/|_|  `)
-	magenta("                 	" + FoFaXVersion)
+	magenta("                 	v" + FoFaXVersion)
 	bannerSite("			https://fofax.xiecat.fun\n")
 }
 func bannerSite(a ...interface{}) {

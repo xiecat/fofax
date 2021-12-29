@@ -1,60 +1,82 @@
 package cli
 
 import (
-	"context"
 	"fmt"
 	"fofax/internal/printer"
-	"github.com/google/go-github/github"
-	"github.com/hashicorp/go-version"
+	"github.com/pkg/errors"
+	"github.com/tj/go-update"
+	"github.com/tj/go-update/progress"
+	fofaxUpdateStore "github.com/tj/go-update/stores/github"
+	"os"
+	"runtime"
 	"strings"
 )
 
-func UpdateTips(tagName string) error {
+func updateTips(tagName string, isDown bool) error {
 	tagName = fmt.Sprintf("v%s", tagName)
 	if strings.HasSuffix(tagName, "-next") {
 		printer.Debug("Self-compiled versions do not check for updates")
 		return nil
 	}
-
-	bVersion, err := version.NewVersion(tagName)
+	latest, err := updateFoFaXVersionToLatest(isDown)
 	if err != nil {
 		return err
 	}
-
-	gtag, ginfo, err := getGithubVersionInfo("xiecat", "fofax")
-	if err != nil {
-		return err
-	}
-
-	gVersion, err := version.NewVersion(gtag)
-	if err != nil {
-		return err
-	}
-	printer.Debugf("github current version: %s\n", gVersion)
-	if gVersion.GreaterThan(bVersion) {
-		bannerSite(fmt.Sprintf("New:\n\nVersion:%s\n\n%s\n", gtag, ginfo))
-		bannerSite("Please go to https://github.com/xiecat/fofax/releases to download\n\n")
+	if !isDown {
+		bannerSite(fmt.Sprintf("New:\n\nVersion:%s\n\n%s\n", latest.Version, latest.Notes))
+		bannerSite("Please Use [./fofax -update] to download\n\n")
 	}
 	return nil
 }
 
-func getGithubVersionInfo(owner, repo string) (tag, info string, err error) {
-	client := github.NewClient(nil)
-	opt := &github.ListOptions{Page: 1, PerPage: 1}
-	ctx := context.Background()
-
-	releases, rsp, err := client.Repositories.ListReleases(ctx, owner, repo, opt)
-
+// updateFoFaXVersionToLatest from nuclei.
+func updateFoFaXVersionToLatest(isDown bool) (*update.Release, error) {
+	var command string
+	switch runtime.GOOS {
+	case "windows":
+		command = "fofax.exe"
+	default:
+		command = "fofax"
+	}
+	m := &update.Manager{
+		Command: command,
+		Store: &fofaxUpdateStore.Store{
+			Owner:   "xiecat",
+			Repo:    "fofax",
+			Version: FoFaXVersion,
+		},
+	}
+	releases, err := m.LatestReleases()
 	if err != nil {
-		fmt.Println(err)
+		return nil, errors.Wrap(err, "could not fetch latest release")
 	}
-	if rsp.StatusCode != 200 {
-		printer.Infof("update status code err :%d", rsp.StatusCode)
-		return "", "", fmt.Errorf("update status code err :%d", rsp.StatusCode)
+	if len(releases) == 0 {
+		return nil, errors.Wrap(err, "No new updates found for fofax engine!")
 	}
-	if len(releases) != 1 {
-		printer.Infof("releases err")
-		return "", "", fmt.Errorf("releases err")
+	latest := releases[0]
+	if isDown {
+		currentOS := runtime.GOOS
+		var final *update.Asset
+		switch runtime.GOOS {
+		case "windows":
+			final = latest.FindZip(currentOS, runtime.GOARCH)
+		default:
+			final = latest.FindTarball(currentOS, runtime.GOARCH)
+		}
+		if final == nil {
+			return nil, fmt.Errorf("no compatible binary found for %s/%s", currentOS, runtime.GOARCH)
+		}
+		printer.Info("Download will start soon...")
+		tarball, err := final.DownloadProxy(progress.Reader)
+		if err != nil {
+			return nil, errors.Wrap(err, "could not download latest release")
+		}
+		currentPath, _ := os.Getwd()
+		if err := m.InstallTo(tarball, currentPath); err != nil {
+			return nil, errors.Wrap(err, "could not install latest release")
+		}
+		printer.Successf("Successfully updated to fofax %s", latest.Version)
+		printer.Success("Use [./fofax -v] to view")
 	}
-	return *releases[0].TagName, *releases[0].Body, nil
+	return latest, nil
 }
