@@ -70,11 +70,10 @@ func (f *FoFa) fetchByFields(fields string, queryStr string) bool {
 		maxSize = 10000 * 50000
 	}
 	// 找到最小值
-
 	perPage := int(math.Min(float64(maxSize), 10000))
 	if f.option.Debug {
 		printer.Debugf("FoFa Size : %d", perPage)
-		printer.Debugf("FoFa Query of: %s", queryStr)
+		printer.Debugf("FoFa input Query of: %s", queryStr)
 	}
 
 	for {
@@ -131,8 +130,11 @@ func (f *FoFa) fetchByFields(fields string, queryStr string) bool {
 			return false
 		}
 		if len(apiResult.ErrMsg) != 0 {
-			printer.Errorf("FoFa Response ErrMsg: %s", apiResult.ErrMsg)
+			printer.Errorf("FoFa Response ErrMsg: %s", getApiErrInfo(apiResult.ErrMsg))
 			return false
+		}
+		if f.option.Debug {
+			printer.Debugf("Fofa Api Query: %s", apiResult.Query)
 		}
 		printer.Successf("Fetch Data From FoFa: [%d/%d]", len(apiResult.Results), apiResult.Size)
 		for _, result := range apiResult.Results {
@@ -184,3 +186,12 @@ func (f *FoFa) Fetch(queryStr string) bool {
 //			fields[0], fields[1], fields[2]))
 //	return f.FetchCallBack(hostInfo, allSize)
 //}
+
+func getApiErrInfo(code string) string {
+	switch code {
+	case "820000":
+		return "查询语法错误"
+	default:
+		return code
+	}
+}

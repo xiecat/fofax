@@ -15,7 +15,7 @@ import (
 )
 
 func updateTips(tagName string) error {
-	tagName = fmt.Sprintf("v%s", tagName)
+	tagName = fmt.Sprintf("v%s", strings.TrimPrefix(tagName, "v"))
 	if strings.HasSuffix(tagName, "-next") {
 		printer.Debug("Self-compiled versions do not check for updates")
 		return nil

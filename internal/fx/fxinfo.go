@@ -141,7 +141,7 @@ var defalutPlugins = []Plugin{
 		RuleEnglish: "Jupyter unauthorized",
 		Description: "Jupyter 未授权访问",
 		Author:      "xiecat",
-		FofaQuery:   `(body="ipython-main-app" && title="Home Page - Select or create a notebook")"`,
+		FofaQuery:   `(body="ipython-main-app" && title="Home Page - Select or create a notebook")`,
 		Tag:         []string{"unauth"},
 		Type:        TypeInline,
 		Source:      "",

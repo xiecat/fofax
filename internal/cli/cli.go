@@ -29,7 +29,7 @@ func banner() {
 	magenta("    / /_ / __ \\ / /_ / __ `/|   / ")
 	magenta(`   / __// /_/ // __// /_/ //   |  `)
 	magenta(`  /_/   \____//_/   \__,_//_/|_|  `)
-	magenta("                 	" + FoFaXVersion)
+	magenta("                 	v" + FoFaXVersion)
 	bannerSite("			https://fofax.xiecat.fun\n")
 }
 func bannerSite(a ...interface{}) {

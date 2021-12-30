@@ -27,7 +27,7 @@ func NewFxQueryListener() *FxQueryListener {
 func (ql *FxQueryListener) ExitCompareExp(c *parser.CompareExpContext) {
 	if c.GetPropertyName().GetText() == "fx" {
 		fxvalue := strings.Trim(c.GetPropertyValue().GetText(), `\"`)
-		printer.Successf("fx query id:%s", fxvalue)
+		printer.Successf("fx query: %s", fxvalue)
 		fxinfo, err := fx.Info.SearchSingle(fxvalue)
 		if err != nil {
 			printer.Fatalf("%s Err:%s", c.GetPropertyValue().GetText(), err.Error())

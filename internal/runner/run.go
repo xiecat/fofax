@@ -226,6 +226,12 @@ func (r *Runner) Run() *sync.Map {
 			break
 		}
 		fofaQuery := r.query.Pop()
+		// 友好提示
+		if !r.options.FofaExt {
+			if strings.Contains(fofaQuery, "fx=") || strings.Contains(fofaQuery, "fx =") {
+				printer.Info("Please add the -fe parameter to use the fofa extended syntax")
+			}
+		}
 		// 提取完整的 hostInfo，带有 protocol -ffi
 		if r.options.FetchFullHostInfo {
 			fo.FetchFn = func(fields []string, allSize int32) bool {
