@@ -279,6 +279,20 @@ func (r *Runner) Run() *sync.Map {
 				return true
 			}
 			fo.FetchTitlesOfDomain(fofaQuery)
+		} else if r.options.FetchJarmOfDomain {
+			fo.FetchFn = func(fields []string, allSize int32) bool {
+				if host := fields[3]; len(host) > 0 {
+					fullUrl, err := utils.NewFixUrl(
+						utils.FixFullHostInfoScheme(fields))
+					if err != nil {
+						printer.Errorf("url.Parse %s", err)
+						os.Exit(1)
+					}
+					r.resMap.LoadOrStore(fullUrl, fmt.Sprintf("[%s]", fields[4]))
+				}
+				return true
+			}
+			fo.FetchJarmOfDomain(fofaQuery)
 		} else {
 			fo.FetchFn = func(fields []string, allSize int32) bool {
 				fullUrl, err := utils.NewFixUrl(fields[0])

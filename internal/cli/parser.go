@@ -65,6 +65,8 @@ type filter struct {
 	FetchOneField string
 	// 提取指定根域名的所有 title
 	FetchTitlesOfDomain bool
+	// 提取指定tls服务的所有 jarm
+	FetchJarmOfDomain bool
 	// 提取完整的 hostInfo，带有 protocol
 	FetchFullHostInfo bool
 	// 排除干扰
@@ -146,6 +148,7 @@ func init() {
 		//flags.BoolVarP(&args.UniqByIP, "unique-by-ip", "ubi", args.UniqByIP, "以IP的方式进行去重"),
 		flags.BoolVarP(&args.FetchFullHostInfo, "fetch-fullHost-info", "ffi", false, "URL fetch, with scheme, hostname, port"),
 		flags.BoolVarP(&args.FetchTitlesOfDomain, "fetch-titles-ofDomain", "fto", false, "Fetch website title"),
+		flags.BoolVarP(&args.FetchJarmOfDomain, "fetch-jarm-ofDomain", "fjo", false, "Fetch website jarm"),
 		// flags.StringVarP(&args.FetchOneField, "fetch-one-field", "fof", args.FetchOneField, "填写需要的另一个字段如，port"),
 	)
 	createGroup(

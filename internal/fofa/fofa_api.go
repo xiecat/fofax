@@ -173,6 +173,11 @@ func (f *FoFa) FetchTitlesOfDomain(queryStr string) bool {
 	return f.fetchByFields("protocol,ip,port,host,title,lastupdatetime", queryStr)
 }
 
+// FetchJarmOfDomain 提取 title
+func (f *FoFa) FetchJarmOfDomain(queryStr string) bool {
+	return f.fetchByFields("protocol,ip,port,host,jarm,lastupdatetime", queryStr)
+}
+
 func (f *FoFa) Fetch(queryStr string) bool {
 	return f.fetchByFields("host,title,lastupdatetime", queryStr)
 }

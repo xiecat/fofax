@@ -96,6 +96,7 @@ FOFA_KEY
    | 'ip_city'
    | 'ip_after'
    | 'ip_before'
+   | 'jarm'
    | 'fx'
    ;
 
