@@ -34,10 +34,6 @@ github.com/gosuri/uilive
 ## explicit
 github.com/gosuri/uiprogress
 github.com/gosuri/uiprogress/util/strutil
-# github.com/jweny/xhttp v0.0.0-20211209064339-2c93342bd421
-## explicit; go 1.17
-github.com/jweny/xhttp
-github.com/jweny/xhttp/xtls
 # github.com/klauspost/compress v1.4.1
 ## explicit
 github.com/klauspost/compress/flate
@@ -76,16 +72,6 @@ github.com/ulikunitz/xz
 github.com/ulikunitz/xz/internal/hash
 github.com/ulikunitz/xz/internal/xlog
 github.com/ulikunitz/xz/lzma
-# golang.org/x/crypto v0.0.0-20210220033148-5ea612d1eb83
-## explicit; go 1.11
-golang.org/x/crypto/pbkdf2
-# golang.org/x/net v0.0.0-20211105192438-b53810dc28af
-## explicit; go 1.17
-golang.org/x/net/http/httpguts
-golang.org/x/net/http2
-golang.org/x/net/http2/hpack
-golang.org/x/net/idna
-golang.org/x/net/publicsuffix
 # golang.org/x/sys v0.0.0-20211216021012-1d35b9e2eb4e
 ## explicit; go 1.17
 golang.org/x/sys/internal/unsafeheader
@@ -97,17 +83,7 @@ golang.org/x/text/encoding
 golang.org/x/text/encoding/internal
 golang.org/x/text/encoding/internal/identifier
 golang.org/x/text/encoding/simplifiedchinese
-golang.org/x/text/secure/bidirule
 golang.org/x/text/transform
-golang.org/x/text/unicode/bidi
-golang.org/x/text/unicode/norm
-# golang.org/x/time v0.0.0-20210723032227-1f47c861a9ac
-## explicit
-golang.org/x/time/rate
 # gopkg.in/yaml.v2 v2.4.0
 ## explicit; go 1.15
 gopkg.in/yaml.v2
-# software.sslmate.com/src/go-pkcs12 v0.0.0-20210415151418-c5206de65a78
-## explicit; go 1.15
-software.sslmate.com/src/go-pkcs12
-software.sslmate.com/src/go-pkcs12/internal/rc2

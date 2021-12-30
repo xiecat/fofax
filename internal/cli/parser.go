@@ -262,7 +262,7 @@ func ParseOptions() *Options {
 	}
 	//检查coinFile 是否存在
 	if args.CoinFile != "" && !utils.FileExist(args.CoinFile) {
-		printer.Fatalf("file: %s not exist\n", args.CoinFile)
+		printer.Fatalf("file: %s not exist", args.CoinFile)
 	}
 
 	return args

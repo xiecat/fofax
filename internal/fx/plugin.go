@@ -69,10 +69,10 @@ func (base *Plugin) GenPlugin(pluginFile string) error {
 		return errors.New("File exist please check: " + pluginFile)
 	}
 	data, _ := yaml.Marshal(base)
-	printer.Infof("Will Write Plugin file: %s\n", pluginFile)
+	printer.Infof("Will Write Plugin file: %s", pluginFile)
 	err := ioutil.WriteFile(pluginFile, data, 0644) // 写入
 	if err != nil {
-		printer.Fatalf("%s can't  write Plugin file\n", pluginFile)
+		printer.Fatalf("%s can't  write Plugin file", pluginFile)
 		return err
 	}
 	return nil

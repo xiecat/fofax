@@ -255,7 +255,7 @@ func (r *Runner) Run() *sync.Map {
 						printer.Errorf("url.Parse %s", err)
 						os.Exit(1)
 					}
-					r.resMap.LoadOrStore(fullUrl, fmt.Sprintf("[%s]", fields[4]))
+					r.resMap.LoadOrStore(fullUrl, fmt.Sprintf("[%s]", fields[5]))
 				}
 				return true
 			}
