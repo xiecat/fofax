@@ -1,24 +1,26 @@
 package fofa
 
 import (
-	"context"
+	"crypto/tls"
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"math"
 	"net/http"
+	"net/url"
+	"time"
 
 	"fofax/internal/cli"
 	"fofax/internal/printer"
 	"fofax/internal/utils"
-	"github.com/jweny/xhttp"
 )
 
 type FoFa struct {
 	page    int64
 	FetchFn fieldFn
 	option  *cli.Options
-	client  *xhttp.Client
+	client  *http.Client
 }
 
 type ApiResults struct {
@@ -36,17 +38,22 @@ type fieldFn func(fields []string, allSize int32) bool
 //type fixUrlFn func(hostInfo *utils.FixUrl, allSize int32) bool
 
 func NewFoFa(option *cli.Options) *FoFa {
-	hOpt := xhttp.NewDefaultClientOptions()
-	hOpt.Headers = map[string]string{
-		"user-agent": fmt.Sprintf("fofax-client-%s", cli.FoFaXVersion),
+	tr := &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
-	if len(option.Proxy) != 0 {
-		printer.Successf("Use Proxy: %s", option.Proxy)
-		hOpt.Proxy = option.Proxy
+	if option.Proxy != "" {
+		proxy, err := url.Parse(option.Proxy)
+		if err != nil {
+			printer.Fatalf("proxy err: %s", proxy)
+		}
+		printer.Infof("using proxy: %s", proxy)
+		tr = &http.Transport{
+			Proxy:           http.ProxyURL(proxy),
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+		}
 	}
-	client, err := xhttp.NewClient(hOpt, nil)
-	if err != nil {
-		return nil
+	client := &http.Client{
+		Transport: tr,
 	}
 	return &FoFa{
 		option: option,
@@ -102,31 +109,37 @@ func (f *FoFa) fetchByFields(fields string, queryStr string) bool {
 				printer.Debug(f.buildQueryUrl(hiddenUri))
 			}
 		}
-		hr, _ := http.NewRequest("GET", fullURL, nil)
-		req := &xhttp.Request{RawRequest: hr}
-		// 发起请求
-		ctx := context.Background()
-		resp, err := f.client.Do(ctx, req)
-		if err != nil {
-			printer.Errorf(printer.HandlerLine("request failed: %s" + err.Error()))
-			return false
-		}
-		latency, err := resp.GetLatency()
-		if f.option.Debug {
-			printer.Debugf("Resp Time: %d/millis", latency.Milliseconds())
+		req, err := http.NewRequest("GET", fullURL, nil)
 
-		}
 		if err != nil {
-			printer.Errorf(printer.HandlerLine("request failed: %s" + err.Error()))
+			printer.Errorf(printer.HandlerLine("request failed: " + err.Error()))
 			return false
 		}
-		if resp.GetStatus() != 200 {
-			printer.Errorf("Http Status Code : %d", resp.GetStatus())
+		req.Header.Set("fofax-client-%s", cli.FoFaXVersion)
+		// 计算时长
+		start := time.Now().UnixMilli()
+		// 请求
+		resp, err := f.client.Do(req)
+		if err != nil {
+			printer.Errorf(printer.HandlerLine("request failed: " + err.Error()))
 			return false
 		}
+		if resp.StatusCode != 200 {
+			printer.Errorf("Http Status Code : %d", resp.StatusCode)
+			return false
+		}
+		defer resp.Body.Close()
+		body, err := ioutil.ReadAll(resp.Body)
+		if err != nil {
+			printer.Errorf(printer.HandlerLine("body read failed: " + err.Error()))
+		}
+		if f.option.Debug {
+			printer.Debugf("Resp Time: %f/millis", float64(time.Now().UnixMilli()-start))
+		}
+
 		var apiResult ApiResults
-		if err := json.Unmarshal(resp.Body, &apiResult); err != nil {
-			printer.Errorf("Json Unmarshal Failed: %s", string(resp.Body))
+		if err := json.Unmarshal(body, &apiResult); err != nil {
+			printer.Errorf("Json Unmarshal Failed: %s", string(body))
 			return false
 		}
 		if len(apiResult.ErrMsg) != 0 {
@@ -163,7 +176,7 @@ func (f *FoFa) fetchByFields(fields string, queryStr string) bool {
 
 // FetchFullHostInfo 提取完整带协议的字段
 func (f *FoFa) FetchFullHostInfo(queryStr string) bool {
-	return f.fetchByFields("protocol,ip,port,host", queryStr)
+	return f.fetchByFields("protocol,ip,port,host,type", queryStr)
 }
 
 // FetchOneField 提取指定的字段
@@ -173,7 +186,7 @@ func (f *FoFa) FetchOneField(field, queryStr string) bool {
 
 // FetchTitlesOfDomain 提取 title
 func (f *FoFa) FetchTitlesOfDomain(queryStr string) bool {
-	return f.fetchByFields("protocol,ip,port,host,title,lastupdatetime", queryStr)
+	return f.fetchByFields("protocol,ip,port,host,type,title,lastupdatetime", queryStr)
 }
 
 func (f *FoFa) Fetch(queryStr string) bool {
