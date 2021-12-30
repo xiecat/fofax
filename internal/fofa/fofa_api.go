@@ -9,6 +9,7 @@ import (
 	"math"
 	"net/http"
 	"net/url"
+	"strings"
 	"time"
 
 	"fofax/internal/cli"
@@ -150,6 +151,9 @@ func (f *FoFa) fetchByFields(fields string, queryStr string) bool {
 			printer.Debugf("Fofa Api Query: %s", apiResult.Query)
 		}
 		printer.Successf("Fetch Data From FoFa: [%d/%d]", len(apiResult.Results), apiResult.Size)
+		if f.option.FetchFields != cli.DefaultField {
+			fmt.Println(strings.Join(strings.Split(f.option.FetchFields, ","), f.option.FetchFieldsSplit))
+		}
 		for _, result := range apiResult.Results {
 			//if len(result[0]) == 0 || result[0] == ":0" {
 			//	printer.Debug("There is no HostInfo!")
@@ -179,14 +183,19 @@ func (f *FoFa) FetchFullHostInfo(queryStr string) bool {
 	return f.fetchByFields("protocol,ip,port,host,type", queryStr)
 }
 
-// FetchOneField 提取指定的字段
-func (f *FoFa) FetchOneField(field, queryStr string) bool {
+// FetchField 提取指定的字段
+func (f *FoFa) FetchField(field, queryStr string) bool {
 	return f.fetchByFields(field, queryStr)
 }
 
 // FetchTitlesOfDomain 提取 title
 func (f *FoFa) FetchTitlesOfDomain(queryStr string) bool {
 	return f.fetchByFields("protocol,ip,port,host,type,title,lastupdatetime", queryStr)
+}
+
+// FetchJarmOfDomain 提取 title
+func (f *FoFa) FetchJarmOfDomain(queryStr string) bool {
+	return f.fetchByFields("protocol,ip,port,host,type,jarm,lastupdatetime", queryStr)
 }
 
 func (f *FoFa) Fetch(queryStr string) bool {

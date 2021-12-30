@@ -22,6 +22,8 @@ const (
 	Stdin_Mode
 	Query_Mode
 	File_Mode
+	DefaultField    = ""
+	DefaultFieldSep = ","
 )
 
 type Options struct {
@@ -62,10 +64,14 @@ type queryOfFile struct {
 }
 
 type filter struct {
-	// 填写需要的另一个字段如，port
-	FetchOneField string
+	// 填写需要获取的字段如，port
+	FetchFields string
+	// 指定显示的分隔符
+	FetchFieldsSplit string
 	// 提取指定根域名的所有 title
 	FetchTitlesOfDomain bool
+	// 提取指定根域名的所有 title
+	FetchJarmOfDomain bool
 	// 提取完整的 hostInfo，带有 protocol
 	FetchFullHostInfo bool
 	// 排除干扰
@@ -149,7 +155,9 @@ func init() {
 		//flags.BoolVarP(&args.UniqByIP, "unique-by-ip", "ubi", args.UniqByIP, "以IP的方式进行去重"),
 		flags.BoolVarP(&args.FetchFullHostInfo, "fetch-fullHost-info", "ffi", false, "URL fetch, with scheme, hostname, port"),
 		flags.BoolVarP(&args.FetchTitlesOfDomain, "fetch-titles-ofDomain", "fto", false, "Fetch website title"),
-		// flags.StringVarP(&args.FetchOneField, "fetch-one-field", "fof", args.FetchOneField, "填写需要的另一个字段如，port"),
+		flags.BoolVarP(&args.FetchJarmOfDomain, "fetch-jarm-ofDomain", "fjo", false, "Fetch website jarm"),
+		flags.StringVarP(&args.FetchFields, "fetch-fields", "ff", DefaultField, "Fetch by fields.eg: (ip,port)"),
+		flags.StringVar(&args.FetchFieldsSplit, "fetch-fields-split", "\t", "Specify characters to split data in different fields"),
 	)
 	createGroup(
 		flags, "query", "Single query/cert/icon",
