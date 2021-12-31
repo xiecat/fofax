@@ -116,6 +116,9 @@ func (f *FoFa) fetchByFields(fields string, queryStr string) bool {
 			printer.Errorf(printer.HandlerLine("request failed: " + err.Error()))
 			return false
 		}
+		if f.option.FetchFields != cli.DefaultField {
+			printer.Debugf("Fields : %s", strings.Join(strings.Split(f.option.FetchFields, ","), f.option.FetchFieldsSplit))
+		}
 		req.Header.Set("fofax-client-%s", cli.FoFaXVersion)
 		// 计算时长
 		start := time.Now().UnixMilli()
@@ -135,7 +138,7 @@ func (f *FoFa) fetchByFields(fields string, queryStr string) bool {
 			printer.Errorf(printer.HandlerLine("body read failed: " + err.Error()))
 		}
 		if f.option.Debug {
-			printer.Debugf("Resp Time: %f/millis", float64(time.Now().UnixMilli()-start))
+			printer.Debugf("Resp Time: %.2f/millis", float64(time.Now().UnixMilli()-start))
 		}
 
 		var apiResult ApiResults
@@ -151,9 +154,7 @@ func (f *FoFa) fetchByFields(fields string, queryStr string) bool {
 			printer.Debugf("Fofa Api Query: %s", apiResult.Query)
 		}
 		printer.Successf("Fetch Data From FoFa: [%d/%d]", len(apiResult.Results), apiResult.Size)
-		if f.option.FetchFields != cli.DefaultField {
-			fmt.Println(strings.Join(strings.Split(f.option.FetchFields, ","), f.option.FetchFieldsSplit))
-		}
+
 		for _, result := range apiResult.Results {
 			//if len(result[0]) == 0 || result[0] == ":0" {
 			//	printer.Debug("There is no HostInfo!")

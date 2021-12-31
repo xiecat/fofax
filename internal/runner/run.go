@@ -276,11 +276,10 @@ func (r *Runner) Run() *sync.Map {
 			fo.FetchJarmOfDomain(fofaQuery)
 		} else if r.options.FetchFields != cli.DefaultField {
 			fo.FetchFn = func(fields []string, allSize int32) bool {
-				r.resMap.LoadOrStore(strings.Join(fields, r.options.FetchFieldsSplit), nil)
-
+				r.resMap.LoadOrStore(strings.Join(fields[:len(fields)-1], r.options.FetchFieldsSplit), nil)
 				return true
 			}
-			fo.FetchField(r.options.FetchFields, fofaQuery)
+			fo.FetchField(r.options.FetchFields+",type", fofaQuery)
 		} else {
 			fo.FetchFn = func(fields []string, allSize int32) bool {
 				fullUrl, err := utils.NewFixUrl(fields[0])
