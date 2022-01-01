@@ -152,12 +152,16 @@ func init() {
 		flags.BoolVarP(&args.ExcludeCountryCN, "exclude-country-cn", "ec", false, "Exclude CN."),
 		// 好像没用
 		//flags.BoolVarP(&args.UniqByIP, "unique-by-ip", "ubi", args.UniqByIP, "以IP的方式进行去重"),
+	)
+	createGroup(
+		flags, "output", "output format",
 		flags.BoolVarP(&args.FetchFullHostInfo, "fetch-fullHost-info", "ffi", false, "URL fetch, with scheme, hostname, port"),
 		flags.BoolVarP(&args.FetchTitlesOfDomain, "fetch-titles-ofDomain", "fto", false, "Fetch website title"),
 		flags.BoolVarP(&args.FetchJarmOfDomain, "fetch-jarm-ofDomain", "fjo", false, "Fetch website jarm"),
 		flags.StringVarP(&args.FetchFields, "fetch-fields", "ff", DefaultField, "Fetch by fields.eg: (host,lastupdatetime)"),
 		flags.StringVar(&args.FetchFieldsSplit, "fetch-fields-split", ",", "Specify characters to split data in different fields"),
 	)
+
 	createGroup(
 		flags, "query", "Single query/cert/icon",
 		flags.StringVarP(&args.Query, "query", "q", args.Query, "FoFa query statement"),
