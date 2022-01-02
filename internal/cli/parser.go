@@ -55,6 +55,7 @@ type query struct {
 type queryOfFile struct {
 	// 从文件中进行查询
 	QueryFile string `key:"-qf"`
+	QueryFx   string `key:"-qx"`
 	CoinFile  string `key:"-fcf"`
 	// 批量 URL，计算 icon hash 后进行查询
 	UrlIconFile string `key:"-iuf"`
@@ -173,6 +174,7 @@ func init() {
 		flags, "queryFile", "Multiple query/cert/icon",
 		flags.StringVarP(&args.CoinFile, "fofa-coin-file", "fcf", args.CoinFile, "Load files downloaded with fofa coins (only use -ffi -fs or not)"),
 		flags.StringVarP(&args.QueryFile, "query-file", "qf", args.QueryFile, "Load files, query multiple statements"),
+		flags.StringVarP(&args.QueryFx, "query-fx", "qx", args.QueryFx, "Find all statements from the fx rules"),
 		flags.StringVarP(&args.PeerCertificatesFile, "url-cert-file", "ucf", args.UrlIconFile, "Read the URL from the file, calculate the cert and then query it"),
 		flags.StringVarP(&args.UrlIconFile, "icon-hash-url-file", "iuf", args.UrlIconFile, "Retrieve the URL from the file, calculate the icon hash and query it"),
 	)

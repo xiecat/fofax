@@ -88,6 +88,13 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 
 	// 多个 Query/cert/icon 搜索项 代码块
 	{
+		// 根据 fx 搜索条件，查询多个语句
+		if options.QueryFx != "" {
+			plugins := options.FxQuery.SearchQueryExp(options.QueryFx)
+			for _, p := range plugins {
+				runner.query.Push(p.FofaQuery)
+			}
+		}
 		// 加载文件，查询多个语句 -qf
 		if len(options.QueryFile) != 0 && utils.FileExist(options.QueryFile) {
 			input, err := os.Open(options.QueryFile)
