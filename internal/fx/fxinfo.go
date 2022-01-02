@@ -1205,4 +1205,16 @@ var defalutPlugins = []Plugin{
 		Type:        TypeInline,
 		Source:      "",
 	},
+	{
+		Id:          "fx-2022-1002",
+		Query:       "shiro",
+		RuleName:    "shiro",
+		RuleEnglish: "shiro",
+		Description: "Apache-Shiro",
+		Author:      "xiecat",
+		FofaQuery:   `header="rememberMe=" || header="=deleteMe" || header="shiro-cas" || body="</i> shiro</li>"`,
+		Tag:         []string{"shiro"},
+		Type:        TypeInline,
+		Source:      "",
+	},
 }
