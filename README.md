@@ -30,7 +30,7 @@ Click on the [Release download link](https://github.com/xiecat/fofax/releases) a
 Unzip the downloaded fofax archive and recommend placing it in the `/usr/local/bin/` directory, so that you can run fofax commands from any directory.
 
 ```Console
-tar -zxvf ~/Downloads/fofax_v0.1.11_darwin_amd64.tar.gz -C /usr/local/bin/.
+tar -zxvf ~/Downloads/fofax_v0.1.22_darwin_amd64.tar.gz -C /usr/local/bin/.
 ```
 
 
@@ -516,14 +516,26 @@ https://114.255.204.149
 CVE-2021-43798 Grafana Unauthorized Directory Traversal.
 
 <!-- ![fofax&httpx](./docs/images/fofax&httpx.png) -->
-![fofax_httpx.png](https://s2.loli.net/2021/12/25/kNx281ne7Ou5p4L.png)
+![fofax_httpx](https://s2.loli.net/2021/12/25/kNx281ne7Ou5p4L.png)
 
 ### fofax && nuclei
 
 Pass the data obtained by fofax to nuclei and then use the CVE-2021-43798 Template to vulnerability in batch.
 
 <!-- ![fofax&nuclei](./docs/images/fofax&nuclei.png) -->
-![fofax_nuclei.png](https://s2.loli.net/2021/12/25/YztbnOelLZGQAIJ.png)
+![fofax_nuclei](https://s2.loli.net/2021/12/25/YztbnOelLZGQAIJ.png)
+
+### fofax && xray
+
+![fofax_xray](https://github.com/xiecat/fofax-doc/blob/dev/docs/.vuepress/public/fofax&xray.png?raw=true)
+
+### fofax && observer_ward
+
+![fofax_observer_ward](https://github.com/xiecat/fofax-doc/blob/dev/docs/.vuepress/public/fofax&observer_ward.png?raw=true)
+
+### fofax && dismap
+
+![fofax_dismap](https://github.com/xiecat/fofax-doc/blob/dev/docs/.vuepress/public/fofax&dismap.png?raw=true)
 
 
 ## 0x06 Stargazers

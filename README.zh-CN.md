@@ -32,7 +32,7 @@ fofax 是一款使用 go 编写的命令行 fofa 查询工具，在支持fofa查
 将下载下来的 fofax 压缩包解压，建议放在 `/usr/local/bin/` 目录下，以达到任意目录都可以运行 fofax 命令的目的。
 
 ```console
-tar -zxvf ~/Downloads/fofax_v0.1.11_darwin_amd64.tar.gz -C /usr/local/bin/
+tar -zxvf ~/Downloads/fofax_v0.1.22_darwin_amd64.tar.gz -C /usr/local/bin/
 ```
 
 
@@ -506,15 +506,26 @@ https://114.255.204.149
 CVE-2021-43798 Grafana 未授权目录遍历。
 
 <!-- ![fofax&httpx](./docs/images/fofax&httpx.png) -->
-![fofax_httpx.png](https://s2.loli.net/2021/12/25/kNx281ne7Ou5p4L.png)
+![fofax_httpx](https://s2.loli.net/2021/12/25/kNx281ne7Ou5p4L.png)
 
 ### fofax && nuclei
 
 将 fofax 获取的数据传递到 nuclei，然后使用 CVE-2021-43798 Template 批量漏洞扫描。
 
 <!-- ![fofax&nuclei](./docs/images/fofax&nuclei.png) -->
-![fofax_nuclei.png](https://s2.loli.net/2021/12/25/YztbnOelLZGQAIJ.png)
+![fofax_nuclei](https://s2.loli.net/2021/12/25/YztbnOelLZGQAIJ.png)
 
+### fofax && xray
+
+![fofax_xray](https://github.com/xiecat/fofax-doc/blob/dev/docs/.vuepress/public/fofax&xray.png?raw=true)
+
+### fofax && observer_ward
+
+![fofax_observer_ward](https://github.com/xiecat/fofax-doc/blob/dev/docs/.vuepress/public/fofax&observer_ward.png?raw=true)
+
+### fofax && dismap
+
+![fofax_dismap](https://github.com/xiecat/fofax-doc/blob/dev/docs/.vuepress/public/fofax&dismap.png?raw=true)
 
 ## 0x06 Stargazers
 
