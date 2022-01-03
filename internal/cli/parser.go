@@ -76,6 +76,8 @@ type filter struct {
 	FetchFullHostInfo bool
 	// 排除干扰
 	Exclude bool
+	// 包含干扰
+	Include bool
 	// 排除国家
 	ExcludeCountryCN bool
 	// 去重 ,好像没用？
@@ -150,6 +152,7 @@ func init() {
 		flags, "filters", "FILTERS",
 		flags.IntVarP(&args.FetchSize, "fetch-size", "fs", args.FetchSize, "The maximum number of query"),
 		flags.BoolVarP(&args.Exclude, "exclude", "e", args.Exclude, "Exclude the honeypot."),
+		flags.BoolVarP(&args.Include, "include", "i", args.Include, "Include the honeypot."),
 		flags.BoolVarP(&args.ExcludeCountryCN, "exclude-country-cn", "ec", false, "Exclude CN."),
 		// 好像没用
 		//flags.BoolVarP(&args.UniqByIP, "unique-by-ip", "ubi", args.UniqByIP, "以IP的方式进行去重"),
