@@ -165,6 +165,10 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 
 	// 过滤项目,
 	{
+		if options.Exclude {
+			// 把放进去的
+			printer.Infof("FoFa 默认已经排除干扰数据，后续将删除[-e/-exclude]参数")
+		}
 		if options.ExcludeCountryCN {
 			for i := 0; i < runner.query.Len(); i++ {
 				if !runner.query.Any() {
@@ -172,27 +176,14 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 				}
 				fofaQuery := runner.query.Peek()
 				runner.query.Pop()
-				fofaQuery = fofaQuery + ` && country!="CN"`
-				runner.query.Push(fofaQuery)
-			}
-		}
-		if options.Exclude {
-			// 把放进去的
-			for i := 0; i < runner.query.Len(); i++ {
-				if !runner.query.Any() {
-					break
-				}
-				fofaQuery := runner.query.Peek()
-				runner.query.Pop()
 				if !(strings.HasPrefix(fofaQuery, "(") && strings.HasSuffix(fofaQuery, ")")) {
-					fofaQuery = "(" + fofaQuery + ")" + " && (is_honeypot=false && is_fraud=false)"
+					fofaQuery = "(" + fofaQuery + ")" + ` && country!="CN"`
 				} else {
-					fofaQuery = fofaQuery + " && (is_honeypot=false && is_fraud=false)"
+					fofaQuery = fofaQuery + ` && country!="CN"`
 				}
 				runner.query.Push(fofaQuery)
 			}
 		}
-
 		// 用浏览器打开
 		if options.Open {
 			for i := 0; i < runner.query.Len(); i++ {
