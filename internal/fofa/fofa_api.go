@@ -85,9 +85,13 @@ func (f *FoFa) fetchByFields(fields string, queryStr string) bool {
 	}
 
 	for {
+		var isFraud string
+		if f.option.Include {
+			isFraud = "&fraud=true"
+		}
 		uri := fmt.Sprintf(
-			"/api/v1/search/all?email=%s&key=%s&qbase64=%s&size=%d&page=%d&fields=%s",
-			f.option.FoFaEmail, f.option.FoFaKey,
+			"/api/v1/search/all?email=%s&key=%s%s&qbase64=%s&size=%d&page=%d&fields=%s",
+			f.option.FoFaEmail, f.option.FoFaKey, isFraud,
 			base64.StdEncoding.EncodeToString([]byte(queryStr)),
 			perPage,
 			f.page,
@@ -100,8 +104,8 @@ func (f *FoFa) fetchByFields(fields string, queryStr string) bool {
 				printer.Debug(fullURL)
 			} else {
 				hiddenUri := fmt.Sprintf(
-					"/api/v1/search/all?email=%s&key=%s&qbase64=%s&size=%d&page=%d&fields=%s",
-					"*****@*******", utils.GetHidePasswd(f.option.FoFaKey),
+					"/api/v1/search/all?email=%s&key=%s%s&qbase64=%s&size=%d&page=%d&fields=%s",
+					"*****@*******", utils.GetHidePasswd(f.option.FoFaKey), isFraud,
 					base64.StdEncoding.EncodeToString([]byte(queryStr)),
 					perPage,
 					f.page,
