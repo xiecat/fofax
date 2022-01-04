@@ -94,9 +94,13 @@ func (f *FoFa) fetchByFields(fields string, queryStr string) bool {
 	}
 
 	for {
+		var isFraud string
+		if f.option.Include {
+			isFraud = "&fraud=true"
+		}
 		uri := fmt.Sprintf(
-			"/api/v1/search/all?email=%s&key=%s&qbase64=%s&size=%d&page=%d&fields=%s",
-			f.option.FoFaEmail, f.option.FoFaKey,
+			"/api/v1/search/all?email=%s&key=%s%s&qbase64=%s&size=%d&page=%d&fields=%s",
+			f.option.FoFaEmail, f.option.FoFaKey, isFraud,
 			base64.StdEncoding.EncodeToString([]byte(queryStr)),
 			perPage,
 			f.page,
@@ -109,8 +113,8 @@ func (f *FoFa) fetchByFields(fields string, queryStr string) bool {
 				printer.Debug(fullURL)
 			} else {
 				hiddenUri := fmt.Sprintf(
-					"/api/v1/search/all?email=%s&key=%s&qbase64=%s&size=%d&page=%d&fields=%s",
-					"*****@*******", utils.GetHidePasswd(f.option.FoFaKey),
+					"/api/v1/search/all?email=%s&key=%s%s&qbase64=%s&size=%d&page=%d&fields=%s",
+					"*****@*******", utils.GetHidePasswd(f.option.FoFaKey), isFraud,
 					base64.StdEncoding.EncodeToString([]byte(queryStr)),
 					perPage,
 					f.page,
@@ -124,6 +128,9 @@ func (f *FoFa) fetchByFields(fields string, queryStr string) bool {
 		if err != nil {
 			printer.Errorf(printer.HandlerLine("request failed: " + err.Error()))
 			return false
+		}
+		if f.option.FetchFields != cli.DefaultField {
+			printer.Debugf("Fields : %s", strings.Join(strings.Split(f.option.FetchFields, ","), f.option.FetchFieldsSplit))
 		}
 		req.Header.Set("fofax-client-%s", cli.FoFaXVersion)
 		// 计算时长
@@ -144,7 +151,7 @@ func (f *FoFa) fetchByFields(fields string, queryStr string) bool {
 			printer.Errorf(printer.HandlerLine("body read failed: " + err.Error()))
 		}
 		if f.option.Debug {
-			printer.Debugf("Resp Time: %f/millis", float64(time.Now().UnixMilli()-start))
+			printer.Debugf("Resp Time: %.2f/millis", float64(time.Now().UnixMilli()-start))
 		}
 
 		var apiResult ApiResults
@@ -160,9 +167,7 @@ func (f *FoFa) fetchByFields(fields string, queryStr string) bool {
 			printer.Debugf("Fofa Api Query: %s", apiResult.Query)
 		}
 		printer.Successf("Fetch Data From FoFa: [%d/%d]", len(apiResult.Results), apiResult.Size)
-		if f.option.FetchFields != cli.DefaultField {
-			fmt.Println(strings.Join(strings.Split(f.option.FetchFields, ","), f.option.FetchFieldsSplit))
-		}
+
 		for _, result := range apiResult.Results {
 			//if len(result[0]) == 0 || result[0] == ":0" {
 			//	printer.Debug("There is no HostInfo!")

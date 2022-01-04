@@ -46,6 +46,16 @@ func (fx FoFaxQuery) Search(id, query, ruleName, ruleEnglish, Author, tag string
 	}
 	return
 }
+func (fx FoFaxQuery) SearchQueryExp(rawStrs string) (plugins []Plugin) {
+	strs := strings.Split(rawStrs, ";")
+
+	if len(strs) == 1 && len(strings.Split(strs[0], "=")) == 1 {
+		return fx.SearchOr(rawStrs, rawStrs, rawStrs, rawStrs, rawStrs, rawStrs)
+
+	}
+	id, query, ruleName, ruleEnglish, author, tag := fx.searchExp(rawStrs)
+	return fx.Search(id, query, ruleName, ruleEnglish, author, tag)
+}
 
 func (fx FoFaxQuery) SearchSingle(query string) (Plugin, error) {
 	if len(query) < 3 {
@@ -60,14 +70,9 @@ func (fx FoFaxQuery) SearchSingle(query string) (Plugin, error) {
 	return Plugin{}, errors.New("not found")
 }
 
-func (fx FoFaxQuery) SearchExpTab(rawStrs string) {
-	var id, query, ruleName, ruleEnglish, author, tag string
-	strs := strings.Split(rawStrs, ";")
+func (fx FoFaxQuery) searchExp(rawStrs string) (id, query, ruleName, ruleEnglish, author, tag string) {
 
-	if len(strs) == 1 && len(strings.Split(strs[0], "=")) == 1 {
-		fx.SearchOrTable(rawStrs, rawStrs, rawStrs, rawStrs, rawStrs, rawStrs)
-		return
-	}
+	strs := strings.Split(rawStrs, ";")
 
 	for _, expr := range strs {
 		exprSplit := strings.Split(expr, "=")
@@ -100,7 +105,28 @@ func (fx FoFaxQuery) SearchExpTab(rawStrs string) {
 		}
 	}
 	printer.Debugf("id=%s,query=%s,ruleName=%s,ruleEnglish=%s,author=%s,tag=%s", id, query, ruleName, ruleEnglish, author, tag)
+	return
+}
+func (fx FoFaxQuery) SearchExpTab(rawStrs string) {
+	strs := strings.Split(rawStrs, ";")
+
+	if len(strs) == 1 && len(strings.Split(strs[0], "=")) == 1 {
+		fx.SearchOrTable(rawStrs, rawStrs, rawStrs, rawStrs, rawStrs, rawStrs)
+		return
+	}
+	id, query, ruleName, ruleEnglish, author, tag := fx.searchExp(rawStrs)
 	fx.SearchTable(id, query, ruleName, ruleEnglish, author, tag)
+}
+
+func (fx FoFaxQuery) SearchOr(id, query, ruleName, ruleEnglish, Author, tag string) (plugins []Plugin) {
+	for _, q := range fx.Plugins {
+		if StrContain(id, q.Id) || StrContain(query, q.Query) || StrContain(ruleName, q.RuleName) ||
+			StrContain(ruleEnglish, q.RuleEnglish) || StrContain(Author, q.Author) ||
+			StrEqualInList(tag, q.Tag) {
+			plugins = append(plugins, q)
+		}
+	}
+	return
 }
 
 func (fx FoFaxQuery) SearchOrTable(id, query, ruleName, ruleEnglish, Author, tag string) {

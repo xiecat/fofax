@@ -88,6 +88,13 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 
 	// 多个 Query/cert/icon 搜索项 代码块
 	{
+		// 根据 fx 搜索条件，查询多个语句
+		if options.QueryFx != "" {
+			plugins := options.FxQuery.SearchQueryExp(options.QueryFx)
+			for _, p := range plugins {
+				runner.query.Push(p.FofaQuery)
+			}
+		}
 		// 加载文件，查询多个语句 -qf
 		if len(options.QueryFile) != 0 && utils.FileExist(options.QueryFile) {
 			input, err := os.Open(options.QueryFile)
@@ -158,6 +165,10 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 
 	// 过滤项目,
 	{
+		if options.Exclude {
+			// 把放进去的
+			printer.Infof("FoFa 默认已经排除干扰数据，后续将删除[-e/-exclude]参数")
+		}
 		if options.ExcludeCountryCN {
 			for i := 0; i < runner.query.Len(); i++ {
 				if !runner.query.Any() {
@@ -165,27 +176,14 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 				}
 				fofaQuery := runner.query.Peek()
 				runner.query.Pop()
-				fofaQuery = fofaQuery + ` && country!="CN"`
-				runner.query.Push(fofaQuery)
-			}
-		}
-		if options.Exclude {
-			// 把放进去的
-			for i := 0; i < runner.query.Len(); i++ {
-				if !runner.query.Any() {
-					break
-				}
-				fofaQuery := runner.query.Peek()
-				runner.query.Pop()
 				if !(strings.HasPrefix(fofaQuery, "(") && strings.HasSuffix(fofaQuery, ")")) {
-					fofaQuery = "(" + fofaQuery + ")" + " && (is_honeypot=false && is_fraud=false)"
+					fofaQuery = "(" + fofaQuery + ")" + ` && country!="CN"`
 				} else {
-					fofaQuery = fofaQuery + " && (is_honeypot=false && is_fraud=false)"
+					fofaQuery = fofaQuery + ` && country!="CN"`
 				}
 				runner.query.Push(fofaQuery)
 			}
 		}
-
 		// 用浏览器打开
 		if options.Open {
 			for i := 0; i < runner.query.Len(); i++ {
@@ -276,11 +274,10 @@ func (r *Runner) Run() *sync.Map {
 			fo.FetchJarmOfDomain(fofaQuery)
 		} else if r.options.FetchFields != cli.DefaultField {
 			fo.FetchFn = func(fields []string, allSize int32) bool {
-				r.resMap.LoadOrStore(strings.Join(fields, r.options.FetchFieldsSplit), nil)
-
+				r.resMap.LoadOrStore(strings.Join(fields[:len(fields)-1], r.options.FetchFieldsSplit), nil)
 				return true
 			}
-			fo.FetchField(r.options.FetchFields, fofaQuery)
+			fo.FetchField(r.options.FetchFields+",type", fofaQuery)
 		} else {
 			fo.FetchFn = func(fields []string, allSize int32) bool {
 				fullUrl, err := utils.NewFixUrl(fields[0])
