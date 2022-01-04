@@ -18,8 +18,8 @@ import (
 	"github.com/pkg/errors"
 	"gopkg.in/yaml.v2"
 
-	"fofax/internal/printer"
-	"fofax/internal/utils"
+	"github.com/xiecat/fofax/internal/printer"
+	"github.com/xiecat/fofax/internal/utils"
 )
 
 // FlagSet is a list of flags for an application

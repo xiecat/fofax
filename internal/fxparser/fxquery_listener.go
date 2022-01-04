@@ -7,10 +7,10 @@ import (
 
 	"github.com/antlr/antlr4/runtime/Go/antlr"
 
-	"fofax/internal/fx"
-	"fofax/internal/fxparser/parser"
-	"fofax/internal/fxparser/stack"
-	"fofax/internal/printer"
+	"github.com/xiecat/fofax/internal/fx"
+	"github.com/xiecat/fofax/internal/fxparser/parser"
+	"github.com/xiecat/fofax/internal/fxparser/stack"
+	"github.com/xiecat/fofax/internal/printer"
 )
 
 type FxQueryListener struct {

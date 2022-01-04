@@ -12,8 +12,9 @@ import (
 	"strings"
 	"time"
 
-	"fofax/internal/printer"
 	"github.com/twmb/murmur3"
+
+	"github.com/xiecat/fofax/internal/printer"
 )
 
 type Config struct {

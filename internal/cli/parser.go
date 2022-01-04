@@ -10,11 +10,11 @@ import (
 	"strings"
 	"time"
 
-	"fofax/internal/fx"
-	"fofax/internal/fxparser"
-	"fofax/internal/goflags"
-	"fofax/internal/printer"
-	"fofax/internal/utils"
+	"github.com/xiecat/fofax/internal/fx"
+	"github.com/xiecat/fofax/internal/fxparser"
+	"github.com/xiecat/fofax/internal/goflags"
+	"github.com/xiecat/fofax/internal/printer"
+	"github.com/xiecat/fofax/internal/utils"
 )
 
 const (
@@ -211,7 +211,10 @@ func ParseFxOptions() {
 
 	args.FxQuery = fx.NewFoFaxQuery(args.FxDir)
 	if args.GenFx != "" {
-		fx.GenDefaultPlugin(args.GenFx)
+		err := fx.GenDefaultPlugin(args.GenFx)
+		if err != nil {
+			printer.Error(err)
+		}
 		os.Exit(0)
 	}
 	if args.FxList {
@@ -337,7 +340,8 @@ func checkUpdateInfo() {
 	lastFile := filepath.Join(filepath.Dir(utils.GetDefaultConf()), ".fofax-last")
 	if !utils.FileExist(lastFile) {
 		_ = os.MkdirAll(filepath.Dir(lastFile), os.ModePerm)
-		ioutil.WriteFile(lastFile, []byte(strings.TrimSpace(Date)), os.ModePerm)
+		err := ioutil.WriteFile(lastFile, []byte(strings.TrimSpace(Date)), os.ModePerm)
+		printer.Fatal(err)
 	}
 	lastTime, err := ioutil.ReadFile(lastFile)
 	if err != nil {
@@ -354,7 +358,8 @@ func checkUpdateInfo() {
 		if err != nil {
 			printer.Error(err.Error())
 		}
-		ioutil.WriteFile(lastFile, []byte(time.Now().Format("2006-01-02T15:04:05Z")), os.ModePerm)
+		err = ioutil.WriteFile(lastFile, []byte(time.Now().Format("2006-01-02T15:04:05Z")), os.ModePerm)
+		printer.Fatal(err)
 	}
 
 }

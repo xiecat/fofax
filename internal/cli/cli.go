@@ -16,7 +16,7 @@ var (
 
 func getVname(f string) string {
 	if strings.HasPrefix(f, "v0.1.") || strings.HasPrefix(f, "0.1.") {
-		return fmt.Sprintf("Capricornus")
+		return "Capricornus"
 	} else {
 		return f
 	}

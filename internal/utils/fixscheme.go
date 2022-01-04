@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"fofax/internal/printer"
+	"github.com/xiecat/fofax/internal/printer"
 )
 
 func FixFullHostInfoScheme(fields []string) string {

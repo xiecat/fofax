@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"fofax/internal/cli"
-	"fofax/internal/printer"
-	"fofax/internal/runner"
+	"github.com/xiecat/fofax/internal/cli"
+	"github.com/xiecat/fofax/internal/printer"
+	"github.com/xiecat/fofax/internal/runner"
 )
 
 func main() {

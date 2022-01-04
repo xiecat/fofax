@@ -8,7 +8,7 @@ import (
 
 	"gopkg.in/yaml.v2"
 
-	"fofax/internal/printer"
+	"github.com/xiecat/fofax/internal/printer"
 )
 
 type Tinfo struct {

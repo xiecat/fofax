@@ -1,8 +1,8 @@
 package fxparser
 
 import (
-	"fofax/internal/printer"
 	"github.com/antlr/antlr4/runtime/Go/antlr"
+	"github.com/xiecat/fofax/internal/printer"
 )
 
 // https://github.com/antlr/antlr4/issues/2158

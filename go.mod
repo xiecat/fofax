@@ -1,4 +1,4 @@
-module fofax
+module github.com/xiecat/fofax
 
 go 1.17
 

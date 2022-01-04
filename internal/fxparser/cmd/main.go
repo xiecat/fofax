@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"fofax/internal/fxparser"
+	"github.com/xiecat/fofax/internal/fxparser"
 )
 
 func main() {

@@ -5,6 +5,7 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"github.com/xiecat/fofax/internal/printer"
 	"os"
 	"path/filepath"
 	"reflect"
@@ -165,5 +166,8 @@ func OpenFofa(query string) {
 	b := []byte(query)
 
 	qbase64 := base64.StdEncoding.EncodeToString(b)
-	browser.OpenURL(fmt.Sprintf("https://fofa.so/result?qbase64=%s", qbase64))
+	err := browser.OpenURL(fmt.Sprintf("https://fofa.so/result?qbase64=%s", qbase64))
+	if err != nil {
+		printer.Fatal(err)
+	}
 }

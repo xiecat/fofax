@@ -10,7 +10,7 @@ import (
 	"strings"
 	"sync"
 
-	"fofax/internal/printer"
+	"github.com/xiecat/fofax/internal/printer"
 )
 
 type FofaLine struct {
@@ -50,7 +50,7 @@ func readCSV(rd *bufio.Reader, size int, ffi bool, res *sync.Map) error {
 		}
 		fileds := strings.Split(string(line), ",")
 		if len(fileds) != 2 {
-			printer.Errorf("line: %s data: %s parser err\n", lnum+1, string(line))
+			printer.Errorf("line: %d data: %s parser err\n", lnum+1, string(line))
 			lnum++
 			continue
 		}
@@ -85,12 +85,12 @@ func readJson(rd *bufio.Reader, size int, ffi bool, res *sync.Map) {
 		fdata := FofaLine{}
 		err = json.Unmarshal(line, &fdata)
 		if err != nil {
-			printer.Errorf("line: %s data: %s parser err\n", lnum, string(line))
+			printer.Errorf("line: %d data: %s parser err\n", lnum, string(line))
 			lnum++
 			continue
 		}
 		if fdata.Host == "" {
-			printer.Errorf("line: %s data: %s parser err\n", lnum, string(line))
+			printer.Errorf("line: %d data: %s parser err\n", lnum, string(line))
 			lnum++
 			continue
 		}
@@ -112,7 +112,7 @@ func fixHost(furl string) string {
 
 func trimSchema(furl string) string {
 	if strings.HasPrefix(furl, "https://") {
-		return strings.Trim(furl, "https://")
+		return strings.TrimPrefix(furl, "https://")
 	}
 	if strings.HasPrefix(furl, "http://") {
 		return strings.TrimPrefix(furl, "http://")

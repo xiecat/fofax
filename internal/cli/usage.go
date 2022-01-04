@@ -1,7 +1,7 @@
 package cli
 
 import (
-	"fofax/internal/table"
+	"github.com/xiecat/fofax/internal/table"
 )
 
 type usage struct {

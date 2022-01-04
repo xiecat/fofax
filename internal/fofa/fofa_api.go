@@ -12,9 +12,9 @@ import (
 	"strings"
 	"time"
 
-	"fofax/internal/cli"
-	"fofax/internal/printer"
-	"fofax/internal/utils"
+	"github.com/xiecat/fofax/internal/cli"
+	"github.com/xiecat/fofax/internal/printer"
+	"github.com/xiecat/fofax/internal/utils"
 )
 
 type FoFa struct {
@@ -25,6 +25,15 @@ type FoFa struct {
 }
 
 type ApiResults struct {
+	Mode    string     `json:"mode"`
+	Error   bool       `json:"error"`
+	ErrMsg  string     `json:"errmsg"`
+	Query   string     `json:"query"`
+	Page    int        `json:"page"`
+	Size    int        `json:"size"`
+	Results [][]string `json:"results"`
+}
+type ApiFiledOneResults struct {
 	Mode    string     `json:"mode"`
 	Error   bool       `json:"error"`
 	ErrMsg  string     `json:"errmsg"`
@@ -181,6 +190,11 @@ func (f *FoFa) fetchByFields(fields string, queryStr string) bool {
 // FetchFullHostInfo 提取完整带协议的字段
 func (f *FoFa) FetchFullHostInfo(queryStr string) bool {
 	return f.fetchByFields("protocol,ip,port,host,type", queryStr)
+}
+
+// FetchOneField 提取指定的字段
+func (f *FoFa) FetchOneField(field, queryStr string) bool {
+	return f.fetchByFields(field, queryStr)
 }
 
 // FetchField 提取指定的字段

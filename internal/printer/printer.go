@@ -32,11 +32,11 @@ type errInfo struct {
 
 func HandlerLine(i interface{}) string {
 	var message string
-	switch i.(type) {
+	switch v := i.(type) {
 	case error:
-		message = i.(error).Error()
+		message = v.Error()
 	case string:
-		message = i.(string)
+		message = v
 	}
 	_, file, line, _ := runtime.Caller(1)
 	e := &errInfo{

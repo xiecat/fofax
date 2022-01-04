@@ -8,13 +8,13 @@ import (
 	"strings"
 	"sync"
 
-	"fofax/internal/cli"
-	"fofax/internal/fofa"
-	"fofax/internal/fxparser"
-	"fofax/internal/iconhash"
-	"fofax/internal/printer"
-	"fofax/internal/queue"
-	"fofax/internal/utils"
+	"github.com/xiecat/fofax/internal/cli"
+	"github.com/xiecat/fofax/internal/fofa"
+	"github.com/xiecat/fofax/internal/fxparser"
+	"github.com/xiecat/fofax/internal/iconhash"
+	"github.com/xiecat/fofax/internal/printer"
+	"github.com/xiecat/fofax/internal/queue"
+	"github.com/xiecat/fofax/internal/utils"
 )
 
 type Runner struct {
@@ -91,11 +91,11 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 		// 加载文件，查询多个语句 -qf
 		if len(options.QueryFile) != 0 && utils.FileExist(options.QueryFile) {
 			input, err := os.Open(options.QueryFile)
-			defer input.Close()
 			if err != nil {
 				printer.Errorf(printer.HandlerLine(fmt.Sprintf("Could not open targets file '%s': %s\n", options.QueryFile, err)))
 				return nil, err
 			}
+			defer input.Close()
 			scanner := bufio.NewScanner(input)
 			for scanner.Scan() {
 				url := strings.TrimSpace(scanner.Text())
@@ -114,11 +114,11 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 		// 读取文件中的URL，计算 cert 后进行查询 -ufc
 		if len(options.PeerCertificatesFile) != 0 && utils.FileExist(options.PeerCertificatesFile) {
 			input, err := os.Open(options.PeerCertificatesFile)
-			defer input.Close()
 			if err != nil {
 				printer.Errorf(printer.HandlerLine(fmt.Sprintf("Could not open targets file '%s': %s\n", options.PeerCertificatesFile, err)))
 				return nil, err
 			}
+			defer input.Close()
 			scanner := bufio.NewScanner(input)
 			for scanner.Scan() {
 				url := strings.TrimSpace(scanner.Text())
@@ -133,11 +133,11 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 		// 读取文件中的URL，计算 icon hash 后进行查询 -iuf
 		if len(options.UrlIconFile) != 0 && utils.FileExist(options.UrlIconFile) {
 			input, err := os.Open(options.UrlIconFile)
-			defer input.Close()
 			if err != nil {
 				printer.Errorf(printer.HandlerLine(fmt.Sprintf("Could not open targets file '%s': %s\n", options.UrlIconFile, err)))
 				return nil, err
 			}
+			defer input.Close()
 			scanner := bufio.NewScanner(input)
 			iconConfig := iconhash.NewIconHashConfig("", options.Debug)
 			for scanner.Scan() {

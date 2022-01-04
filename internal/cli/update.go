@@ -8,7 +8,8 @@ import (
 
 	fofaxUpdateStore "github.com/tj/go-update/stores/github"
 
-	"fofax/internal/printer"
+	"github.com/xiecat/fofax/internal/printer"
+
 	"github.com/pkg/errors"
 	"github.com/tj/go-update"
 	"github.com/tj/go-update/progress"

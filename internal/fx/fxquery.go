@@ -8,8 +8,8 @@ import (
 	"runtime"
 	"strings"
 
-	"fofax/internal/printer"
-	"fofax/internal/table"
+	"github.com/xiecat/fofax/internal/printer"
+	"github.com/xiecat/fofax/internal/table"
 )
 
 var Info *FoFaxQuery

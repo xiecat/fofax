@@ -1,15 +1,14 @@
 package fx
 
 import (
-	"errors"
 	"io/ioutil"
 	"strings"
 
 	"gopkg.in/yaml.v2"
 
-	"fofax/internal/printer"
-	"fofax/internal/table"
-	"fofax/internal/utils"
+	"github.com/xiecat/fofax/internal/printer"
+	"github.com/xiecat/fofax/internal/table"
+	"github.com/xiecat/fofax/internal/utils"
 )
 
 const (
@@ -64,17 +63,14 @@ func (f Plugin) QueryString() string {
 	return f.FofaQuery
 }
 
-func (base *Plugin) GenPlugin(pluginFile string) error {
+func (base *Plugin) GenPlugin(pluginFile string) {
 	if utils.FileExist(pluginFile) {
-		return errors.New("File exist please check: " + pluginFile)
+		printer.Fatalf("File exist please check: %s" + pluginFile)
 	}
 	data, _ := yaml.Marshal(base)
 	printer.Infof("Will Write Plugin file: %s", pluginFile)
 	err := ioutil.WriteFile(pluginFile, data, 0644) // 写入
 	if err != nil {
 		printer.Fatalf("%s can't  write Plugin file", pluginFile)
-		return err
 	}
-	return nil
-
 }
