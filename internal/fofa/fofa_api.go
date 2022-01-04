@@ -33,15 +33,6 @@ type ApiResults struct {
 	Size    int        `json:"size"`
 	Results [][]string `json:"results"`
 }
-type ApiFiledOneResults struct {
-	Mode    string     `json:"mode"`
-	Error   bool       `json:"error"`
-	ErrMsg  string     `json:"errmsg"`
-	Query   string     `json:"query"`
-	Page    int        `json:"page"`
-	Size    int        `json:"size"`
-	Results [][]string `json:"results"`
-}
 
 type fieldFn func(fields []string, allSize int32) bool
 
