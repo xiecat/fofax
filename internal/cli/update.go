@@ -57,8 +57,8 @@ func updateFoFaXVersionToLatest() (*update.Release, error) {
 		return nil, errors.New("No new updates found for fofax engine!")
 	}
 	latest := releases[0]
-	bannerSite(fmt.Sprintf("New:\n\nVersion:%s\n\n%s\n", latest.Version, latest.Notes))
 	if args.Update {
+		bannerSite(fmt.Sprintf("New:\n\nVersion:%s\n\n%s\n", latest.Version, latest.Notes))
 		currentOS := runtime.GOOS
 		var final *update.Asset
 		switch runtime.GOOS {
