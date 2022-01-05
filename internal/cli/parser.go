@@ -254,10 +254,17 @@ func ParseOptions() *Options {
 
 	if args.Version {
 		printer.Infof("Version: %s", FoFaXVersion)
-		printer.Infof("Branch: %s", Branch)
-		printer.Infof("Commit: %s", Commit)
-		printer.Infof("Date: %s", Date)
+		if Branch != "unknown" {
+			printer.Infof("Branch: %s", Branch)
+		}
+		if Commit != "unknown" {
+			printer.Infof("Commit: %s", Commit)
+		}
+		if Date != "unknown" {
+			printer.Infof("Date: %s", Date)
+		}
 		printer.Infof("CodeName: %s", getVname(FoFaXVersion))
+
 		fmt.Print("fofaX is a command line fofa query tool, simple is the best!\n\n")
 		os.Exit(0)
 	}
