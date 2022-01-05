@@ -3,7 +3,6 @@ package cli
 import (
 	"errors"
 	"fmt"
-	"io/ioutil"
 	"math/rand"
 	"os"
 	"path/filepath"
@@ -349,10 +348,10 @@ func checkUpdateInfo() {
 	lastFile := filepath.Join(filepath.Dir(utils.GetDefaultConf()), ".fofax-last")
 	if !utils.FileExist(lastFile) {
 		_ = os.MkdirAll(filepath.Dir(lastFile), os.ModePerm)
-		err := ioutil.WriteFile(lastFile, []byte(strings.TrimSpace(Date)), os.ModePerm)
+		err := os.WriteFile(lastFile, []byte(strings.TrimSpace(Date)), os.ModePerm)
 		printer.Fatal(err)
 	}
-	lastTime, err := ioutil.ReadFile(lastFile)
+	lastTime, err := os.ReadFile(lastFile)
 	if err != nil {
 		printer.Error(err)
 		return
@@ -367,7 +366,7 @@ func checkUpdateInfo() {
 		if err != nil {
 			printer.Error(err.Error())
 		}
-		err = ioutil.WriteFile(lastFile, []byte(time.Now().Format("2006-01-02T15:04:05Z")), os.ModePerm)
+		err = os.WriteFile(lastFile, []byte(time.Now().Format("2006-01-02T15:04:05Z")), os.ModePerm)
 		printer.Fatal(err)
 	}
 

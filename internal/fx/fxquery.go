@@ -3,7 +3,7 @@ package fx
 import (
 	"errors"
 	"fmt"
-	"io/ioutil"
+	"os"
 	"path/filepath"
 	"runtime"
 	"strings"
@@ -266,7 +266,7 @@ func trimOther(s string) string {
 }
 
 func getFxLists(path string) {
-	fs, _ := ioutil.ReadDir(path)
+	fs, _ := os.ReadDir(path)
 	for _, file := range fs {
 		if file.IsDir() {
 			fmt.Println(path + file.Name())

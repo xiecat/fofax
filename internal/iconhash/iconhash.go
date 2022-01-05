@@ -6,7 +6,7 @@ import (
 	"encoding/base64"
 	"fmt"
 	"hash"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"os"
 	"strings"
@@ -77,7 +77,7 @@ func (c *Config) FromUrlGetContent() (string, error) {
 		return "", err
 	}
 
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := io.ReadAll(resp.Body)
 
 	if c.Debug {
 		fmt.Printf("===> status code: %d\n", resp.StatusCode)
@@ -104,7 +104,7 @@ func (c *Config) FromFileGetContent() (string, error) {
 		return "", err
 	}
 	defer fi.Close()
-	content, err := ioutil.ReadAll(fi)
+	content, err := io.ReadAll(fi)
 	if c.Debug {
 		printer.Debugf("====> fileContent:\n %s\n", content)
 	}

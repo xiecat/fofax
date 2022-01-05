@@ -5,7 +5,7 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"math"
 	"net/http"
 	"net/url"
@@ -137,7 +137,7 @@ func (f *FoFa) fetchByFields(fields string, queryStr string) bool {
 			return false
 		}
 		defer resp.Body.Close()
-		body, err := ioutil.ReadAll(resp.Body)
+		body, err := io.ReadAll(resp.Body)
 		if err != nil {
 			printer.Errorf(printer.HandlerLine("body read failed: " + err.Error()))
 		}

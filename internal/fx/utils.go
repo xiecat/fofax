@@ -2,7 +2,7 @@ package fx
 
 import (
 	"fmt"
-	"io/ioutil"
+	"io"
 	"os"
 	"strings"
 
@@ -40,9 +40,9 @@ func LoadPlugin(pathFile string) (*Plugin, error) {
 	}
 	defer configFile.Close()
 
-	content, err := ioutil.ReadAll(configFile)
+	content, err := io.ReadAll(configFile)
 	if err != nil {
-		printer.Errorf("readPlugin(%s) ioutil.ReadAll failed: %v", pathFile, err)
+		printer.Errorf("readPlugin(%s) io.ReadAll failed: %v", pathFile, err)
 		return nil, err
 	}
 	plugin := &Plugin{}

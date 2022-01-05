@@ -1,7 +1,7 @@
 package fx
 
 import (
-	"io/ioutil"
+	"os"
 	"strings"
 
 	"gopkg.in/yaml.v2"
@@ -69,7 +69,7 @@ func (base *Plugin) GenPlugin(pluginFile string) {
 	}
 	data, _ := yaml.Marshal(base)
 	printer.Infof("Will Write Plugin file: %s", pluginFile)
-	err := ioutil.WriteFile(pluginFile, data, 0644) // 写入
+	err := os.WriteFile(pluginFile, data, 0644) // 写入
 	if err != nil {
 		printer.Fatalf("%s can't  write Plugin file", pluginFile)
 	}
