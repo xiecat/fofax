@@ -7,7 +7,7 @@ builds:
     binary: fofax
     main: ./cmd/fofax/fofax.go
     ldflags:
-      - -s -w -X fofax/internal/cli.FoFaXVersion={{.Version}} -X fofax/internal/cli.Commit={{.ShortCommit}} -X fofax/internal/cli.Date={{.Date}} -X fofax/internal/cli.Branch={{.Branch}}
+      - -s -w -X github.com/xiecat/fofax/internal/cli.FoFaXVersion={{.Version}} -X github.com/xiecat/fofax/internal/cli.Commit={{.ShortCommit}} -X github.com/xiecat/fofax/internal/cli.Date={{.Date}} -X github.com/xiecat/fofax/internal/cli.Branch={{.Branch}}
     goos:
       - linux
       - windows
