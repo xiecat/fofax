@@ -276,7 +276,6 @@ func ParseOptions() *Options {
 	// 检查更新
 	if !args.DisableUpdate {
 		checkUpdateInfo()
-		os.Exit(0)
 	}
 	// 检查基本信息
 	checkFoFaInfo()
