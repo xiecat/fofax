@@ -276,6 +276,7 @@ func ParseOptions() *Options {
 	// 检查更新
 	if !args.DisableUpdate {
 		checkUpdateInfo()
+		os.Exit(0)
 	}
 	// 检查基本信息
 	checkFoFaInfo()
@@ -375,7 +376,8 @@ func checkUpdateInfo() {
 			printer.Error(err.Error())
 		}
 		err = ioutil.WriteFile(lastFile, []byte(time.Now().Format("2006-01-02T15:04:05Z")), os.ModePerm)
-		printer.Fatal(err)
+		if err != nil {
+			printer.Fatal(err)
+		}
 	}
-
 }
