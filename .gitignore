@@ -109,3 +109,4 @@ dist/
 # History
 .history/
 /fofax.yaml
+.fofax-last
