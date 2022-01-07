@@ -14,16 +14,16 @@ func FixFullHostInfoScheme(fields []string) string {
 	//protocol,ip,port,host
 	protocol := strings.TrimSpace(fields[0])
 	protocol = strings.ReplaceAll(protocol, "_", "-")
-	ip := strings.TrimSpace(fields[1])
-	port := strings.TrimSpace(fields[2])
+	//ip := strings.TrimSpace(fields[1])
+	//port := strings.TrimSpace(fields[2])
 	host := strings.TrimSpace(fields[3])
 	schemaType := strings.TrimSpace(fields[3])
 
-	if strings.HasPrefix(schemaType, "https") {
-		return fmt.Sprintf("https://%s:%s", ip, port)
+	if strings.HasPrefix(schemaType, "https://") {
+		return host
 	}
-	if strings.HasPrefix(schemaType, "http") {
-		return fmt.Sprintf("http://%s:%s", ip, port)
+	if strings.HasPrefix(schemaType, "http://") {
+		return host
 	}
 	return fmt.Sprintf("%s://%s", protocol, host)
 }
