@@ -14,6 +14,7 @@ import (
 	"runtime"
 	"strings"
 	"sync"
+	"time"
 )
 
 type Runner struct {
@@ -306,6 +307,7 @@ func (r *Runner) Run() *sync.Map {
 			}
 			fo.Fetch(fofaQuery)
 		}
+		time.Sleep(time.Duration(r.options.ReqIntervalTime) * time.Millisecond)
 	}
 
 	return r.resMap

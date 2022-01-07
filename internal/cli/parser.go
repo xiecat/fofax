@@ -80,9 +80,10 @@ type filter struct {
 }
 type config struct {
 	// fofa 地址
-	FoFaURL   string
-	FoFaEmail string
-	FoFaKey   string
+	FoFaURL         string
+	FoFaEmail       string
+	FoFaKey         string
+	ReqIntervalTime int // 每次限制时间
 	// 脱敏密码
 	FoFaKeyFake   string
 	Proxy         string
@@ -176,6 +177,7 @@ func init() {
 		flags.StringVarP(&args.FxSearchSingle, "show-single", "ss", args.QueryFile, "Display a single fx message"),
 	)
 	flags.BoolVarP(&args.Version, "version", "v", false, "Show fofaX version")
+	flags.IntVarP(&args.ReqIntervalTime, "request-interval-time", "rit", 500, "Request interval time unit/Millisecond")
 	flags.BoolVar(&args.Use, "use", false, "Syntax queries")
 	flags.BoolVar(&args.Open, "open", false, "Open with your browser only support pipline/-q/-uc/-iu/-if")
 	flags.BoolVar(&args.NolimitOpen, "no-limit-open", false, "No limit to the number of openings in your browser")
