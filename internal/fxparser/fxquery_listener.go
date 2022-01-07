@@ -43,6 +43,11 @@ func (ql *FxQueryListener) ExitScompareExp(c *parser.ScompareExpContext) {
 	ql.Stack.Push(c.GetText())
 }
 
+// ExitCcompareExp is called when production ccompareExp is exited.
+func (ql *FxQueryListener) ExitCcompareExp(c *parser.CcompareExpContext) {
+	ql.Stack.Push(c.GetText())
+}
+
 // ExitNoCompareExp is called when production scompareExp is exited.
 func (ql *FxQueryListener) ExitNoCompareExp(c *parser.NoCompareExpContext) {
 	ql.Stack.Push(c.GetText())

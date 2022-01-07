@@ -13,6 +13,7 @@ query
    | propertyName=fofaKeyword op=EQ propertyValue=fofaValue                    #compareExp
    | propertyName=fofaKeyword op=SEQ propertyValue=fofaValue                   #scompareExp
    | propertyName=fofaKeyword op=NOT propertyValue=fofaValue                   #noCompareExp
+   | propertyName=fofaKeyword op=CEQ propertyValue=fofaValue                   #ccompareExp
    | sgatom=fofaValue              #sgExp
    ;
 
@@ -45,6 +46,7 @@ OR:    '||';
 NOT: '!=';
 EQ : '=';
 SEQ: '==';
+CEQ: '=~';
 BR_OPEN: '(';
 BR_CLOSE: ')';
 

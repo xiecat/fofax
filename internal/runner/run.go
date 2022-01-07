@@ -7,6 +7,7 @@ import (
 	"runtime"
 	"strings"
 	"sync"
+	"time"
 
 	"github.com/xiecat/fofax/internal/cli"
 	"github.com/xiecat/fofax/internal/fofa"
@@ -291,6 +292,8 @@ func (r *Runner) Run() *sync.Map {
 			}
 			fo.Fetch(fofaQuery)
 		}
+		// 限制速度
+		time.Sleep(time.Duration(r.options.ReqIntervalTime) * time.Millisecond)
 	}
 	return r.resMap
 }

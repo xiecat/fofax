@@ -20,6 +20,9 @@ type FOFAListener interface {
 	// EnterAndLogicalExp is called when entering the andLogicalExp production.
 	EnterAndLogicalExp(c *AndLogicalExpContext)
 
+	// EnterCcompareExp is called when entering the ccompareExp production.
+	EnterCcompareExp(c *CcompareExpContext)
+
 	// EnterBracketExp is called when entering the bracketExp production.
 	EnterBracketExp(c *BracketExpContext)
 
@@ -52,6 +55,9 @@ type FOFAListener interface {
 
 	// ExitAndLogicalExp is called when exiting the andLogicalExp production.
 	ExitAndLogicalExp(c *AndLogicalExpContext)
+
+	// ExitCcompareExp is called when exiting the ccompareExp production.
+	ExitCcompareExp(c *CcompareExpContext)
 
 	// ExitBracketExp is called when exiting the bracketExp production.
 	ExitBracketExp(c *BracketExpContext)

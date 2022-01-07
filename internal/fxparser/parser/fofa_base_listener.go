@@ -45,6 +45,12 @@ func (s *BaseFOFAListener) EnterAndLogicalExp(ctx *AndLogicalExpContext) {}
 // ExitAndLogicalExp is called when production andLogicalExp is exited.
 func (s *BaseFOFAListener) ExitAndLogicalExp(ctx *AndLogicalExpContext) {}
 
+// EnterCcompareExp is called when production ccompareExp is entered.
+func (s *BaseFOFAListener) EnterCcompareExp(ctx *CcompareExpContext) {}
+
+// ExitCcompareExp is called when production ccompareExp is exited.
+func (s *BaseFOFAListener) ExitCcompareExp(ctx *CcompareExpContext) {}
+
 // EnterBracketExp is called when production bracketExp is entered.
 func (s *BaseFOFAListener) EnterBracketExp(ctx *BracketExpContext) {}
 

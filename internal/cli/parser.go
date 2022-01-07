@@ -91,13 +91,14 @@ type config struct {
 	FoFaEmail string
 	FoFaKey   string
 	// 脱敏密码
-	FoFaKeyFake   string
-	Proxy         string
-	Debug         bool
-	ShowPrivacy   bool
-	ConfigFile    string
-	Update        bool
-	DisableUpdate bool
+	FoFaKeyFake     string
+	Proxy           string
+	ReqIntervalTime int
+	Debug           bool
+	ShowPrivacy     bool
+	ConfigFile      string
+	Update          bool
+	DisableUpdate   bool
 }
 type fxconfig struct {
 	FxSearch       string
@@ -143,6 +144,7 @@ func init() {
 		flags.StringVarP(&args.FoFaKey, "fofakey", "key", args.FoFaKey, "Fofa API Key"),
 		flags.StringVarP(&args.Proxy, "proxy", "p", "", "proxy for http like http://127.0.0.1:8080"),
 		flags.StringVar(&args.FoFaURL, "fofa-url", args.FoFaURL, "Fofa url"),
+		flags.IntVarP(&args.ReqIntervalTime, "request-interval-time", "rit", 500, "Request interval time unit/Millisecond"),
 		flags.BoolVar(&args.Debug, "debug", false, "Debug mode"),
 		flags.BoolVarP(&args.ShowPrivacy, "show-privacy", "sp", false, "Debug mode Show Privacy"),
 		flags.BoolVar(&args.Update, "update", false, "Update fofax"),
