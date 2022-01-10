@@ -520,18 +520,6 @@ var defalutPlugins = []Plugin{
 		Source:      "https://fofa.so/static_pages/log4j2",
 	},
 	{
-		Id:          "fx-2021-11005",
-		Query:       "Apache-log4j2-Web",
-		RuleName:    "Apache log4j2 Web",
-		RuleEnglish: "Apache log4j2 Web",
-		Description: "Apache log4j2 是对 Web servlet  containers的支持。",
-		Author:      "fofa",
-		FofaQuery:   `app="Apache-log4j2-Web"`,
-		Tag:         []string{"log4j2", "fofa"},
-		Type:        TypeInline,
-		Source:      "https://fofa.so/static_pages/log4j2",
-	},
-	{
 		Id:          "fx-2021-11006",
 		Query:       "Jedis",
 		RuleName:    "Jedis",
