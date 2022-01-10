@@ -187,12 +187,11 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 		}
 		// 用浏览器打开
 		if options.Open {
-			for i := 0; i < runner.query.Len(); i++ {
+			for runner.query.Len() != 0 {
 				if !runner.query.Any() {
 					break
 				}
-				fofaQuery := runner.query.Peek()
-				runner.query.Pop()
+				fofaQuery := runner.query.Pop()
 				runner.openURL(fofaQuery)
 				if !options.NolimitOpen {
 					os.Exit(0)
