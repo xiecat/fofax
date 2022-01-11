@@ -63,18 +63,30 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 			runner.query.Push(options.Query)
 		}
 		// 通过 url 查询证书 -uc
-		if options.PeerCertificates != "" {
-			runner.query.Push(utils.GetSerialNumber(options.PeerCertificates))
-		}
-		// 通 url 计算 hash，然后查询 -ui
-		if options.UrlIcon != "" && strings.HasPrefix(options.UrlIcon, "http") {
-			iconConfig := iconhash.NewIconHashConfig(options.UrlIcon, options.Debug)
-			// 通过 url
-			if iHash, err := iconConfig.FromUrlGetContent(); err == nil {
-				runner.inputCount++
-				runner.query.Push(iconConfig.MakeQuery(iHash))
+		certUrl := strings.TrimSpace(options.PeerCertificates)
+		if certUrl != "" {
+			if utils.IsHttps(certUrl) {
+				runner.query.Push(utils.GetSerialNumber(certUrl))
+			} else {
+				printer.Infof("%s is not an https site will be skipped", certUrl)
 			}
 		}
+
+		// 通 url 计算 hash，然后查询 -ui
+		icoUrl := strings.TrimSpace(options.UrlIcon)
+		if icoUrl != "" {
+			if utils.IsWebsite(icoUrl) {
+				iconConfig := iconhash.NewIconHashConfig(icoUrl, options.Debug)
+				// 通过 url
+				if iHash, err := iconConfig.FromUrlGetContent(); err == nil {
+					runner.inputCount++
+					runner.query.Push(iconConfig.MakeQuery(iHash))
+				}
+			} else {
+				printer.Infof("%s is not an https site will be skipped", certUrl)
+			}
+		}
+
 		// 通过文件，计算 icon hash 后进行查询 -if
 		if options.IconFilePath != "" && utils.FileExist(options.IconFilePath) {
 			iconConfig := iconhash.NewIconHashConfig("", options.Debug)
@@ -133,6 +145,10 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 				if url == "" {
 					continue
 				}
+				if !utils.IsHttps(url) {
+					printer.Infof("%s is not an https site will be skipped", url)
+					continue
+				}
 				runner.inputCount++
 				runner.query.Push(utils.GetSerialNumber(url))
 			}
@@ -151,6 +167,10 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 			for scanner.Scan() {
 				url := strings.TrimSpace(scanner.Text())
 				if url == "" {
+					continue
+				}
+				if !utils.IsWebsite(url) {
+					printer.Infof("%s is not an web site will be skipped", url)
 					continue
 				}
 				runner.inputCount++

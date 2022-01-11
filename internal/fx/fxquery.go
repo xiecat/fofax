@@ -269,7 +269,7 @@ func getFxLists(path string) {
 	fs, _ := ioutil.ReadDir(path)
 	for _, file := range fs {
 		if file.IsDir() {
-			fmt.Println(path + file.Name())
+			printer.Info(path + file.Name())
 			getFxLists(path + file.Name() + "/")
 		} else {
 			yp := filepath.Join(path, file.Name())

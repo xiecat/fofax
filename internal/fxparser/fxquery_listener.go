@@ -101,8 +101,6 @@ func PrintParserTree(query string) {
 	if errListener.errors > 0 {
 		printer.Fatal("found syntax errors in input")
 	}
-	fmt.Println("Source: ", query)
-	fmt.Println("Parse: ")
 	printer.Infof("Source: %s", query)
 	printer.Infof("Parse: %s", tree.GetText())
 	printer.Infof("Tree: %s", tree.ToStringTree([]string{""}, fofaxParser))

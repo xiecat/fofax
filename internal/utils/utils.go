@@ -86,7 +86,6 @@ func FileContent2List(path string) ([]string, error) {
 	fileScanner := bufio.NewScanner(file)
 
 	for fileScanner.Scan() {
-		fmt.Println(fileScanner.Text())
 		urlSlice = append(urlSlice, fileScanner.Text())
 	}
 	if err := fileScanner.Err(); err != nil {

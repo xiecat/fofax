@@ -55,9 +55,9 @@ func (c *Config) MakeQuery(result string) string {
 
 func (c *Config) FromUrlGetContent() (string, error) {
 	if c.Debug {
-		fmt.Print("---------------------------  start url  content  --------------------------------\n")
-		fmt.Printf("====> url: %s\n", c.HashUrl)
-		defer fmt.Print("---------------------------  end url  content  --------------------------------\n")
+		printer.Info("---------------------------  start url  content  --------------------------------\n")
+		printer.Infof("====> url: %s\n", c.HashUrl)
+		defer printer.Info("---------------------------  end url  content  --------------------------------\n")
 	}
 
 	client := &http.Client{
@@ -78,10 +78,10 @@ func (c *Config) FromUrlGetContent() (string, error) {
 	}
 
 	body, err := ioutil.ReadAll(resp.Body)
-
+	printer.Infof("Calculate %s favicon value", c.HashUrl)
 	if c.Debug {
-		fmt.Printf("===> status code: %d\n", resp.StatusCode)
-		fmt.Printf("====> content: \n%s\n", string(body))
+		printer.Infof("===> status code: %d\n", resp.StatusCode)
+		printer.Infof("====> content: \n%s\n", string(body))
 	}
 
 	resp.Body.Close()
@@ -94,11 +94,10 @@ func (c *Config) FromUrlGetContent() (string, error) {
 func (c *Config) FromFileGetContent() (string, error) {
 
 	if c.Debug {
-		printer.Debug("---------------------------start From file get content--------------------------------\n")
-		printer.Debugf("file path: %s", c.HashFilePath)
-		defer printer.Debug("---------------------------end  From file get content--------------------------------\n")
+		printer.Info("---------------------------start From file get content--------------------------------\n")
+		printer.Infof("file path: %s", c.HashFilePath)
+		defer printer.Info("---------------------------end  From file get content--------------------------------\n")
 	}
-
 	fi, err := os.Open(c.HashFilePath)
 	if err != nil {
 		return "", err
@@ -108,7 +107,7 @@ func (c *Config) FromFileGetContent() (string, error) {
 	if c.Debug {
 		printer.Debugf("====> fileContent:\n %s\n", content)
 	}
-	// fmt.Println(string(fd))
+	printer.Infof("Calculate %s favicon value", c.HashFilePath)
 	if err != nil {
 		return "", err
 	}

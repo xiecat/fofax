@@ -75,3 +75,25 @@ func (fu *FixUrl) Scheme() string {
 func (fu *FixUrl) String() string {
 	return fu.u.String()
 }
+
+func IsWebsite(url string) bool {
+
+	if strings.HasPrefix(url, "http://") || strings.HasPrefix(url, "https://") {
+		return true
+	}
+	return false
+}
+
+func IsHttp(url string) bool {
+	if strings.HasPrefix(url, "http://") {
+		return true
+	}
+	return false
+}
+
+func IsHttps(url string) bool {
+	if strings.HasPrefix(url, "https://") {
+		return true
+	}
+	return false
+}

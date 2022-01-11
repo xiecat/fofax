@@ -22,7 +22,6 @@ func GetSerialNumber(url string) string {
 		os.Exit(1)
 	}
 	defer resp.Body.Close()
-	// fmt.Println(resp.TLS.PeerCertificates[0])
 	certInfo := resp.TLS.PeerCertificates
 	return fmt.Sprintf(`cert="%s"`, certInfo[0].SerialNumber.String())
 }
