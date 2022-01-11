@@ -9,7 +9,6 @@ import (
 
 // GetSerialNumber 转换证书
 func GetSerialNumber(url string) string {
-	printer.Info(url)
 	tr := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}

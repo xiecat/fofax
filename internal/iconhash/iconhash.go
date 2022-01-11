@@ -78,7 +78,6 @@ func (c *Config) FromUrlGetContent() (string, error) {
 	}
 
 	body, err := ioutil.ReadAll(resp.Body)
-	printer.Infof("Calculate %s favicon value", c.HashUrl)
 	if c.Debug {
 		printer.Infof("===> status code: %d\n", resp.StatusCode)
 		printer.Infof("====> content: \n%s\n", string(body))
@@ -107,7 +106,6 @@ func (c *Config) FromFileGetContent() (string, error) {
 	if c.Debug {
 		printer.Debugf("====> fileContent:\n %s\n", content)
 	}
-	printer.Infof("Calculate %s favicon value", c.HashFilePath)
 	if err != nil {
 		return "", err
 	}
