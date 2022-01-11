@@ -1,10 +1,14 @@
 package queue
 
+import "github.com/xiecat/fofax/internal/printer"
+
 type (
 	//Queue 队列
 	Queue struct {
 		top    *node
 		rear   *node
+		Uniq   bool
+		umap   map[string]bool
 		length int
 	}
 	//双向链表节点
@@ -16,8 +20,14 @@ type (
 )
 
 // New Create a new queue
-func New() *Queue {
-	return &Queue{nil, nil, 0}
+func New(isUniq bool) *Queue {
+	return &Queue{
+		top:    nil,
+		rear:   nil,
+		Uniq:   isUniq,
+		umap:   make(map[string]bool),
+		length: 0,
+	}
 }
 
 // Len 获取队列长度
@@ -40,6 +50,12 @@ func (q *Queue) Peek() string {
 
 // Push 入队操作
 func (q *Queue) Push(v string) {
+
+	if _, ok := q.umap[v]; ok && q.Uniq {
+		printer.Infof("The %s to be queried is repeated", v)
+		return
+	}
+
 	n := &node{nil, nil, v}
 	if q.length == 0 {
 		q.top = n
@@ -48,6 +64,9 @@ func (q *Queue) Push(v string) {
 		n.pre = q.rear
 		q.rear.next = n
 		q.rear = n
+	}
+	if q.Uniq {
+		q.umap[v] = true
 	}
 	q.length++
 }
@@ -64,6 +83,10 @@ func (q *Queue) Pop() string {
 		q.top = q.top.next
 		q.top.pre.next = nil
 		q.top.pre = nil
+	}
+
+	if q.Uniq {
+		delete(q.umap, n.value)
 	}
 	q.length--
 	return n.value

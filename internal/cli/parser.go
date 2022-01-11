@@ -36,6 +36,7 @@ type Options struct {
 	Version     bool
 	Use         bool
 	Open        bool // 浏览器打开
+	Silent      bool
 	NolimitOpen bool
 	// 标准输入
 	Stdin bool
@@ -80,8 +81,7 @@ type filter struct {
 	Include bool
 	// 排除国家
 	ExcludeCountryCN bool
-	// 去重 ,好像没用？
-	//UniqByIP bool
+	UniqByQuery      bool
 	// 搜索数
 	FetchSize int
 }
@@ -126,11 +126,6 @@ func initOptions() {
 	args.FxDir = filepath.Join(filepath.Dir(utils.GetDefaultConf()), "fxrules")
 	args.ConfigFile = utils.GetDefaultConf()
 	args.Stdin = utils.HasStdin()
-	if !args.Stdin {
-		banner()
-	} else {
-		args.Mode = Stdin_Mode
-	}
 }
 
 func init() {
@@ -157,7 +152,7 @@ func init() {
 		flags.BoolVarP(&args.Include, "include", "i", args.Include, "Include the honeypot."),
 		flags.BoolVarP(&args.ExcludeCountryCN, "exclude-country-cn", "ec", false, "Exclude CN."),
 		// 好像没用
-		//flags.BoolVarP(&args.UniqByIP, "unique-by-ip", "ubi", args.UniqByIP, "以IP的方式进行去重"),
+		flags.BoolVarP(&args.UniqByQuery, "unique-by-query", "ubq", false, "De-duplicate the input source"),
 	)
 	createGroup(
 		flags, "output", "output format",
@@ -197,6 +192,7 @@ func init() {
 	flags.BoolVarP(&args.Version, "version", "v", false, "Show fofaX version")
 	flags.BoolVar(&args.Use, "use", false, "Syntax queries")
 	flags.BoolVar(&args.Open, "open", false, "Open with your browser only support pipline/-q/-uc/-iu/-if")
+	flags.BoolVar(&args.Silent, "silent", false, "Silent Output")
 	flags.BoolVar(&args.NolimitOpen, "no-limit-open", false, "No limit to the number of openings in your browser")
 	err := flags.Parse()
 	if err != nil {
@@ -248,12 +244,15 @@ func ParseFxOptions() {
 		fxparser.PrintParserTree(args.Query)
 		os.Exit(1)
 	}
-
 }
 
 func ParseOptions() *Options {
+	if !args.Stdin && !args.Silent {
+		banner()
+	} else {
+		args.Mode = Stdin_Mode
+	}
 	ParseFxOptions()
-
 	if args.Version {
 		printer.Infof("Version: %s", FoFaXVersion)
 		if Branch != "unknown" {
@@ -275,6 +274,9 @@ func ParseOptions() *Options {
 		ShowUsage()
 		os.Exit(0)
 	}
+	//静默输出
+	printer.Silent = args.Silent
+
 	// 检查更新
 	if !args.DisableUpdate {
 		checkUpdateInfo()

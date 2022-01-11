@@ -22,6 +22,7 @@ const (
 var (
 	strC   = color.New(color.FgHiCyan).SprintfFunc()
 	outPut = color.Error
+	Silent bool
 )
 
 type errInfo struct {
@@ -55,68 +56,88 @@ func Debugf(format string, a ...interface{}) {
 	debug := color.New(color.FgYellow).SprintfFunc()
 	prefix := debug(DEBUG)
 	str := strC(fmt.Sprintf(format, a...))
-	fmt.Fprintln(outPut, formatPrint(prefix), str)
+	if !Silent {
+		fmt.Fprintln(outPut, formatPrint(prefix), str)
+	}
 }
 
 func Debug(a ...interface{}) {
 	debug := color.New(color.FgYellow).SprintfFunc()
 	prefix := debug(DEBUG)
 	str := strC(fmt.Sprint(a...))
-	fmt.Fprintln(outPut, formatPrint(prefix), str)
+	if !Silent {
+		fmt.Fprintln(outPut, formatPrint(prefix), str)
+	}
 }
 
 func Infof(format string, a ...interface{}) {
 	info := color.New(color.FgHiWhite).SprintfFunc()
 	prefix := info(INFO)
 	str := strC(fmt.Sprintf(format, a...))
-	fmt.Fprintln(outPut, formatPrint(prefix), str)
+	if !Silent {
+		fmt.Fprintln(outPut, formatPrint(prefix), str)
+	}
 }
 
 func Info(a ...interface{}) {
 	info := color.New(color.FgHiWhite).SprintfFunc()
 	prefix := info(INFO)
 	str := strC(fmt.Sprint(a...))
-	fmt.Fprintln(outPut, formatPrint(prefix), str)
+	if !Silent {
+		fmt.Fprintln(outPut, formatPrint(prefix), str)
+	}
 }
 
 func Successf(format string, a ...interface{}) {
 	succ := color.New(color.FgGreen).SprintfFunc()
 	prefix := succ(SUCCESS)
 	str := strC(fmt.Sprintf(format, a...))
-	fmt.Fprintln(outPut, formatPrint(prefix), str)
+	if !Silent {
+		fmt.Fprintln(outPut, formatPrint(prefix), str)
+	}
 }
 func Success(a ...interface{}) {
 	succ := color.New(color.FgGreen).SprintfFunc()
 	prefix := succ(SUCCESS)
 	str := strC(fmt.Sprint(a...))
-	fmt.Fprintln(outPut, formatPrint(prefix), str)
+	if !Silent {
+		fmt.Fprintln(outPut, formatPrint(prefix), str)
+	}
 }
 
 func Errorf(format string, a ...interface{}) {
 	err := color.New(color.FgRed).SprintfFunc()
 	prefix := err(ERROR)
 	str := strC(fmt.Sprintf(format, a...))
-	fmt.Fprintln(outPut, formatPrint(prefix), str)
+	if !Silent {
+		fmt.Fprintln(outPut, formatPrint(prefix), str)
+	}
 }
 func Error(a ...interface{}) {
 	err := color.New(color.FgRed).SprintfFunc()
 	prefix := err(ERROR)
 	str := strC(fmt.Sprint(a...))
-	fmt.Fprintln(outPut, formatPrint(prefix), str)
+	if !Silent {
+		fmt.Fprintln(outPut, formatPrint(prefix), str)
+	}
 }
 
 func Fatalf(format string, a ...interface{}) {
 	err := color.New(color.FgRed).SprintfFunc()
 	prefix := err(ERROR)
 	str := strC(fmt.Sprintf(format, a...))
-	fmt.Fprintln(outPut, formatPrint(prefix), str)
+	if !Silent {
+		fmt.Fprintln(outPut, formatPrint(prefix), str)
+	}
 	os.Exit(-1)
 }
 func Fatal(a ...interface{}) {
 	err := color.New(color.FgRed).SprintfFunc()
 	prefix := err(ERROR)
 	str := strC(fmt.Sprint(a...))
-	fmt.Fprintln(outPut, formatPrint(prefix), str)
+	if !Silent {
+		fmt.Fprintln(outPut, formatPrint(prefix), str)
+	}
 	os.Exit(-1)
 }
 

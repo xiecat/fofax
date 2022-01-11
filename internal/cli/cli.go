@@ -2,6 +2,7 @@ package cli
 
 import (
 	"fmt"
+	"github.com/xiecat/fofax/internal/printer"
 	"strings"
 
 	"github.com/fatih/color"
@@ -34,9 +35,13 @@ func banner() {
 }
 func bannerSite(a ...interface{}) {
 	cl := color.New(color.FgHiGreen).SprintfFunc()
-	fmt.Fprintln(color.Error, cl(fmt.Sprint(a...)))
+	if !printer.Silent {
+		fmt.Fprintln(color.Error, cl(fmt.Sprint(a...)))
+	}
 }
 func magenta(a ...interface{}) {
 	cl := color.New(color.FgHiWhite).SprintfFunc()
-	fmt.Fprintln(color.Error, cl(fmt.Sprint(a...)))
+	if !printer.Silent {
+		fmt.Fprintln(color.Error, cl(fmt.Sprint(a...)))
+	}
 }

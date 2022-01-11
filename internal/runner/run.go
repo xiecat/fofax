@@ -28,7 +28,7 @@ type Runner struct {
 func NewRunner(options *cli.Options) (*Runner, error) {
 	runner := &Runner{
 		options: options,
-		query:   queue.New(),
+		query:   queue.New(options.UniqByQuery),
 		resMap:  &sync.Map{},
 	}
 	// 标准输入
@@ -66,7 +66,10 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 		certUrl := strings.TrimSpace(options.PeerCertificates)
 		if certUrl != "" {
 			if utils.IsHttps(certUrl) {
-				runner.query.Push(utils.GetSerialNumber(certUrl))
+				urlserial := utils.GetSerialNumber(certUrl)
+				if urlserial != "" {
+					runner.query.Push(urlserial)
+				}
 			} else {
 				printer.Infof("%s is not an https site will be skipped", certUrl)
 			}
@@ -126,7 +129,9 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 				if options.FofaExt {
 					url = fxparser.Query(url)
 				}
-
+				if options.Debug {
+					printer.Debugf("fx query calculate %s", url)
+				}
 				runner.query.Push(url)
 			}
 		}
@@ -149,8 +154,14 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 					printer.Infof("%s is not an https site will be skipped", url)
 					continue
 				}
+				if options.Debug {
+					printer.Debugf("cert calculate %s", url)
+				}
 				runner.inputCount++
-				runner.query.Push(utils.GetSerialNumber(url))
+				urlserial := utils.GetSerialNumber(url)
+				if urlserial != "" {
+					runner.query.Push(urlserial)
+				}
 			}
 		}
 
@@ -172,6 +183,9 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 				if !utils.IsWebsite(url) {
 					printer.Infof("%s is not an web site will be skipped", url)
 					continue
+				}
+				if options.Debug {
+					printer.Debugf("icon calculate %s", url)
 				}
 				runner.inputCount++
 				// 通过 url
