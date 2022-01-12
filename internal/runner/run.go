@@ -287,7 +287,8 @@ func (r *Runner) Run() *sync.Map {
 						printer.Errorf("url.Parse %s", err)
 						os.Exit(1)
 					}
-					r.resMap.LoadOrStore(fullUrl, fmt.Sprintf("[%s]", fields[5]))
+					title := strings.Replace(strings.TrimSpace(fields[5]), "\n", "\\n", -1)
+					r.resMap.LoadOrStore(fullUrl, fmt.Sprintf("[%s]", title))
 				}
 				return true
 			}
@@ -314,7 +315,7 @@ func (r *Runner) Run() *sync.Map {
 			fo.FetchField(r.options.FetchFields+",type", fofaQuery)
 		} else {
 			fo.FetchFn = func(fields []string, allSize int32) bool {
-				fullUrl, err := utils.NewFixUrl(fields[0])
+				fullUrl, err := utils.NewFixUrl(strings.TrimSpace(fields[0]))
 				if err != nil {
 					printer.Errorf("url.Parse %s", err)
 					os.Exit(1)
