@@ -267,13 +267,9 @@ func (r *Runner) Run() *sync.Map {
 		// 提取完整的 hostInfo，带有 protocol -ffi
 		if r.options.FetchFullHostInfo {
 			fo.FetchFn = func(fields []string, allSize int32) bool {
-				fullUrl, err := utils.NewFixUrl(
-					utils.FixFullHostInfoScheme(fields))
-				if err != nil {
-					printer.Errorf("url.Parse %s", err)
-					os.Exit(1)
-				}
-				r.resMap.Store(fullUrl.FixedHostInfo, nil)
+				fullUrl := utils.FixFullHostInfoScheme(fields)
+
+				r.resMap.Store(fullUrl, nil)
 				return true
 			}
 			fo.FetchFullHostInfo(fofaQuery)
@@ -281,12 +277,8 @@ func (r *Runner) Run() *sync.Map {
 		} else if r.options.FetchTitlesOfDomain {
 			fo.FetchFn = func(fields []string, allSize int32) bool {
 				if host := fields[3]; len(host) > 0 {
-					fullUrl, err := utils.NewFixUrl(
-						utils.FixFullHostInfoScheme(fields))
-					if err != nil {
-						printer.Errorf("url.Parse %s", err)
-						os.Exit(1)
-					}
+					fullUrl := utils.FixFullHostInfoScheme(fields)
+
 					title := strings.Replace(strings.TrimSpace(fields[5]), "\n", "\\n", -1)
 					r.resMap.LoadOrStore(fullUrl, fmt.Sprintf("[%s]", title))
 				}
@@ -296,12 +288,7 @@ func (r *Runner) Run() *sync.Map {
 		} else if r.options.FetchJarmOfDomain {
 			fo.FetchFn = func(fields []string, allSize int32) bool {
 				if host := fields[3]; len(host) > 0 {
-					fullUrl, err := utils.NewFixUrl(
-						utils.FixFullHostInfoScheme(fields))
-					if err != nil {
-						printer.Errorf("url.Parse %s", err)
-						os.Exit(1)
-					}
+					fullUrl := utils.FixFullHostInfoScheme(fields)
 					r.resMap.LoadOrStore(fullUrl, fmt.Sprintf("[%s]", fields[5]))
 				}
 				return true
