@@ -1,6 +1,7 @@
 package fx
 
 import (
+	"errors"
 	"io/ioutil"
 	"strings"
 
@@ -43,6 +44,28 @@ type Plugin struct {
 	FileDir     string   `table:"Source" yaml:"-"`                 // 来源
 }
 
+func (q *Plugin) Valid() error {
+	if !strings.HasPrefix(q.Id, "fx") {
+		return errors.New("id must start with fx")
+	}
+	if q.Query == "" {
+		return errors.New("query can't be empty")
+	}
+	if len(q.Tag) < 1 {
+		return errors.New("tag can't be empty")
+	}
+	if q.RuleName == "" {
+		return errors.New("RuleName can't be empty")
+	}
+	if q.FofaQuery == "" {
+		return errors.New("FofaQuery can't be empty")
+	}
+	if q.Author == "" {
+		return errors.New("auth can't be empty")
+	}
+	return nil
+}
+
 func (q *Plugin) ShowInfoTable() {
 	results := []Tinfo{
 		{"ID", q.Id},
@@ -65,7 +88,7 @@ func (f Plugin) QueryString() string {
 
 func (base *Plugin) GenPlugin(pluginFile string) {
 	if utils.FileExist(pluginFile) {
-		printer.Fatalf("File exist please check: %s" + pluginFile)
+		printer.Fatalf("File exist please check: %s", pluginFile)
 	}
 	data, _ := yaml.Marshal(base)
 	printer.Infof("Will Write Plugin file: %s", pluginFile)

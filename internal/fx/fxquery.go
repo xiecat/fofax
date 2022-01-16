@@ -275,11 +275,17 @@ func getFxLists(path string) {
 			yp := filepath.Join(path, file.Name())
 			if strings.HasSuffix(yp, "yaml") || strings.HasSuffix(yp, "yml") {
 				p, err := LoadPlugin(yp)
+				if err != nil {
+					printer.Errorf("load plugins %s error: %s will ignore", yp, err.Error())
+					continue
+				}
+				err = p.Valid()
+				if err != nil {
+					printer.Errorf("load plugins %s error: %s will ignore", yp, err.Error())
+					continue
+				}
 				p.Type = TypeYaml
 				p.FileDir = yp
-				if err != nil {
-					printer.Fatalf("load plugins error:%s", err.Error())
-				}
 				Add(*p)
 			}
 		}

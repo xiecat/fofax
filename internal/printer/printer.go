@@ -15,6 +15,7 @@ const (
 	ClearLn = "\r\x1b[2K"
 	INFO    = "[INFO]"
 	ERROR   = "[ERRO]"
+	FATAL   = "[FATAL]"
 	SUCCESS = "[SUCC]"
 	DEBUG   = "[DEBUG]"
 )
@@ -124,7 +125,7 @@ func Error(a ...interface{}) {
 
 func Fatalf(format string, a ...interface{}) {
 	err := color.New(color.FgRed).SprintfFunc()
-	prefix := err(ERROR)
+	prefix := err(FATAL)
 	str := strC(fmt.Sprintf(format, a...))
 	if !Silent {
 		fmt.Fprintln(outPut, formatPrint(prefix), str)
@@ -133,7 +134,7 @@ func Fatalf(format string, a ...interface{}) {
 }
 func Fatal(a ...interface{}) {
 	err := color.New(color.FgRed).SprintfFunc()
-	prefix := err(ERROR)
+	prefix := err(FATAL)
 	str := strC(fmt.Sprint(a...))
 	if !Silent {
 		fmt.Fprintln(outPut, formatPrint(prefix), str)
