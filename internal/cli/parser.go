@@ -87,9 +87,10 @@ type filter struct {
 }
 type config struct {
 	// fofa 地址
-	FoFaURL   string
-	FoFaEmail string
-	FoFaKey   string
+	FoFaURL     string
+	FoFaOpenURL string
+	FoFaEmail   string
+	FoFaKey     string
 	// 脱敏密码
 	FoFaKeyFake     string
 	Proxy           string
@@ -122,6 +123,7 @@ func initOptions() {
 	args.FoFaEmail = os.Getenv("FOFA_EMAIL")
 	args.FoFaKey = os.Getenv("FOFA_KEY")
 	args.FoFaURL = "https://fofa.so"
+	args.FoFaOpenURL = "https://fofa.so"
 	args.FetchSize = 100
 	args.FxDir = filepath.Join(filepath.Dir(utils.GetDefaultConf()), "fxrules")
 	args.ConfigFile = utils.GetDefaultConf()
@@ -138,7 +140,8 @@ func init() {
 		flags.StringVarP(&args.FoFaEmail, "fofa-email", "email", args.FoFaEmail, "Fofa API Email"),
 		flags.StringVarP(&args.FoFaKey, "fofakey", "key", args.FoFaKey, "Fofa API Key"),
 		flags.StringVarP(&args.Proxy, "proxy", "p", "", "proxy for http like http://127.0.0.1:8080"),
-		flags.StringVar(&args.FoFaURL, "fofa-url", args.FoFaURL, "Fofa url"),
+		flags.StringVar(&args.FoFaURL, "fofa-url", args.FoFaURL, "Fofa api url"),
+		flags.StringVar(&args.FoFaOpenURL, "fofa-open-url", args.FoFaOpenURL, "The fofa url used by the browser to open"),
 		flags.IntVarP(&args.ReqIntervalTime, "request-interval-time", "rit", 500, "Request interval time unit/Millisecond"),
 		flags.BoolVar(&args.Debug, "debug", false, "Debug mode"),
 		flags.BoolVarP(&args.ShowPrivacy, "show-privacy", "sp", false, "Debug mode Show Privacy"),

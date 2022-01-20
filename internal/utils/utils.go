@@ -161,11 +161,11 @@ func getHomedir() (home string) {
 	return filepath.Join(home, ".config", "fofax")
 }
 
-func OpenFofa(query string) {
+func OpenFofa(fofaOpenUrl, query string) {
 	b := []byte(query)
 
 	qbase64 := base64.StdEncoding.EncodeToString(b)
-	err := browser.OpenURL(fmt.Sprintf("https://fofa.so/result?qbase64=%s", qbase64))
+	err := browser.OpenURL(fmt.Sprintf("%s/result?qbase64=%s", fofaOpenUrl, qbase64))
 	if err != nil {
 		printer.Fatal(err)
 	}

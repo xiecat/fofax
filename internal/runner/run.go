@@ -226,7 +226,7 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 					break
 				}
 				fofaQuery := runner.query.Pop()
-				runner.openURL(fofaQuery)
+				runner.openURL(runner.options.FoFaOpenURL, fofaQuery)
 				if !options.NolimitOpen {
 					os.Exit(0)
 				}
@@ -238,10 +238,10 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 	return runner, nil
 }
 
-func (r *Runner) openURL(query string) {
+func (r *Runner) openURL(fofaOpenUrl, query string) {
 	// 用浏览器打开
 	printer.Successf("the query %s will be opened with a browser", query)
-	utils.OpenFofa(query)
+	utils.OpenFofa(fofaOpenUrl, query)
 
 }
 
