@@ -122,8 +122,8 @@ func initOptions() {
 	args = new(Options)
 	args.FoFaEmail = os.Getenv("FOFA_EMAIL")
 	args.FoFaKey = os.Getenv("FOFA_KEY")
-	args.FoFaURL = "https://fofa.so"
-	args.FoFaOpenURL = "https://fofa.so"
+	args.FoFaURL = "https://fofa.info"
+	args.FoFaOpenURL = "https://fofa.info"
 	args.FetchSize = 100
 	args.FxDir = filepath.Join(filepath.Dir(utils.GetDefaultConf()), "fxrules")
 	args.ConfigFile = utils.GetDefaultConf()
