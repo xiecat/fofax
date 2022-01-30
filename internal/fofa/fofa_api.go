@@ -209,7 +209,7 @@ func (f *FoFa) FetchJarmOfDomain(queryStr string) bool {
 }
 
 func (f *FoFa) Fetch(queryStr string) bool {
-	return f.fetchByFields("host,title,lastupdatetime", queryStr)
+	return f.fetchByFields("host,lastupdatetime", queryStr)
 }
 
 //func (f *FoFa) fetchFn(fields []string, allSize int32) bool {
@@ -223,6 +223,8 @@ func getApiErrInfo(code string) string {
 	switch code {
 	case "820000":
 		return "查询语法错误"
+	case "820005":
+		return "查询没有权限"
 	default:
 		return code
 	}
