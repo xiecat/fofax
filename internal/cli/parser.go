@@ -145,7 +145,7 @@ func init() {
 		flags.IntVarP(&args.ReqIntervalTime, "request-interval-time", "rit", 500, "Request interval time unit/Millisecond"),
 		flags.BoolVar(&args.Debug, "debug", false, "Debug mode"),
 		flags.BoolVarP(&args.ShowPrivacy, "show-privacy", "sp", false, "Debug mode Show Privacy"),
-		flags.BoolVar(&args.Update, "update", false, "Update fofax"),
+		flags.BoolVarP(&args.Update, "update", "u", false, "Update fofax"),
 		flags.BoolVarP(&args.DisableUpdate, "disable-update", "du", false, "Close update alerts"),
 	)
 	createGroup(
