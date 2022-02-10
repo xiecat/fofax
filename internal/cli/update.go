@@ -54,7 +54,8 @@ func updateFoFaXVersionToLatest() (*update.Release, error) {
 		return nil, errors.Wrap(err, "could not fetch latest release")
 	}
 	if len(releases) == 0 {
-		return nil, errors.New("No new updates found for fofax engine!")
+		// return nil, errors.New("No new updates found for fofax engine!")
+		printer.Info("The currently used fofax is the latest version")
 	}
 	latest := releases[0]
 	if args.Update {
