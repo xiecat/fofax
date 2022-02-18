@@ -6,19 +6,18 @@
 
 ## 0x00 简介
 
-fofax 是一款使用 go 编写的命令行 fofa 查询工具，在支持fofa查询规则上增加了fx语法来方便使用者编写自己的规则，并且内置了一些常用的规则，除此之外还有联动其他安全产品在内的其他多个实用功能。主要的功能如下：
+FoFaX 是一款使用 Go 编写的命令行 FoFa 查询工具，在支持 FoFa 查询规则上增加了 Fx 语法来方便使用者编写自己的规则，并且内置了一些常用的规则，除此之外还有联动其他安全产品在内的其他多个实用功能。主要的功能如下：
 
-- 基本 FOFA 语法查询
+- 基本 FoFa 语法查询
 - 联动其他安全工具
-- 内置大量 fofa 规则
+- 内置大量 FoFa 规则
 - Icon Hash 本地/在线计算查询
 - URL 证书计算查询
 - 排除国内资产
 - 一键浏览器中打开
 - 更多（等待您使用后的反馈）……
 
-
-除此之外还可以自定义 fx 语法查询，用户可以通过 yaml 格式的配置文件编写自己的特定 fx 查询规则。
+除此之外还可以自定义 Fx 语法查询，用户可以通过 yaml 格式的配置文件编写自己的特定 Fx 查询规则。
 
 ## 0x01 下载
 
@@ -28,14 +27,13 @@ fofax 是一款使用 go 编写的命令行 fofa 查询工具，在支持fofa查
 
 ### MacOS/Linux
 
-将下载下来的 fofax 压缩包解压，建议放在 `/usr/local/bin/` 目录下，以达到任意目录都可以运行 fofax 命令的目的。
+将下载下来的 FoFaX 压缩包解压，建议放在 `/usr/local/bin/` 目录下，以达到任意目录都可以运行 FoFaX 命令的目的。
 
 ```console
 tar -zxvf ~/Downloads/fofax_v0.1.22_darwin_amd64.tar.gz -C /usr/local/bin/
 ```
 
-
-第一次运行 fofax 命令会自动生成一个配置文件，位于 `~/.config/fofax/fofax.yaml`。
+第一次运行 FoFaX 命令会自动生成一个配置文件，位于 `~/.config/fofax/fofax.yaml`。
 
 ```console
 fofax
@@ -45,7 +43,7 @@ fofax
     / /_ / __ \ / /_ / __ `/|   /
    / __// /_/ // __// /_/ //   |
   /_/   \____//_/   \__,_//_/|_|
-                              
+
                          fofax.xiecat.fun
 
 2021/12/23 21:21:28 [SUCC] create config file /Users/user/.config/fofax/fofax.yaml. please modify and use
@@ -83,13 +81,13 @@ fofax
     / /_ / __ \ / /_ / __ `/|   /
    / __// /_/ // __// /_/ //   |
   /_/   \____//_/   \__,_//_/|_|
-                              
+
                          fofax.xiecat.fun
 
 fofaX is a command line fofa query tool, simple is the best!
 
 Tips:
-Comment: 搜索 fx 中 google-reverse, 查询时使用扩展功能必须加 -fe 参数
+Comment: 搜索 Fx 中 google-reverse, 查询时使用扩展功能必须加 -fe 参数
 Usage: fofax -q 'fx="google-reverse"' -fe
 ```
 
@@ -149,9 +147,9 @@ OTHER OPTIONS:
    -no-limit-open  No limit to the number of openings in your browser
 ```
 
-### FOFA 语法规则
+### FoFa 语法规则
 
-使用 `-use` 参数，显示 FOFA 语法查询规则。
+使用 `-use` 参数，显示 FoFa 语法查询规则。
 
 ```console
 fofax -use
@@ -159,23 +157,23 @@ fofax -use
 ┌───────────────────────────────────────────┬──────────────────────────────────────────────────┐
 │ Query                                     │ Explanation                                      │
 ├───────────────────────────────────────────┼──────────────────────────────────────────────────┤
-│ title="beijing"                           │ 从标题中搜索"北京"                               	  │
-│ header="elastic"                          │ 从http头中搜索"elastic"                          	 │
+│ title="beijing"                           │ 从标题中搜索"北京"                                     │
+│ header="elastic"                          │ 从http头中搜索"elastic"                               │
 │ body="网络空间测绘"                         │ 从html正文中搜索"网络空间测绘"                       │
-│ title="beijing"                           │ 从标题中搜索"北京"                              	  │
+│ title="beijing"                           │ 从标题中搜索"北京"                                    │
 │ header="elastic"                          │ 从http头中搜索"elastic"                            │
 │ body="网络空间测绘"                         │ 从html正文中搜索"网络空间测绘"                       │
-│ fid="kIlUsGZ8pT6AtgKSKD63iw=="            │ 查找相同的网站指纹                               	  │
-│ domain="google.com"                       │ 搜索根域名带有google.com的网站                   	  │
+│ fid="kIlUsGZ8pT6AtgKSKD63iw=="            │ 查找相同的网站指纹                                     │
+│ domain="google.com"                       │ 搜索根域名带有google.com的网站                         │
 │ icp="京ICP证030173号"                      │ 查找备案号为"京ICP证030173号"的网站                  │
-│ js_name="js/jquery.js"                    │ 查找网站正文中包含js/jquery.js的资产             	   │
-│ js_md5="82ac3f14327a8b7ba49baa208d4eaa15" │ 查找js源码与之匹配的资产                         	   │
+│ js_name="js/jquery.js"                    │ 查找网站正文中包含js/jquery.js的资产                    │
+│ js_md5="82ac3f14327a8b7ba49baa208d4eaa15" │ 查找js源码与之匹配的资产                                │
 └───────────────────────────────────────────┴──────────────────────────────────────────────────┘
 ```
 
 ### 基础查询
 
-有如下两种方式查询 `app="APACHE-Solr"`，不指定数量默认会输出100个 host，并且默认会对数据进行去重。
+有如下两种方式查询 `app="APACHE-Solr"`，不指定数量默认会输出 100 个 host，并且默认会对数据进行去重。
 
 ```console
 fofax -q 'app="APACHE-Solr"'
@@ -217,7 +215,7 @@ echo 'app="APACHE-Solr"' | fofax -fs 5
 3.20.255.140:8983
 ```
 
-如上只输出了4条数据，是因为 fofax 自动对重复的数据进行了去重。
+如上只输出了 4 条数据，是因为 FoFaX 自动对重复的数据进行了去重。
 
 ### 排除查询
 
@@ -304,11 +302,12 @@ echo 'app="APACHE-Solr"' | fofax -open
 ```
 
 <!-- ![openinbrowser](./docs/images/openinbrowser.gif) -->
+
 ![openinbrowser.gif](https://s2.loli.net/2021/12/25/2lvs4njYEUNmkLS.gif)
 
-### 计算 icon hash 并查询
+### 计算 Icon Hash 并查询
 
-两种方式，第一种是直接根据提供 icon 的 URL 来查询。
+两种方式，第一种是直接根据提供 Icon 的 URL 来查询。
 
 ```console
 fofax -iu https://www.baidu.com/favicon.ico -fs 5
@@ -321,7 +320,7 @@ xueshu.mrsb.tk:80
 154.39.217.28:80
 ```
 
-第二种是根据本地 icon 文件，来计算 hash 并查询。
+第二种是根据本地 Icon 文件，来计算 Hash 并查询。
 
 ```console
 wget https://www.baidu.com/favicon.ico
@@ -348,13 +347,13 @@ itv.leiqiang8.cn:80
 owa2.leiqiang8.cn:80
 ```
 
-## 0x04 fx 语法查询
+## 0x04 Fx 语法查询
 
-在使用 fofa 做信息收集或者其他事情的时候，有可能这条查询语句会非常非常的长，非常不好记忆，我们总不可能专门拿个小本本去记这个 fofa 查询语句吧。
+在使用 FoFa 做信息收集或者其他事情的时候，有可能这条查询语句会非常非常的长，非常不好记忆，我们总不可能专门拿个小本本去记这个 FoFa 查询语句吧。
 
-这个时候，就可以使用 fofax 的 fx 功能。目前 fofax 已经内置几十条 fx 语法查询规则，用户可直接使用相应参数进行查询。同时用户还可以通过 yaml 格式的配置文件，编写自己特定的 fx 语法查询规则。
+这个时候，就可以使用 FoFaX 的 Fx 功能。目前 FoFaX 已经内置几十条 Fx 语法查询规则，用户可直接使用相应参数进行查询。同时用户还可以通过 yaml 格式的配置文件，编写自己特定的 Fx 语法查询规则。
 
-#### 显示内置 fx 查询语句
+#### 显示内置 Fx 查询语句
 
 ```console
 fofax -l
@@ -384,7 +383,7 @@ fofax -l
 └───────────────┴────────────────────┴────────────────────────────────┴────────┴─────────────┴───────┘
 ```
 
-### 列出 fx 语句的详细内容
+### 列出 Fx 语句的详细内容
 
 ```console
 fofax -ss fx-2021-1001
@@ -406,7 +405,7 @@ fx-2021-1001 fx-2021-1001
 └─────────────┴─────────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
-### 添加 `-fe` 参数通过 fx 语法进行查询
+### 添加 `-fe` 参数通过 Fx 语法进行查询
 
 ```console
 [~] fofax -q 'fx="google-reverse"' -fe -fs 5
@@ -429,9 +428,9 @@ fofax -q 'fx="google-reverse"' -fe -open
 2021/12/23 22:22:21 [SUCC] the query body="var c = Array.prototype.slice.call(arguments, 1);return function() {var d=c.slice();" will be opened with a browser
 ```
 
-### 编写自定义的 fx 语法规则
+### 编写自定义的 Fx 语法规则
 
-下面给出一个例子，使用 fofa 对某个目标进行信息收集的案例。
+下面给出一个例子，使用 FoFa 对某个目标进行信息收集的案例。
 
 #### 生成一个模版
 
@@ -459,7 +458,7 @@ tag:
 source: 语句来源
 ```
 
-按照如上说明，修改相应内容，便携一个新的fx语法规则，关于此文件的路径，在编写完整后请放在 `~/.config/fofax/fxrules/` 这个目录。
+按照如上说明，修改相应内容，便携一个新的 Fx 语法规则，关于此文件的路径，在编写完整后请放在 `~/.config/fofax/fxrules/` 这个目录。
 
 为方便复制，详细内容如下（注意 title 处填写自己的目标名）：
 
@@ -474,10 +473,9 @@ fofa_query: title="Target" && (title="平台" || title="OA" || title="系统" ||
 tag:
 - redteam
 source: 
-
 ```
 
-下面就可以使用此 fx 查询规则了，此查询不可以说不方便。。
+下面就可以使用此 Fx 查询规则了，此查询不可以说不方便。。
 
 ```console
 fofax -q 'fx="redteam-info-gathering"' -fe -ffi
@@ -495,7 +493,6 @@ https://114.255.204.149
 ......
 ```
 
-
 ## 0x05 联动使用案例
 
 > 在红队信息收集完毕后，便可以将收集到的资产交给探活工具、指纹识别工具以及漏洞扫描工具去进行探活、指纹识别和漏洞探测。
@@ -504,25 +501,27 @@ https://114.255.204.149
 
 CVE-2021-43798 Grafana 未授权目录遍历。
 
-<!-- ![fofax&httpx](./docs/images/fofax&httpx.png) -->
+<!-- ![FoFaX&httpX](./docs/images/fofax&httpx.png) -->
+
 ![fofax_httpx](https://s2.loli.net/2021/12/25/kNx281ne7Ou5p4L.png)
 
-### fofax && nuclei
+### FoFaX && Nuclei
 
-将 fofax 获取的数据传递到 nuclei，然后使用 CVE-2021-43798 Template 批量漏洞扫描。
+将 FoFaX 获取的数据传递到 Nuclei，然后使用 CVE-2021-43798 Template 批量漏洞扫描。
 
-<!-- ![fofax&nuclei](./docs/images/fofax&nuclei.png) -->
+<!-- ![FoFaX&Nuclei](./docs/images/fofax&nuclei.png) -->
+
 ![fofax_nuclei](https://s2.loli.net/2021/12/25/YztbnOelLZGQAIJ.png)
 
-### fofax && xray
+### FoFaX && Xray
 
 ![fofax_xray](https://github.com/xiecat/fofax-doc/blob/dev/docs/.vuepress/public/fofax&xray.png?raw=true)
 
-### fofax && observer_ward
+### FoFaX && observer_ward
 
 ![fofax_observer_ward](https://github.com/xiecat/fofax-doc/blob/dev/docs/.vuepress/public/fofax&observer_ward.png?raw=true)
 
-### fofax && dismap
+### FoFaX && dismap
 
 ![fofax_dismap](https://github.com/xiecat/fofax-doc/blob/dev/docs/.vuepress/public/fofax&dismap.png?raw=true)
 
