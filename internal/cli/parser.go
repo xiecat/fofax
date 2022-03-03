@@ -151,7 +151,7 @@ func init() {
 		flags.IntVarP(&args.ReqIntervalTime, "request-interval-time", "rit", 500, "Request interval time unit/Millisecond"),
 		flags.BoolVar(&args.Debug, "debug", false, "Debug mode"),
 		flags.BoolVarP(&args.ShowPrivacy, "show-privacy", "sp", false, "Debug mode Show Privacy"),
-		flags.BoolVar(&args.Update, "update", false, "Update fofax"),
+		flags.BoolVarP(&args.Update, "update", "u", false, "Update fofax"),
 		flags.BoolVarP(&args.DisableUpdate, "disable-update", "du", false, "Close update alerts"),
 	)
 	createGroup(
@@ -160,7 +160,7 @@ func init() {
 		flags.BoolVarP(&args.Exclude, "exclude", "e", args.Exclude, "Exclude the honeypot."),
 		flags.BoolVarP(&args.Include, "include", "i", args.Include, "Include the honeypot."),
 		flags.BoolVarP(&args.ExcludeCountryCN, "exclude-country-cn", "ec", false, "Exclude CN."),
-		// 好像没用
+		// 就是没用
 		flags.BoolVarP(&args.UniqByQuery, "unique-by-query", "ubq", false, "De-duplicate the input source"),
 	)
 	createGroup(
@@ -184,7 +184,7 @@ func init() {
 		flags.StringVarP(&args.CoinFile, "fofa-coin-file", "fcf", args.CoinFile, "Load files downloaded with fofa coins (only use -ffi -fs or not)"),
 		flags.StringVarP(&args.QueryFile, "query-file", "qf", args.QueryFile, "Load files, query multiple statements"),
 		flags.StringVarP(&args.QueryFx, "query-fx", "qx", args.QueryFx, "Find all statements from the fx rules"),
-		flags.StringVarP(&args.PeerCertificatesFile, "url-cert-file", "ucf", args.UrlIconFile, "Read the URL from the file, calculate the cert and then query it"),
+		flags.StringVarP(&args.PeerCertificatesFile, "url-cert-file", "ucf", args.PeerCertificatesFile, "Read the URL from the file, calculate the cert and then query it"),
 		flags.StringVarP(&args.UrlIconFile, "icon-hash-url-file", "iuf", args.UrlIconFile, "Retrieve the URL from the file, calculate the icon hash and query it"),
 	)
 	createGroup(

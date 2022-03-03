@@ -136,7 +136,7 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 			}
 		}
 
-		// 读取文件中的URL，计算 cert 后进行查询 -ufc
+		// 读取文件中的URL，计算 cert 后进行查询 -ucf
 		if len(options.PeerCertificatesFile) != 0 && utils.FileExist(options.PeerCertificatesFile) {
 			input, err := os.Open(options.PeerCertificatesFile)
 			if err != nil {
