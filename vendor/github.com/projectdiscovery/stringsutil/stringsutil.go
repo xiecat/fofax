@@ -9,19 +9,7 @@ import (
 
 // Between extracts the string between a and b
 func Between(value string, a string, b string) string {
-	posFirst := strings.Index(value, a)
-	if posFirst == -1 {
-		return ""
-	}
-	posLast := strings.Index(value, b)
-	if posLast == -1 {
-		return ""
-	}
-	posFirstAdjusted := posFirst + len(a)
-	if posFirstAdjusted >= posLast {
-		return ""
-	}
-	return value[posFirstAdjusted:posLast]
+	return Before(After(value, a), b)
 }
 
 // Before extracts the string before a from value
@@ -35,7 +23,7 @@ func Before(value string, a string) string {
 
 // After extracts the string after a from value
 func After(value string, a string) string {
-	pos := strings.LastIndex(value, a)
+	pos := strings.Index(value, a)
 	if pos == -1 {
 		return ""
 	}
@@ -108,12 +96,12 @@ func Join(elems []interface{}, sep string) string {
 
 // HasPrefixI is case insensitive HasPrefix
 func HasPrefixI(s, prefix string) bool {
-	return strings.HasPrefix(strings.ToLower(s), prefix)
+	return strings.HasPrefix(strings.ToLower(s), strings.ToLower(prefix))
 }
 
 // HasSuffixI is case insensitive HasSuffix
 func HasSuffixI(s, suffix string) bool {
-	return strings.HasSuffix(strings.ToLower(s), suffix)
+	return strings.HasSuffix(strings.ToLower(s), strings.ToLower(suffix))
 }
 
 // Reverse the string
@@ -135,6 +123,16 @@ func Reverse(s string) string {
 func ContainsAny(s string, ss ...string) bool {
 	for _, sss := range ss {
 		if strings.Contains(s, sss) {
+			return true
+		}
+	}
+	return false
+}
+
+// EqualFoldsAny returns true is s is equal to any specified substring
+func EqualFoldAny(s string, ss ...string) bool {
+	for _, sss := range ss {
+		if strings.EqualFold(s, sss) {
 			return true
 		}
 	}

@@ -2,7 +2,6 @@ package iconhash
 
 import (
 	"bytes"
-	"crypto/tls"
 	"encoding/base64"
 	"fmt"
 	"hash"
@@ -10,10 +9,8 @@ import (
 	"net/http"
 	"os"
 	"strings"
-	"time"
 
 	"github.com/twmb/murmur3"
-
 	"github.com/xiecat/fofax/internal/printer"
 )
 
@@ -28,12 +25,14 @@ type Config struct {
 	HashFilePath  string
 	SkipVerify    bool
 	UserAgent     string
+	client        *http.Client
 }
 
 var config Config
 
-func NewIconHashConfig(url string, debug bool) *Config {
+func NewIconHashConfig(xclient *http.Client, url string, debug bool) *Config {
 	return &Config{
+		client:       xclient,
 		Debug:        debug,
 		HashUrl:      url,
 		HashFilePath: "",
@@ -60,19 +59,12 @@ func (c *Config) FromUrlGetContent() (string, error) {
 		defer printer.Info("---------------------------  end url  content  --------------------------------\n")
 	}
 
-	client := &http.Client{
-		Timeout: time.Second * time.Duration(10),
-		Transport: &http.Transport{
-			TLSClientConfig: &tls.Config{InsecureSkipVerify: c.SkipVerify}, //param
-		},
-	}
-
 	req, err := http.NewRequest("GET", c.HashUrl, nil)
 	if err != nil {
 		return "", err
 	}
 	req.Header.Set("User-Agent", c.UserAgent)
-	resp, err := client.Do(req)
+	resp, err := c.client.Do(req)
 	if err != nil {
 		return "", err
 	}

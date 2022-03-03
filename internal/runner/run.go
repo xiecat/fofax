@@ -66,7 +66,7 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 		certUrl := strings.TrimSpace(options.PeerCertificates)
 		if certUrl != "" {
 			if utils.IsHttps(certUrl) {
-				urlserial := utils.GetSerialNumber(certUrl)
+				urlserial := utils.GetSerialNumber(options.Xclient, certUrl)
 				if urlserial != "" {
 					runner.query.Push(urlserial)
 				}
@@ -79,7 +79,7 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 		icoUrl := strings.TrimSpace(options.UrlIcon)
 		if icoUrl != "" {
 			if utils.IsWebsite(icoUrl) {
-				iconConfig := iconhash.NewIconHashConfig(icoUrl, options.Debug)
+				iconConfig := iconhash.NewIconHashConfig(options.Xclient, icoUrl, options.Debug)
 				// 通过 url
 				if iHash, err := iconConfig.FromUrlGetContent(); err == nil {
 					runner.inputCount++
@@ -92,7 +92,7 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 
 		// 通过文件，计算 icon hash 后进行查询 -if
 		if options.IconFilePath != "" && utils.FileExist(options.IconFilePath) {
-			iconConfig := iconhash.NewIconHashConfig("", options.Debug)
+			iconConfig := iconhash.NewIconHashConfig(options.Xclient, "", options.Debug)
 			iconConfig.HashFilePath = options.IconFilePath
 			// 通过文件
 			if iHash, err := iconConfig.FromFileGetContent(); err == nil {
@@ -158,7 +158,7 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 					printer.Debugf("cert calculate %s", url)
 				}
 				runner.inputCount++
-				urlserial := utils.GetSerialNumber(url)
+				urlserial := utils.GetSerialNumber(options.Xclient, url)
 				if urlserial != "" {
 					runner.query.Push(urlserial)
 				}
@@ -174,7 +174,7 @@ func NewRunner(options *cli.Options) (*Runner, error) {
 			}
 			defer input.Close()
 			scanner := bufio.NewScanner(input)
-			iconConfig := iconhash.NewIconHashConfig("", options.Debug)
+			iconConfig := iconhash.NewIconHashConfig(options.Xclient, "", options.Debug)
 			for scanner.Scan() {
 				url := strings.TrimSpace(scanner.Text())
 				if url == "" {

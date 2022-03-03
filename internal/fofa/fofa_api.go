@@ -1,14 +1,12 @@
 package fofa
 
 import (
-	"crypto/tls"
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"math"
 	"net/http"
-	"net/url"
 	"strings"
 	"time"
 
@@ -39,26 +37,10 @@ type fieldFn func(fields []string, allSize int32) bool
 //type fixUrlFn func(hostInfo *utils.FixUrl, allSize int32) bool
 
 func NewFoFa(option *cli.Options) *FoFa {
-	tr := &http.Transport{
-		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-	}
-	if option.Proxy != "" {
-		proxy, err := url.Parse(option.Proxy)
-		if err != nil {
-			printer.Fatalf("proxy err: %s", proxy)
-		}
-		printer.Infof("using proxy: %s", proxy)
-		tr = &http.Transport{
-			Proxy:           http.ProxyURL(proxy),
-			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-		}
-	}
-	client := &http.Client{
-		Transport: tr,
-	}
+
 	return &FoFa{
 		option: option,
-		client: client,
+		client: option.Xclient,
 	}
 }
 

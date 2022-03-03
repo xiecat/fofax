@@ -1,14 +1,19 @@
 package cli
 
 import (
+	"crypto/tls"
 	"errors"
 	"fmt"
 	"io/ioutil"
 	"math/rand"
+	"net/http"
+	"net/url"
 	"os"
 	"path/filepath"
 	"strings"
 	"time"
+
+	"github.com/projectdiscovery/fastdialer/fastdialer"
 
 	"github.com/xiecat/fofax/internal/fx"
 	"github.com/xiecat/fofax/internal/fxparser"
@@ -39,7 +44,8 @@ type Options struct {
 	Silent      bool
 	NolimitOpen bool
 	// 标准输入
-	Stdin bool
+	Stdin   bool
+	Xclient *http.Client
 }
 
 type query struct {
@@ -202,6 +208,33 @@ func init() {
 		printer.Error(printer.HandlerLine("Parse err :" + err.Error()))
 		os.Exit(1)
 	}
+
+	//init xclient 解决 不同操作系统 dns 解析差异，原生库在某些版本不能使用的问题
+	fastdialerOpts := fastdialer.DefaultOptions
+	fastdialerOpts.EnableFallback = true
+	dialer, err := fastdialer.NewDialer(fastdialerOpts)
+	if err != nil {
+		fmt.Errorf("could not create resolver cache: %s", err)
+	}
+	tr := &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
+	if args.Proxy != "" {
+		proxy, err := url.Parse(args.Proxy)
+		if err != nil {
+			printer.Fatalf("proxy err: %s", proxy)
+		}
+		printer.Infof("using proxy: %s", proxy)
+		tr = &http.Transport{
+			Proxy:           http.ProxyURL(proxy),
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+			DialContext:     dialer.Dial,
+		}
+	}
+	args.Xclient = &http.Client{
+		Transport: tr,
+	}
+
 }
 
 func createGroup(flagSet *goflags.FlagSet, name, desc string, flags ...*goflags.FlagData) {
@@ -293,11 +326,13 @@ func ParseOptions() *Options {
 		printer.Error(printer.HandlerLine(err.Error()))
 		os.Exit(1)
 	}
-	//检查coinFile 是否存在
-	if args.CoinFile != "" && !utils.FileExist(args.CoinFile) {
-		printer.Fatalf("file: %s not exist", args.CoinFile)
+	//检查 File 是否存在
+	files := []string{args.QueryFile, args.IconFilePath, args.PeerCertificatesFile, args.UrlIconFile, args.IconFilePath, args.CoinFile}
+	for _, cmdfile := range files {
+		if cmdfile != "" && !utils.FileExist(cmdfile) {
+			printer.Fatalf("file: %s not exist", cmdfile)
+		}
 	}
-
 	return args
 }
 

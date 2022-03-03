@@ -19,6 +19,8 @@ builds:
     ignore:
       - goos: darwin
         goarch: 386
+      - goos: windows
+        goarch: arm64
 archives:
   - name_template: "{{ .ProjectName }}_{{ .Tag }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}{{ if .Mips }}_{{ .Mips }}{{ end }}"
     replacements:
