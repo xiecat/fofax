@@ -127,7 +127,8 @@ func initOptions() {
 	rand.Seed(time.Now().UnixNano())
 	args = new(Options)
 	args.FoFaEmail = os.Getenv("FOFA_EMAIL")
-	args.FoFaKey = os.Getenv("FOFA_KEY")
+	args.FoFaKey = utils.HiddenUrlKey(false, os.Getenv("FOFA_KEY"))
+	args.FoFaKeyFake = os.Getenv("FOFA_KEY")
 	args.FoFaURL = "https://fofa.info"
 	args.FoFaOpenURL = "https://fofa.info"
 	args.FetchSize = 100
@@ -204,9 +205,14 @@ func init() {
 	flags.BoolVar(&args.Silent, "silent", false, "Silent Output")
 	flags.BoolVar(&args.NolimitOpen, "no-limit-open", false, "No limit to the number of openings in your browser")
 	err := flags.Parse()
+
 	if err != nil {
 		printer.Error(printer.HandlerLine("Parse err :" + err.Error()))
 		os.Exit(1)
+	}
+	// fofa key 读取顺序命令行,配置文件，环境变量
+	if strings.Contains(args.FoFaKey, "**********") {
+		args.FoFaKey = args.FoFaKeyFake
 	}
 
 	//init xclient 解决 不同操作系统 dns 解析差异，原生库在某些版本不能使用的问题

@@ -9,6 +9,7 @@ import (
 	"os"
 	"path/filepath"
 	"reflect"
+	"regexp"
 	"runtime"
 
 	"github.com/pkg/browser"
@@ -126,11 +127,19 @@ func ConvertByte2String(byte []byte, charset string) string {
 }
 
 func GetHidePasswd(key string) string {
-	var HiddenPasswdChar = "*******************"
+	var HiddenPasswdChar = "************************"
 	if len(key) == 32 {
-		return key[0:3] + HiddenPasswdChar + key[28:]
+		return key[0:4] + HiddenPasswdChar + key[28:]
 	}
 	return ""
+}
+
+func HiddenUrlKey(sp bool, fullURL string) string {
+	if sp {
+		return fullURL
+	}
+	reg := regexp.MustCompile(`([0-9a-z]{4})([0-9a-z]{24})([0-9a-z]{4})`)
+	return reg.ReplaceAllString(fullURL, "${1}************************${3}")
 }
 
 func GetDefaultConf() string {

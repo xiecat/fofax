@@ -82,24 +82,12 @@ func (f *FoFa) fetchByFields(fields string, queryStr string) bool {
 
 		fullURL := f.buildQueryUrl(uri)
 		if f.option.Debug {
-			if f.option.ShowPrivacy {
-				printer.Debug(fullURL)
-			} else {
-				hiddenUri := fmt.Sprintf(
-					"/api/v1/search/all?email=%s&key=%s%s&qbase64=%s&size=%d&page=%d&fields=%s",
-					"*****@*******", utils.GetHidePasswd(f.option.FoFaKey), isFraud,
-					base64.StdEncoding.EncodeToString([]byte(queryStr)),
-					perPage,
-					f.page,
-					fields,
-				)
-				printer.Debug(f.buildQueryUrl(hiddenUri))
-			}
+			printer.Debug(utils.HiddenUrlKey(f.option.ShowPrivacy, fullURL))
 		}
 		req, err := http.NewRequest("GET", fullURL, nil)
 
 		if err != nil {
-			printer.Errorf(printer.HandlerLine("request failed: " + err.Error()))
+			printer.Errorf(printer.HandlerLine("request failed: " + utils.HiddenUrlKey(f.option.ShowPrivacy, err.Error())))
 			return false
 		}
 		if f.option.FetchFields != cli.DefaultField {
@@ -111,7 +99,7 @@ func (f *FoFa) fetchByFields(fields string, queryStr string) bool {
 		// 请求
 		resp, err := f.client.Do(req)
 		if err != nil {
-			printer.Errorf(printer.HandlerLine("request failed: " + err.Error()))
+			printer.Errorf(printer.HandlerLine("request failed: " + utils.HiddenUrlKey(f.option.ShowPrivacy, err.Error())))
 			return false
 		}
 		if resp.StatusCode != 200 {
