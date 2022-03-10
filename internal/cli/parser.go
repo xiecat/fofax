@@ -105,6 +105,7 @@ type config struct {
 	ShowPrivacy     bool
 	ConfigFile      string
 	Update          bool
+	Coin            bool
 	DisableUpdate   bool
 }
 type fxconfig struct {
@@ -150,6 +151,7 @@ func init() {
 		flags.StringVar(&args.FoFaURL, "fofa-url", args.FoFaURL, "Fofa api url"),
 		flags.StringVar(&args.FoFaOpenURL, "fofa-open-url", args.FoFaOpenURL, "The fofa url used by the browser to open"),
 		flags.IntVarP(&args.ReqIntervalTime, "request-interval-time", "rit", 500, "Request interval time unit/Millisecond"),
+		flags.BoolVar(&args.Coin, "coin", args.Coin, "Get over 10,000 data with fofa coins"),
 		flags.BoolVar(&args.Debug, "debug", false, "Debug mode"),
 		flags.BoolVarP(&args.ShowPrivacy, "show-privacy", "sp", false, "Debug mode Show Privacy"),
 		flags.BoolVarP(&args.Update, "update", "u", false, "Update fofax"),

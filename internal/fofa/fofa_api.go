@@ -130,26 +130,30 @@ func (f *FoFa) fetchByFields(fields string, queryStr string) bool {
 		printer.Successf("Fetch Data From FoFa: [%d/%d]", len(apiResult.Results), apiResult.Size)
 
 		for _, result := range apiResult.Results {
-			//if len(result[0]) == 0 || result[0] == ":0" {
-			//	printer.Debug("There is no HostInfo!")
-			//	continue
-			//	// https://fofa.so/api/v1/search/all?email=lubyruffy@gmail.com&key=xxx&qbase64=YXBwPSJIaWt2aXNpb24tQ2FtZXJhcy1hbmQtU3VydmVpbGxhbmNlIiAmJiBwcm90b2NvbCE9cnN0cA==&size=100&page=1&fields=host
-			//}
 
 			if !f.FetchFn(result, int32(apiResult.Size)) {
 				return true
 			}
-			maxSize--
-			if maxSize == 0 {
-				return true
-			}
+			//maxSize--
+			//if maxSize == 0 {
+			//	return true
+			//}
 		}
-
 		// 没有数据，退出
-		if len(apiResult.Results) == 0 || len(apiResult.Results) < perPage {
+		if len(apiResult.Results) == 0 || maxSize < perPage {
+			return true
+		}
+		maxSize -= perPage
+		if maxSize <= 0 {
 			return true
 		}
 		f.page++
+		if !f.option.Coin {
+			printer.Infof("Use fofa coins to get more than 10,000 data please use -coin to confirm")
+			return true
+		}
+		printer.Infof("The fofa coin will be deducted !!!")
+		time.Sleep(time.Duration(f.option.ReqIntervalTime) * time.Millisecond)
 	}
 }
 
