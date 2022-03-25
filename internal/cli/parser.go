@@ -80,7 +80,8 @@ type filter struct {
 	// 提取指定根域名的所有 title
 	FetchJarmOfDomain bool
 	// 提取完整的 hostInfo，带有 protocol
-	FetchFullHostInfo bool
+	FetchFullHostInfo        bool
+	FetchFFIWithQueryAndSize bool
 	// 排除干扰
 	Exclude bool
 	// 包含干扰
@@ -169,6 +170,7 @@ func init() {
 	createGroup(
 		flags, "output", "output format",
 		flags.BoolVarP(&args.FetchFullHostInfo, "fetch-fullHost-info", "ffi", false, "URL fetch, with scheme, hostname, port"),
+		flags.BoolVarP(&args.FetchFFIWithQueryAndSize, "fetch-ffi-with-query-size", "fw", false, "URL fetch, with scheme, hostname, port,Query,size"),
 		flags.BoolVarP(&args.FetchTitlesOfDomain, "fetch-titles-ofDomain", "fto", false, "Fetch website title"),
 		flags.BoolVarP(&args.FetchJarmOfDomain, "fetch-jarm-ofDomain", "fjo", false, "Fetch website jarm"),
 		flags.StringVarP(&args.FetchFields, "fetch-fields", "ff", DefaultField, "Fetch by fields.eg:  -ff host,lastupdatetime"),

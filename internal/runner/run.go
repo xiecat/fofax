@@ -274,6 +274,14 @@ func (r *Runner) Run() *sync.Map {
 			}
 			fo.FetchFullHostInfo(fofaQuery)
 			// 提取指定根域名的 title -fto
+		} else if r.options.FetchFFIWithQueryAndSize {
+			fo.FetchFn = func(fields []string, allSize int32) bool {
+				fullUrl := utils.FixFullHostInfoScheme(fields)
+				r.resMap.Store(fullUrl, fmt.Sprintf("[%s] [%d]", fofaQuery, allSize))
+				return true
+			}
+			fo.FetchFullHostInfo(fofaQuery)
+			// 提取指定根域名的 title -fto
 		} else if r.options.FetchTitlesOfDomain {
 			fo.FetchFn = func(fields []string, allSize int32) bool {
 				if host := fields[3]; len(host) > 0 {
