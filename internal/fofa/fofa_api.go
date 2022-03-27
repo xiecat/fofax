@@ -127,7 +127,7 @@ func (f *FoFa) fetchByFields(fields string, queryStr string) bool {
 		if f.option.Debug {
 			printer.Debugf("Fofa Api Query: %s", apiResult.Query)
 		}
-		if f.option.FetchFFIWithQueryAndSize || f.option.Debug {
+		if f.option.FetchFFIWithQueryAndSize {
 			printer.Successf("Fetch Data From [%s]: [%d/%d]", queryStr, len(apiResult.Results), apiResult.Size)
 
 		} else {
