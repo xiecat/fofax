@@ -200,6 +200,10 @@ func (f *FoFa) Fetch(queryStr string) bool {
 //}
 
 func getApiErrInfo(code string) string {
+	// {errmsg: "Request overrun on the day, restrict access, try again tomorrow", error: true}
+	if strings.Contains(code, "try again tomorrow") {
+		printer.Fatal(code)
+	}
 	switch code {
 	case "820000":
 		return "查询语法错误"
