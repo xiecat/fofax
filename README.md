@@ -252,7 +252,7 @@ echo 'app="APACHE-Solr"' | fofax -fs 10 -ec
 添加 `-ffi` 参数，根据查询语句直接获取对应的 URL（[scheme]://[host]:[port]）。
 
 ```console
-echo 'app="APACHE-Solr"' | fofax -fs 5
+echo 'app="APACHE-Solr"' | fofax -fs 5 -ffi
 2021/12/23 20:21:03 [SUCC] Fetch Data From FoFa: [5/30830]
 https://184.73.40.143:8443
 http://120.24.42.244:8983
