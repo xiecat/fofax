@@ -267,7 +267,7 @@ echo 'app="APACHE-Solr"' | fofax -fs 10 -ec
 Add the `-ffi` parameter to get the corresponding URL directly based on the query statement ([scheme]://[host]:[port]).
 
 ```console
-echo 'app="APACHE-Solr"' | fofax -fs 5
+echo 'app="APACHE-Solr"' | fofax -fs 5 -ffi
 2021/12/23 20:21:03 [SUCC] Fetch Data From FoFa: [5/30830]
 https://184.73.40.143:8443
 http://120.24.42.244:8983
