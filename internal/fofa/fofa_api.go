@@ -189,7 +189,7 @@ func (f *FoFa) FetchJarmOfDomain(queryStr string) bool {
 }
 
 func (f *FoFa) Fetch(queryStr string) bool {
-	return f.fetchByFields("host,lastupdatetime", queryStr)
+	return f.fetchByFields("host,port,ip,lastupdatetime", queryStr)
 }
 
 //func (f *FoFa) fetchFn(fields []string, allSize int32) bool {
