@@ -5,12 +5,13 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"github.com/xiecat/fofax/internal/printer"
 	"os"
 	"path/filepath"
 	"reflect"
 	"regexp"
 	"runtime"
+
+	"github.com/xiecat/fofax/internal/printer"
 
 	"github.com/pkg/browser"
 	"golang.org/x/text/encoding/simplifiedchinese"
@@ -138,7 +139,9 @@ func HiddenUrlKey(sp bool, fullURL string) string {
 	if sp {
 		return fullURL
 	}
-	reg := regexp.MustCompile(`([0-9a-z]{4})([0-9a-z]{24})([0-9a-z]{4})`)
+	reg := regexp.MustCompile(`email=([^&]+)`)
+	fullURL = reg.ReplaceAllString(fullURL, "email=*****@*************")
+	reg = regexp.MustCompile(`([0-9a-z]{4})([0-9a-z]{24})([0-9a-z]{4})`)
 	return reg.ReplaceAllString(fullURL, "${1}************************${3}")
 }
 
