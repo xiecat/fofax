@@ -91,6 +91,7 @@ type filter struct {
 	UniqByQuery      bool
 	// 搜索数
 	FetchSize int
+	OldData   bool
 }
 type config struct {
 	// fofa 地址
@@ -163,6 +164,7 @@ func init() {
 		flags.IntVarP(&args.FetchSize, "fetch-size", "fs", args.FetchSize, "The maximum number of query"),
 		flags.BoolVarP(&args.Exclude, "exclude", "e", args.Exclude, "Exclude the honeypot."),
 		flags.BoolVarP(&args.Include, "include", "i", args.Include, "Include the honeypot."),
+		flags.BoolVarP(&args.OldData, "old-data", "od", args.Include, "Include the old Data."),
 		flags.BoolVarP(&args.ExcludeCountryCN, "exclude-country-cn", "ec", false, "Exclude CN."),
 		// 就是没用
 		flags.BoolVarP(&args.UniqByQuery, "unique-by-query", "ubq", false, "De-duplicate the input source"),

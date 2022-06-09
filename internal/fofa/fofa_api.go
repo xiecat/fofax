@@ -67,13 +67,16 @@ func (f *FoFa) fetchByFields(fields string, queryStr string) bool {
 	}
 
 	for {
-		var isFraud string
+		var isOptionsArgs string
 		if f.option.Include {
-			isFraud = "&fraud=true"
+			isOptionsArgs = "&fraud=true"
+		}
+		if f.option.OldData {
+			isOptionsArgs += "&full=true"
 		}
 		uri := fmt.Sprintf(
 			"/api/v1/search/all?email=%s&key=%s%s&qbase64=%s&size=%d&page=%d&fields=%s",
-			f.option.FoFaEmail, f.option.FoFaKey, isFraud,
+			f.option.FoFaEmail, f.option.FoFaKey, isOptionsArgs,
 			base64.StdEncoding.EncodeToString([]byte(queryStr)),
 			perPage,
 			f.page,
