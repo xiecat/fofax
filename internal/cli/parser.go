@@ -226,7 +226,7 @@ func init() {
 	fastdialerOpts.EnableFallback = true
 	dialer, err := fastdialer.NewDialer(fastdialerOpts)
 	if err != nil {
-		fmt.Errorf("could not create resolver cache: %s", err)
+		printer.Errorf("could not create resolver cache: %s", err)
 	}
 	tr := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
