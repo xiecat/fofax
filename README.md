@@ -497,7 +497,7 @@ https://114.255.204.149
 
 > 在红队信息收集完毕后，便可以将收集到的资产交给探活工具、指纹识别工具以及漏洞扫描工具去进行探活、指纹识别和漏洞探测。
 
-### FOFax && httpX
+### FoFax && httpX
 
 CVE-2021-43798 Grafana 未授权目录遍历。
 
@@ -528,3 +528,9 @@ CVE-2021-43798 Grafana 未授权目录遍历。
 ## 0x06 Stargazers
 
 [![Stargazers over time](https://starchart.cc/xiecat/fofax.svg)](https://starchart.cc/xiecat/fofax)
+
+## 0x07 致谢
+
+FoFaX 已加入 [FOFA 共创者计划](https://fofa.info/development)，感谢 FOFA 提供的账号支持。
+
+![fofa-logo](https://user-images.githubusercontent.com/40891670/209631625-f73811b0-a26a-4a42-8158-e5061464481d.png)
