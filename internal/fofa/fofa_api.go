@@ -123,8 +123,8 @@ func (f *FoFa) fetchByFields(fields string, queryStr string) bool {
 			printer.Errorf("Json Unmarshal Failed: %s", string(body))
 			return false
 		}
-		if len(apiResult.ErrMsg) != 0 {
-			printer.Errorf("FoFa Response ErrMsg: %s", getApiErrInfo(apiResult.ErrMsg))
+		if len(apiResult.ErrMsg) != 0 && apiResult.Error == true {
+			printer.Errorf("FoFa Response ErrMsg: %s", apiResult.ErrMsg)
 			return false
 		}
 		if f.option.Debug {
@@ -183,36 +183,14 @@ func (f *FoFa) FetchField(field, queryStr string) bool {
 
 // FetchTitlesOfDomain 提取 title
 func (f *FoFa) FetchTitlesOfDomain(queryStr string) bool {
-	return f.fetchByFields("protocol,ip,port,host,type,title,lastupdatetime", queryStr)
+	return f.fetchByFields("protocol,ip,port,host,type,title,country", queryStr)
 }
 
 // FetchJarmOfDomain 提取 title
 func (f *FoFa) FetchJarmOfDomain(queryStr string) bool {
-	return f.fetchByFields("protocol,ip,port,host,type,jarm,lastupdatetime", queryStr)
+	return f.fetchByFields("protocol,ip,port,host,type,jarm,country", queryStr)
 }
 
 func (f *FoFa) Fetch(queryStr string) bool {
-	return f.fetchByFields("host,port,ip,lastupdatetime", queryStr)
-}
-
-//func (f *FoFa) fetchFn(fields []string, allSize int32) bool {
-//	hostInfo := utils.NewFixUrl(
-//		fmt.Sprintf("%s://%s:%s",
-//			fields[0], fields[1], fields[2]))
-//	return f.FetchCallBack(hostInfo, allSize)
-//}
-
-func getApiErrInfo(code string) string {
-	// {errmsg: "Request overrun on the day, restrict access, try again tomorrow", error: true}
-	if strings.Contains(code, "try again tomorrow") {
-		printer.Fatal(code)
-	}
-	switch code {
-	case "820000":
-		return "查询语法错误"
-	case "820005":
-		return "查询没有权限"
-	default:
-		return code
-	}
+	return f.fetchByFields("host,port,ip,country", queryStr)
 }

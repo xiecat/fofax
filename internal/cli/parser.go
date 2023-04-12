@@ -423,7 +423,7 @@ func checkUpdateInfo() {
 		printer.Error(err)
 		return
 	}
-	if -time.Until(lasTime) > 24*time.Hour || args.Update {
+	if -time.Until(lasTime) > 7*24*time.Hour || args.Update {
 		err := updateTips(FoFaXVersion)
 		if err != nil {
 			printer.Error(err.Error())
