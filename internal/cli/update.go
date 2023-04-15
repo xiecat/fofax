@@ -18,7 +18,7 @@ import (
 func updateTips(tagName string) error {
 	tagName = fmt.Sprintf("v%s", strings.TrimPrefix(tagName, "v"))
 	if strings.HasSuffix(tagName, "-next") {
-		printer.Debug("Self-compiled versions do not check for updates")
+		printer.Debugf("Self-compiled versions: %s do not check for updates", tagName)
 		return nil
 	}
 	latest, err := updateFoFaXVersionToLatest()
@@ -54,10 +54,8 @@ func updateFoFaXVersionToLatest() (*update.Release, error) {
 		return nil, errors.Wrap(err, "could not fetch latest release")
 	}
 	if len(releases) == 0 {
-		printer.Infof("No new updates found for fofax engine!")
-		return nil, nil
+		return nil, errors.New("No new updates found for fofax engine!")
 	}
-	fmt.Printf("%v", releases)
 	latest := releases[0]
 	if args.Update {
 		bannerSite(fmt.Sprintf("New:\n\nVersion:%s\n\n%s\n", latest.Version, latest.Notes))

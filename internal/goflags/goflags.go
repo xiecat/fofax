@@ -5,7 +5,6 @@ import (
 	"flag"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"os"
 	"path"
 	"path/filepath"
@@ -98,7 +97,7 @@ func (flagSet *FlagSet) Parse() error {
 
 	if _, err := os.Stat(config); os.IsNotExist(err) {
 		configData := flagSet.generateDefaultConfig()
-		err = ioutil.WriteFile(config, configData, os.ModePerm)
+		err = os.WriteFile(config, configData, os.ModePerm)
 		if err != nil {
 			printer.Errorf("create config file fail %s", config)
 		}
