@@ -22,6 +22,10 @@ func updateTips(tagName string) error {
 		return nil
 	}
 	latest, err := updateFoFaXVersionToLatest()
+	if latest == nil {
+		return errors.New("latest version is nil")
+	}
+
 	if err != nil {
 		return err
 	}
