@@ -1,6 +1,8 @@
 package utils
 
 import (
+	"errors"
+	"fmt"
 	"net/url"
 	"strings"
 )
@@ -21,6 +23,32 @@ type FixUrl struct {
 	ParseWithScheme bool //是否解析的时候自带scheme
 }
 
+// is_ipv6=true && port="8080"
+// "https://2407:c080:17ef:ffff::7703:d86e"
+func FixFofaHostsHttpIpv6(ipv6URL string) (*url.URL, error) {
+	// 提取 IPv6 地址部分
+	start := strings.Index(ipv6URL, "://") + 3
+	if start == -1 {
+		return nil, errors.New("invalid host： " + ipv6URL)
+	}
+	ipv6 := ipv6URL[start:]
+
+	// 构建规范化的 IPv6 URL
+	formattedURL := fmt.Sprintf("%s[%s]", ipv6URL[0:start], ipv6)
+	return url.Parse(formattedURL)
+}
+
+// "[240e:468:810:ab69:2042:7ff:fe58:881a]:8080"
+func FetchIpv6AndIpv4HostAndPort(uHost string) string {
+
+	if strings.HasPrefix(uHost, "[") {
+		strat := strings.Index(uHost, "[") + 1
+		end := strings.Index(uHost, "]")
+		return "[" + uHost[strat:end] + "]"
+	}
+	return strings.Split(uHost, ":")[0]
+}
+
 // NewFixUrl 归一化url格式
 func NewFixUrl(hostinfo string) (*FixUrl, error) {
 	fullurl := hostinfo
@@ -29,15 +57,21 @@ func NewFixUrl(hostinfo string) (*FixUrl, error) {
 		fullurl = "http://" + fullurl
 	}
 	fullurl = strings.Trim(fullurl, " \t\r\n")
-
 	u, err := url.Parse(fullurl)
-	if err != nil {
-		return nil, err
-	}
-	ipArray := strings.Split(u.Host, ":")
-	ip := ipArray[0]
-	port := u.Port()
 
+	if err != nil {
+		// "https://2407:c080:17ef:ffff::7703:d86e"
+
+		u, err = FixFofaHostsHttpIpv6(fullurl)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	//"[240e:468:810:ab69:2042:7ff:fe58:881a]:8080"
+	ip := FetchIpv6AndIpv4HostAndPort(u.Host)
+	port := u.Port()
+	//ipv6 [240e:468:810:ab69:2042:7ff:fe58:881a]:8080
 	if len(port) == 0 {
 		if u.Scheme == "https" {
 			port = "443"

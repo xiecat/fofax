@@ -7,6 +7,15 @@ import (
 	"github.com/xiecat/fofax/internal/printer"
 )
 
+func FixFullHostIpv6(fullUrl string) string {
+	if strings.Count(fullUrl, ":") > 2 && !strings.Contains(fullUrl, "[") && !strings.Contains(fullUrl, "]") {
+		start := strings.Index(fullUrl, "://") + 3
+		ipv6 := fullUrl[start:]
+		return fmt.Sprintf("%s[%s]", fullUrl[0:start], ipv6)
+	}
+	return fullUrl
+}
+
 func FixFullHostInfoScheme(fields []string) string {
 	if len(fields) < 4 {
 		printer.Errorf("fileds len err: %v", fields)
@@ -20,10 +29,10 @@ func FixFullHostInfoScheme(fields []string) string {
 	schemaType := strings.TrimSpace(fields[3])
 
 	if strings.HasPrefix(schemaType, "https://") {
-		return host
+		return FixFullHostIpv6(host)
 	}
 	if strings.HasPrefix(schemaType, "http://") {
-		return host
+		return FixFullHostIpv6(host)
 	}
-	return fmt.Sprintf("%s://%s", protocol, host)
+	return FixFullHostIpv6(fmt.Sprintf("%s://%s", protocol, host))
 }

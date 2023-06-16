@@ -15,7 +15,7 @@ func (normalizedStringSlice NormalizedStringSlice) String() string {
 	return normalizedStringSlice.createStringArrayDefaultValue()
 }
 
-//Set appends a value to the string slice.
+// Set appends a value to the string slice.
 func (normalizedStringSlice *NormalizedStringSlice) Set(value string) error {
 	if slice, err := ToNormalizedStringSlice(value); err != nil {
 		return err

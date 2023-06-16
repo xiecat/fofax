@@ -13,7 +13,6 @@ import (
 	"time"
 
 	"github.com/projectdiscovery/fastdialer/fastdialer"
-
 	"github.com/xiecat/fofax/internal/fx"
 	"github.com/xiecat/fofax/internal/fxparser"
 	"github.com/xiecat/fofax/internal/goflags"
