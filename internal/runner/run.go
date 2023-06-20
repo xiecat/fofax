@@ -307,7 +307,7 @@ func (r *Runner) Run() *sync.Map {
 				r.resMap.LoadOrStore(strings.Join(fields[:len(fields)-1], r.options.FetchFieldsSplit), nil)
 				return true
 			}
-			fo.FetchField(r.options.FetchFields+",type", fofaQuery)
+			fo.FetchField(r.options.FetchFields+",city", fofaQuery)
 		} else {
 			fo.FetchFn = func(fields []string, allSize int32) bool {
 				fullUrl, err := utils.NewFixUrl(strings.TrimSpace(fields[0]))

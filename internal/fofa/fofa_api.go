@@ -168,7 +168,7 @@ func (f *FoFa) fetchByFields(fields string, queryStr string) bool {
 
 // FetchFullHostInfo 提取完整带协议的字段
 func (f *FoFa) FetchFullHostInfo(queryStr string) bool {
-	return f.fetchByFields("protocol,ip,port,host,type", queryStr)
+	return f.fetchByFields("protocol,ip,port,host,city", queryStr)
 }
 
 // FetchOneField 提取指定的字段
@@ -183,12 +183,12 @@ func (f *FoFa) FetchField(field, queryStr string) bool {
 
 // FetchTitlesOfDomain 提取 title
 func (f *FoFa) FetchTitlesOfDomain(queryStr string) bool {
-	return f.fetchByFields("protocol,ip,port,host,type,title,country", queryStr)
+	return f.fetchByFields("protocol,ip,port,host,city,title,country", queryStr)
 }
 
 // FetchJarmOfDomain 提取 title
 func (f *FoFa) FetchJarmOfDomain(queryStr string) bool {
-	return f.fetchByFields("protocol,ip,port,host,type,jarm,country", queryStr)
+	return f.fetchByFields("protocol,ip,port,host,city,jarm,country", queryStr)
 }
 
 func (f *FoFa) Fetch(queryStr string) bool {
