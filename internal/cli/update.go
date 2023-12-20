@@ -22,13 +22,13 @@ func updateTips(tagName string) error {
 		return nil
 	}
 	latest, err := updateFoFaXVersionToLatest()
+	if err != nil {
+		return err
+	}
 	if latest == nil {
 		return errors.New("latest version is nil")
 	}
 
-	if err != nil {
-		return err
-	}
 	if !args.Update {
 		bannerSite(fmt.Sprintf("New:\n\nVersion:%s\n\n%s\n", latest.Version, latest.Notes))
 		bannerSite("Please Use [./fofax -update] to download\n\n")
