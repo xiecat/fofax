@@ -2,16 +2,17 @@ package cli
 
 import (
 	"fmt"
-	"github.com/xiecat/fofax/internal/printer"
 	"strings"
+
+	"github.com/xiecat/fofax/internal/printer"
 
 	"github.com/fatih/color"
 )
 
 var (
-	FoFaXVersion = "0.1.44"
+	FoFaXVersion = "0.1.47"
 	Commit       = "unknown"
-	Date         = "2022-01-01T01:01:01Z"
+	Date         = "2023-12-21T17:14:09Z"
 	Branch       = "unknown"
 )
 
