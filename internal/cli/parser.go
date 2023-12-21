@@ -95,8 +95,8 @@ type config struct {
 	// fofa 地址
 	FoFaURL     string
 	FoFaOpenURL string
-	// FoFaEmail   string
-	FoFaKey string
+	FoFaEmail   string
+	FoFaKey     string
 	// 脱敏密码
 	FoFaKeyFake     string
 	Proxy           string
@@ -127,7 +127,7 @@ var (
 func initOptions() {
 	rand.Seed(time.Now().UnixNano())
 	args = new(Options)
-	// args.FoFaEmail = os.Getenv("FOFA_EMAIL")
+	args.FoFaEmail = os.Getenv("FOFA_EMAIL")
 	args.FoFaKey = utils.HiddenUrlKey(false, os.Getenv("FOFA_KEY"))
 	args.FoFaKeyFake = os.Getenv("FOFA_KEY")
 	args.FoFaURL = "https://fofa.info"
@@ -145,7 +145,7 @@ func init() {
 	flags.StringVar(&args.ConfigFile, "config", args.ConfigFile, "fofax configuration file.The file reading order("+strings.Join(utils.ConfDefaultPath, ",")+")")
 	createGroup(
 		flags, "config", "CONFIGS",
-		// flags.StringVarP(&args.FoFaEmail, "fofa-email", "email", args.FoFaEmail, "Fofa API Email"),
+		flags.StringVarP(&args.FoFaEmail, "fofa-email", "email", args.FoFaEmail, "Fofa API Email(the field has already been deprecated.)"),
 		flags.StringVarP(&args.FoFaKey, "fofakey", "key", args.FoFaKey, "Fofa API Key"),
 		flags.StringVarP(&args.Proxy, "proxy", "p", "", "proxy for http like http://127.0.0.1:8080"),
 		flags.StringVar(&args.FoFaURL, "fofa-url", args.FoFaURL, "Fofa api url"),
@@ -398,6 +398,9 @@ func checkMutFlags() error {
 
 // 检查 key
 func checkFoFaInfo() {
+	if args.FoFaEmail != "" {
+		printer.Infof("The FOFA email field has already been deprecated")
+	}
 	if args.FoFaKey == "" {
 		printer.Error("FoFaKey is empty")
 		os.Exit(1)

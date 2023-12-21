@@ -74,9 +74,15 @@ func (f *FoFa) fetchByFields(fields string, queryStr string) bool {
 		if f.option.OldData {
 			isOptionsArgs += "&full=true"
 		}
+		auth := fmt.Sprintf("key=%s", f.option.FoFaKey)
+
+		if f.option.FoFaEmail != "" {
+			auth = fmt.Sprintf("email=%s&key=%s", f.option.FoFaEmail, f.option.FoFaKey)
+		}
+
 		uri := fmt.Sprintf(
-			"/api/v1/search/all?key=%s%s&qbase64=%s&size=%d&page=%d&fields=%s",
-			f.option.FoFaKey, isOptionsArgs,
+			"/api/v1/search/all?%s%s&qbase64=%s&size=%d&page=%d&fields=%s",
+			auth, isOptionsArgs,
 			base64.StdEncoding.EncodeToString([]byte(queryStr)),
 			perPage,
 			f.page,

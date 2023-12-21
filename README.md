@@ -49,23 +49,20 @@ fofax
 2021/12/23 21:21:28 [SUCC] create config file /Users/user/.config/fofax/fofax.yaml. please modify and use
 ```
 
-接下来就是对此配置文件进行配置了，一般来说只需要配置完 `email` 和 `key` 就可以了。
+接下来就是对此配置文件进行配置了，一般来说只需要配置完  `key` 就可以了。
 
 ```console
 vim ~/.config/fofax/fofax.yaml
 ```
 
 ```console
-# fofa api email
-fofa-email: ******@gmail.com
-
 # fofa api key
 fofakey: ***************
 ```
-
+**注意:** email 字段已经被弃用 (2023年12月21日)
 ### Windows
 
-解压压缩包，第一次运行 fofax.exe 会在同级目录下生成一个 fofax.yaml 的配置文件。然后打开此配置文件，并填写 `email` 和 `key`。
+解压压缩包，第一次运行 fofax.exe 会在同级目录下生成一个 fofax.yaml 的配置文件。然后打开此配置文件，并填写  `key` 字段。
 
 ## 0x03 使用方法
 
@@ -285,7 +282,7 @@ http://usa.baidu.com [Baidu USA]
 echo 'app="APACHE-Solr"' | fofax -fs 5 -ffi -debug
 2021/12/25 21:28:57 [DEBUG] FoFa Size : 5
 2021/12/25 21:28:57 [DEBUG] FoFa Query of: app="APACHE-Solr"
-2021/12/25 21:28:57 [DEBUG] https://fofa.so/api/v1/search/all?email=**********@gmail.com&key=**************************&qbase64=YXBwPSJBUEFDSEUtU29sciI=&size=5&page=1&fields=protocol,ip,port,host
+2021/12/25 21:28:57 [DEBUG] https://fofa.so/api/v1/search/all?key=**************************&qbase64=YXBwPSJBUEFDSEUtU29sciI=&size=5&page=1&fields=protocol,ip,port,host
 2021/12/25 21:28:57 [DEBUG] Resp Time: 432/millis
 2021/12/25 21:28:57 [SUCC] Fetch Data From FoFa: [5/30942]
 http://35.183.115.103
