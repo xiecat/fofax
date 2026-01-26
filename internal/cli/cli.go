@@ -10,9 +10,9 @@ import (
 )
 
 var (
-	FoFaXVersion = "0.1.47"
+	FoFaXVersion = "0.1.48"
 	Commit       = "unknown"
-	Date         = "2023-12-21T17:14:09Z"
+	Date         = "2026-01-26T15:06:09Z"
 	Branch       = "unknown"
 )
 
