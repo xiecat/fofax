@@ -52,9 +52,9 @@ func (f *FoFa) SetFetchCallback(fn func(fields []string, allSize int32) bool) {
 
 func (f *FoFa) buildQueryUrl(queryStr string) string {
 	baseURL := f.option.FoFaURL
-	if f.option.Next {
-		baseURL = "https://fofa.info"
-	}
+	//if f.option.Next {
+	//	baseURL = "https://fofa.info"
+	//}
 	return baseURL + queryStr
 }
 
