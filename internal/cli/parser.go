@@ -109,6 +109,7 @@ type config struct {
 	Update          bool
 	Coin            bool
 	DisableUpdate   bool
+	Next            bool // 使用 batches_pages API
 }
 type fxconfig struct {
 	FxSearch       string
@@ -138,6 +139,7 @@ func initOptions() {
 	args.FxDir = filepath.Join(filepath.Dir(utils.GetDefaultConf()), "fxrules")
 	args.ConfigFile = utils.GetDefaultConf()
 	args.Stdin = utils.HasStdin()
+	args.Next = false
 }
 
 func init() {
@@ -158,6 +160,7 @@ func init() {
 		flags.BoolVarP(&args.ShowPrivacy, "show-privacy", "sp", false, "Debug mode Show Privacy"),
 		flags.BoolVarP(&args.Update, "update", "u", false, "Update fofax"),
 		flags.BoolVarP(&args.DisableUpdate, "disable-update", "du", false, "Close update alerts"),
+		flags.BoolVar(&args.Next, "next", false, "Use batches_pages API (/api/v1/search/next)"),
 	)
 	createGroup(
 		flags, "filters", "FILTERS",

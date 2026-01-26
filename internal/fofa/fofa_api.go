@@ -17,6 +17,7 @@ import (
 
 type FoFa struct {
 	page    int64
+	next    string // 用于存储 next API 返回的 next 值
 	FetchFn fieldFn
 	option  *cli.Options
 	client  *http.Client
@@ -29,6 +30,7 @@ type ApiResults struct {
 	Query   string     `json:"query"`
 	Page    int        `json:"page"`
 	Size    int        `json:"size"`
+	Next    string     `json:"next"` // next API 返回的 next 值，用于下一次请求
 	Results [][]string `json:"results"`
 }
 
@@ -49,11 +51,16 @@ func (f *FoFa) SetFetchCallback(fn func(fields []string, allSize int32) bool) {
 }
 
 func (f *FoFa) buildQueryUrl(queryStr string) string {
-	return f.option.FoFaURL + queryStr
+	baseURL := f.option.FoFaURL
+	if f.option.Next {
+		baseURL = "https://fofa.info"
+	}
+	return baseURL + queryStr
 }
 
 func (f *FoFa) fetchByFields(fields string, queryStr string) bool {
 	f.page = 1
+	f.next = "" // 重置 next 值
 	maxSize := f.option.FetchSize
 	if maxSize < 0 {
 		// max window限制
@@ -81,14 +88,34 @@ func (f *FoFa) fetchByFields(fields string, queryStr string) bool {
 			auth = fmt.Sprintf("email=%s&key=%s", f.option.FoFaEmail, f.option.FoFaKey)
 		}
 
-		uri := fmt.Sprintf(
-			"/api/v1/search/all?%s%s&qbase64=%s&size=%d&page=%d&fields=%s",
-			auth, isOptionsArgs,
-			base64.StdEncoding.EncodeToString([]byte(queryStr)),
-			perPage,
-			f.page,
-			fields,
-		)
+		// 根据 Next 参数选择 API 端点
+		apiPath := "/api/v1/search/all"
+		if f.option.Next {
+			apiPath = "/api/v1/search/next"
+		}
+
+		var uri string
+		if f.option.Next && f.next != "" {
+			// 使用 next API 且已有 next 值，使用 next 参数而不是 page
+			uri = fmt.Sprintf(
+				"%s?%s%s&qbase64=%s&size=%d&next=%s&fields=%s",
+				apiPath, auth, isOptionsArgs,
+				base64.StdEncoding.EncodeToString([]byte(queryStr)),
+				perPage,
+				f.next,
+				fields,
+			)
+		} else {
+			// 第一次请求或使用传统 API，使用 page 参数
+			uri = fmt.Sprintf(
+				"%s?%s%s&qbase64=%s&size=%d&page=%d&fields=%s",
+				apiPath, auth, isOptionsArgs,
+				base64.StdEncoding.EncodeToString([]byte(queryStr)),
+				perPage,
+				f.page,
+				fields,
+			)
+		}
 
 		fullURL := f.buildQueryUrl(uri)
 		if f.option.Debug {
@@ -155,20 +182,44 @@ func (f *FoFa) fetchByFields(fields string, queryStr string) bool {
 			//	return true
 			//}
 		}
+
+		// 如果使用 next API，保存返回的 next 值
+		if f.option.Next {
+			f.next = apiResult.Next
+		}
+
 		// 没有数据，退出
 		if len(apiResult.Results) == 0 || maxSize < perPage {
 			return true
 		}
+
+		// 如果使用 next API 且没有 next 值，说明已经获取完所有数据
+		if f.option.Next && f.next == "" {
+			return true
+		}
+
 		maxSize -= perPage
 		if maxSize <= 0 {
 			return true
 		}
-		f.page++
-		if !f.option.Coin {
-			printer.Infof("Use fofa coins to get more than 10,000 data please use -coin to confirm")
-			return true
+
+		// 根据使用的 API 类型决定如何分页
+		if f.option.Next {
+			// 使用 next API，next 值已经在上面保存，继续循环即可
+			if !f.option.Coin {
+				printer.Infof("Use fofa coins to get more than 10,000 data please use -coin to confirm")
+				return true
+			}
+			printer.Infof("The fofa coin will be deducted !!!")
+		} else {
+			// 使用传统 API，递增 page
+			f.page++
+			if !f.option.Coin {
+				printer.Infof("Use fofa coins to get more than 10,000 data please use -coin to confirm")
+				return true
+			}
+			printer.Infof("The fofa coin will be deducted !!!")
 		}
-		printer.Infof("The fofa coin will be deducted !!!")
 		time.Sleep(time.Duration(f.option.ReqIntervalTime) * time.Millisecond)
 	}
 }
