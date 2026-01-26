@@ -1,6 +1,9 @@
+# yaml-language-server: $schema=https://goreleaser.com/static/schema.json
 # This is an example goreleaser.yaml file with some sane defaults.
 # Make sure to check the documentation at http://goreleaser.com
 # https://goreleaser.com/customization/build/
+version: 2
+
 project_name: fofax
 builds:
   - env: [CGO_ENABLED=0]
@@ -23,16 +26,13 @@ builds:
         goarch: arm64
 archives:
   - name_template: "{{ .ProjectName }}_{{ .Tag }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}{{ if .Mips }}_{{ .Mips }}{{ end }}"
-    replacements:
-    files:
-      -
     format_overrides:
       - goos: windows
-        format: zip
+        formats: [zip]
 checksum:
   name_template: 'checksums.txt'
 snapshot:
-  name_template: "{{ .Tag }}-next"
+  version_template: "{{ incpatch .Version }}-next"
 changelog:
   sort: asc
   filters:

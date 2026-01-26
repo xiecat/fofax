@@ -1,6 +1,6 @@
 module github.com/xiecat/fofax
 
-go 1.17
+go 1.24.0
 
 require (
 	github.com/antlr/antlr4/runtime/Go/antlr v0.0.0-20211221011931-643d94fcab96
@@ -12,7 +12,7 @@ require (
 	github.com/projectdiscovery/stringsutil v0.0.0-20210830151154-f567170afdd9
 	github.com/tj/go-update v2.2.5-0.20200519121640-62b4b798fd68+incompatible
 	github.com/twmb/murmur3 v1.1.6
-	golang.org/x/text v0.3.7
+	golang.org/x/text v0.33.0
 	gopkg.in/yaml.v2 v2.4.0
 )
 
@@ -45,6 +45,6 @@ require (
 	github.com/ulikunitz/xz v0.5.10 // indirect
 	github.com/yl2chen/cidranger v1.0.2 // indirect
 	go.etcd.io/bbolt v1.3.6 // indirect
-	golang.org/x/net v0.0.0-20210916014120-12bc252f5db8 // indirect
-	golang.org/x/sys v0.0.0-20211216021012-1d35b9e2eb4e // indirect
+	golang.org/x/net v0.49.0 // indirect
+	golang.org/x/sys v0.40.0 // indirect
 )
