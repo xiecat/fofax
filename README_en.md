@@ -148,6 +148,57 @@ OTHER OPTIONS:
    -no-limit-open  No limit to the number of openings in your browser
 ```
 
+### MCP SSE Service (Local)
+
+fofax supports local MCP SSE mode with `-mcp-sse` (short flag `-ms`), suitable for MCP clients such as Cursor and Claude Desktop.
+
+#### 1) Start service
+
+```console
+MCP_AUTH_TOKEN=change-me FOFA_KEY=your-fofa-key fofax -ms
+```
+
+Or set listen address, base path and token explicitly:
+
+```console
+FOFA_KEY=your-fofa-key fofax -mcp-sse \
+  -mcp-auth-token change-me \
+  -mcp-listen :18080 \
+  -mcp-base-path /mcp
+```
+
+#### 2) Authentication
+
+- Uses Bearer Token authentication
+- Header: `Authorization: Bearer <token>`
+- Token source: `-mcp-auth-token` or environment variable `MCP_AUTH_TOKEN`
+
+#### 3) SSE endpoint
+
+- Default listen address: `127.0.0.1:18080`
+- Default base path: `/mcp`
+- Typical entry URL: `http://127.0.0.1:18080/mcp/sse`
+
+#### 4) Built-in MCP tools
+
+- `fofa_search`: query FOFA and return structured JSON results
+  - args: `query`(required), `fields`, `size`, `next`, `include`, `full`, `interval_ms`
+- `fofax_mcp_info`: return service metadata and capabilities
+
+#### 5) `fofa_search` example arguments
+
+```json
+{
+  "query": "app=\"nginx\" && country=\"CN\"",
+  "fields": "host,ip,port,country",
+  "size": 20,
+  "next": false,
+  "include": false,
+  "full": false,
+  "interval_ms": 0
+}
+```
+
 ### FOFA Syntax Rules
 
 Use the `-use` argument to display FOFA syntax query rules.

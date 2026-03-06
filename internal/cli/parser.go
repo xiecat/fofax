@@ -110,6 +110,10 @@ type config struct {
 	Coin            bool
 	DisableUpdate   bool
 	Next            bool // 使用 batches_pages API
+	McpSSE          bool
+	McpListenAddr   string
+	McpBasePath     string
+	McpAuthToken    string
 }
 type fxconfig struct {
 	FxSearch       string
@@ -140,6 +144,9 @@ func initOptions() {
 	args.ConfigFile = utils.GetDefaultConf()
 	args.Stdin = utils.HasStdin()
 	args.Next = false
+	args.McpListenAddr = ":18080"
+	args.McpBasePath = "/mcp"
+	args.McpAuthToken = os.Getenv("MCP_AUTH_TOKEN")
 }
 
 func init() {
@@ -161,6 +168,13 @@ func init() {
 		flags.BoolVarP(&args.Update, "update", "u", false, "Update fofax"),
 		flags.BoolVarP(&args.DisableUpdate, "disable-update", "du", false, "Close update alerts"),
 		flags.BoolVar(&args.Next, "next", false, "Use batches_pages API (/api/v1/search/next)"),
+	)
+	createGroup(
+		flags, "mcp", "MCP SERVER",
+		flags.BoolVarP(&args.McpSSE, "mcp-sse", "ms", false, "Run local MCP SSE service mode"),
+		flags.StringVar(&args.McpListenAddr, "mcp-listen", args.McpListenAddr, "MCP SSE service listen address"),
+		flags.StringVar(&args.McpBasePath, "mcp-base-path", args.McpBasePath, "MCP SSE service base path"),
+		flags.StringVar(&args.McpAuthToken, "mcp-auth-token", args.McpAuthToken, "Bearer token for MCP service authentication"),
 	)
 	createGroup(
 		flags, "filters", "FILTERS",
@@ -303,6 +317,14 @@ func ParseOptions() *Options {
 		banner()
 	} else {
 		args.Mode = Stdin_Mode
+	}
+	if args.McpSSE {
+		if strings.TrimSpace(args.McpAuthToken) == "" {
+			printer.Error("MCP auth token is empty, please set -mcp-auth-token or MCP_AUTH_TOKEN")
+			os.Exit(1)
+		}
+		checkFoFaInfo()
+		return args
 	}
 	ParseFxOptions()
 	if args.Version {

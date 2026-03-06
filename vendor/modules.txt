@@ -10,6 +10,12 @@ github.com/antlr/antlr4/runtime/Go/antlr
 # github.com/apex/log v1.9.0
 ## explicit; go 1.12
 github.com/apex/log
+# github.com/bahlo/generic-list-go v0.2.0
+## explicit; go 1.18
+github.com/bahlo/generic-list-go
+# github.com/buger/jsonparser v1.1.1
+## explicit; go 1.13
+github.com/buger/jsonparser
 # github.com/c4milo/unpackit v0.1.0
 ## explicit; go 1.16
 github.com/c4milo/unpackit
@@ -39,6 +45,9 @@ github.com/google/go-github/github
 # github.com/google/go-querystring v1.1.0
 ## explicit; go 1.10
 github.com/google/go-querystring/query
+# github.com/google/uuid v1.6.0
+## explicit
+github.com/google/uuid
 # github.com/gosuri/uilive v0.0.4
 ## explicit; go 1.10
 github.com/gosuri/uilive
@@ -46,6 +55,9 @@ github.com/gosuri/uilive
 ## explicit
 github.com/gosuri/uiprogress
 github.com/gosuri/uiprogress/util/strutil
+# github.com/invopop/jsonschema v0.13.0
+## explicit; go 1.18
+github.com/invopop/jsonschema
 # github.com/klauspost/compress v1.4.1
 ## explicit
 github.com/klauspost/compress/flate
@@ -55,6 +67,15 @@ github.com/klauspost/cpuid
 # github.com/klauspost/pgzip v1.2.5
 ## explicit
 github.com/klauspost/pgzip
+# github.com/mailru/easyjson v0.7.7
+## explicit; go 1.12
+github.com/mailru/easyjson/buffer
+github.com/mailru/easyjson/jwriter
+# github.com/mark3labs/mcp-go v0.44.1
+## explicit; go 1.23.0
+github.com/mark3labs/mcp-go/mcp
+github.com/mark3labs/mcp-go/server
+github.com/mark3labs/mcp-go/util
 # github.com/mattn/go-colorable v0.1.9
 ## explicit; go 1.13
 github.com/mattn/go-colorable
@@ -103,6 +124,9 @@ github.com/projectdiscovery/retryablehttp-go
 # github.com/projectdiscovery/stringsutil v0.0.0-20210830151154-f567170afdd9
 ## explicit; go 1.16
 github.com/projectdiscovery/stringsutil
+# github.com/spf13/cast v1.7.1
+## explicit; go 1.19
+github.com/spf13/cast
 # github.com/syndtr/goleveldb v1.0.0
 ## explicit
 github.com/syndtr/goleveldb/leveldb
@@ -131,10 +155,16 @@ github.com/ulikunitz/xz
 github.com/ulikunitz/xz/internal/hash
 github.com/ulikunitz/xz/internal/xlog
 github.com/ulikunitz/xz/lzma
+# github.com/wk8/go-ordered-map/v2 v2.1.8
+## explicit; go 1.18
+github.com/wk8/go-ordered-map/v2
 # github.com/yl2chen/cidranger v1.0.2
 ## explicit; go 1.13
 github.com/yl2chen/cidranger
 github.com/yl2chen/cidranger/net
+# github.com/yosida95/uritemplate/v3 v3.0.2
+## explicit; go 1.14
+github.com/yosida95/uritemplate/v3
 # go.etcd.io/bbolt v1.3.6
 ## explicit; go 1.12
 go.etcd.io/bbolt
@@ -167,3 +197,6 @@ golang.org/x/text/unicode/norm
 # gopkg.in/yaml.v2 v2.4.0
 ## explicit; go 1.15
 gopkg.in/yaml.v2
+# gopkg.in/yaml.v3 v3.0.1
+## explicit
+gopkg.in/yaml.v3

@@ -1,0 +1,1502 @@
+grammars: [{
+    key: "ip",
+    describe: "ip_describe",
+    category: {
+        group: 0
+    },
+    children: [{
+        example: 'ip="1.1.1.1"',
+        summary: "通过单一IPv4地址进行查询",
+        summary_en: "Query by a single IPv4 address.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !1
+        }
+    }, {
+        example: 'ip="220.181.111.1/24"',
+        summary: "通过IPv4 C段进行查询",
+        summary_en: "Query by an IPv4 C-class subnet.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !1
+        }
+    }, {
+        example: 'ip="2600:9000:202a:2600:18:4ab7:f600:93a1"',
+        summary: "通过单一Ipv6地址进行查询",
+        summary_en: "Query by a single IPv6 address.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !1
+        }
+    }]
+}, {
+    key: "port",
+    describe: "port_describe",
+    category: {
+        label: "port",
+        label_en: "port",
+        group: 0
+    },
+    children: [{
+        example: 'port="6379"',
+        summary: "通过端口号进行查询",
+        summary_en: "Query by port number.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !0
+        }
+    }]
+}, {
+    perm: "perm_null",
+    key: "domain",
+    describe: "domain_describe",
+    category: {
+        group: 0
+    },
+    children: [{
+        example: 'domain="qq.com"',
+        summary: "通过根域名进行查询",
+        summary_en: "Query by root domain.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !0
+        }
+    }]
+}, {
+    key: "host",
+    describe: "host_describe",
+    category: {
+        group: 0
+    },
+    children: [{
+        example: 'host=".fofa.info"',
+        summary: "通过主机名进行查询",
+        summary_en: "Query by hostname.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !0
+        }
+    }]
+}, {
+    key: "os",
+    describe: "os_describe",
+    category: {
+        group: 0
+    },
+    children: [{
+        example: 'os="centos"',
+        summary: "通过操作系统进行查询",
+        summary_en: "Query by operating system.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !0
+        }
+    }]
+}, {
+    key: "server",
+    describe: "server_describe",
+    category: {
+        group: 0
+    },
+    children: [{
+        example: 'server="Microsoft-IIS/10"',
+        summary: "通过服务器进行查询",
+        summary_en: "Query by server value.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !0
+        }
+    }]
+}, {
+    key: "asn",
+    describe: "asn_describe",
+    category: {
+        group: 0
+    },
+    children: [{
+        example: 'asn="19551"',
+        summary: "通过自治系统号进行搜索",
+        summary_en: "Query by autonomous system number.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !0
+        }
+    }]
+}, {
+    key: "org",
+    describe: "org_describe",
+    category: {
+        group: 0
+    },
+    children: [{
+        example: 'org="LLC Baxet"',
+        summary: "通过所属组织进行查询",
+        summary_en: "Query by organization.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !0
+        }
+    }]
+}, {
+    key: "is_domain",
+    describe: "is_domain_describe",
+    category: {
+        group: 0
+    },
+    children: [{
+        example: "is_domain=true",
+        summary: "筛选拥有域名的资产",
+        summary_en: "Filter assets that have a domain name.",
+        grammar: {
+            equal: !0,
+            not_equal: !1,
+            fuzzy_search: !1
+        }
+    }, {
+        example: "is_domain=false",
+        summary: "筛选没有域名的资产",
+        summary_en: "Filter assets without a domain name.",
+        grammar: {
+            equal: !0,
+            not_equal: !1,
+            fuzzy_search: !1
+        }
+    }]
+}, {
+    key: "is_ipv6",
+    describe: "is_ipv6_describe",
+    category: {
+        group: 0
+    },
+    children: [{
+        example: "is_ipv6=true",
+        summary: "筛选是ipv6的资产",
+        summary_en: "Filter assets that are IPv6.",
+        grammar: {
+            equal: !0,
+            not_equal: !1,
+            fuzzy_search: !1
+        }
+    }, {
+        example: "is_ipv6=false",
+        summary: "筛选是ipv4的资产",
+        summary_en: "Filter assets that are IPv4.",
+        grammar: {
+            equal: !0,
+            not_equal: !1,
+            fuzzy_search: !1
+        }
+    }]
+}, {
+    perm: "perm_null",
+    key: "app",
+    describe: "app_describe",
+    category: {
+        group: 1
+    },
+    children: [{
+        example: 'app="Microsoft-Exchange"',
+        summary: "通过FOFA整理的规则进行查询",
+        summary_en: "Query using FOFA maintained rules.",
+        grammar: {
+            equal: !0,
+            not_equal: !1,
+            fuzzy_search: !1
+        }
+    }]
+}, {
+    perm: "icp_note",
+    key: "fid",
+    describe: "fid_describe",
+    category: {
+        group: 1
+    },
+    children: [{
+        example: 'fid="sSXXGNUO2FefBTcCLIT/2Q=="',
+        summary: "通过FOFA聚合的站点指纹进行查询",
+        summary_en: "Query by FOFA aggregated site fingerprints.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !1
+        }
+    }]
+}, {
+    key: "product",
+    is_new: !0,
+    describe: "product_des",
+    category: {
+        group: 1
+    },
+    children: [{
+        example: 'product="NGINX"',
+        summary: "通过FOFA标记的产品名进行查询",
+        summary_en: "Query by FOFA tagged product names.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !1
+        }
+    }]
+}, {
+    key: "product.version",
+    beta_tag: !0,
+    describe: "product.version_des",
+    price: 200,
+    category: {
+        group: 1
+    },
+    children: [{
+        example: 'product="Roundcube-Webmail" && product.version="1.6.10"',
+        summary: "通过FOFA标记的产品版本号进行查询",
+        summary_en: "Query by FOFA tagged product versions.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !1
+        }
+    }]
+}, {
+    key: "category",
+    is_new: !0,
+    describe: "category_desc",
+    category: {
+        group: 1
+    },
+    children: [{
+        example: 'category="服务"',
+        summary: "通过FOFA标记的分类进行查询",
+        summary_en: "Query by FOFA tagged categories.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !1
+        }
+    }]
+}, {
+    perm: "type_note",
+    key: "type",
+    describe: "type_describe",
+    category: {
+        group: 1
+    },
+    children: [{
+        example: 'type="service"',
+        summary: "筛选协议资产",
+        summary_en: "Filter protocol assets.",
+        grammar: {
+            equal: !0,
+            not_equal: !1,
+            fuzzy_search: !1
+        }
+    }, {
+        example: 'type="subdomain"',
+        summary: "筛选服务（网站类）资产",
+        summary_en: "Filter service (website) assets.",
+        grammar: {
+            equal: !0,
+            not_equal: !1,
+            fuzzy_search: !1
+        }
+    }]
+}, {
+    perm: "perm_null",
+    key: "cloud_name",
+    is_new: !0,
+    describe: "cloud_name_describe",
+    category: {
+        group: 1
+    },
+    children: [{
+        example: 'cloud_name="Aliyundun"',
+        summary: "通过云服务商进行查询",
+        summary_en: "Query by cloud service provider.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !0
+        }
+    }]
+}, {
+    perm: "perm_null",
+    key: "is_cloud",
+    is_new: !0,
+    describe: "is_cloud_describe",
+    category: {
+        group: 1
+    },
+    children: [{
+        example: "is_cloud=true",
+        summary: "筛选是云服务的资产",
+        summary_en: "Filter assets that are cloud services.",
+        grammar: {
+            equal: !0,
+            not_equal: !1,
+            fuzzy_search: !1
+        }
+    }, {
+        example: "is_cloud=false",
+        summary: "筛选不是云服务的资产",
+        summary_en: "Filter assets that are not cloud services.",
+        grammar: {
+            equal: !0,
+            not_equal: !1,
+            fuzzy_search: !1
+        }
+    }]
+}, {
+    perm: "is_fraud_note",
+    is_new: !0,
+    key: "is_fraud",
+    alias: "query_alias_is_fraud",
+    price: 200,
+    describe: "is_fraud_describe",
+    category: {
+        group: 1
+    },
+    permissions: "（专业版及以上）",
+    permissions_en: "(Professional and above)",
+    children: [{
+        example: "is_fraud=true",
+        summary: "筛选是仿冒垃圾站群的资产",
+        summary_en: "Filter assets that are fraudulent spam sites.",
+        grammar: {
+            equal: !0,
+            not_equal: !1,
+            fuzzy_search: !1
+        }
+    }, {
+        example: "is_fraud=false",
+        summary: "筛选不是仿冒垃圾站群的资产（已默认筛选）",
+        summary_en: "Filter assets that are not fraudulent spam sites (default).",
+        grammar: {
+            equal: !0,
+            not_equal: !1,
+            fuzzy_search: !1
+        },
+        isHidePermissions: !0
+    }]
+}, {
+    perm: "is_fraud_note",
+    key: "is_honeypot",
+    alias: "query_alias_is_honeypot",
+    price: 200,
+    describe: "is_honeypot_describe",
+    category: {
+        group: 1
+    },
+    permissions: "（专业版及以上）",
+    permissions_en: "(Professional and above)",
+    children: [{
+        example: "is_honeypot=true",
+        summary: "筛选是蜜罐的资产",
+        summary_en: "Filter assets that are honeypots.",
+        grammar: {
+            equal: !0,
+            not_equal: !1,
+            fuzzy_search: !1
+        }
+    }, {
+        example: "is_honeypot=false",
+        summary: "筛选不是蜜罐的资产（已默认筛选）",
+        summary_en: "Filter assets that are not honeypots (default).",
+        grammar: {
+            equal: !0,
+            not_equal: !1,
+            fuzzy_search: !1
+        },
+        isHidePermissions: !0
+    }]
+}, {
+    perm: "protocol_note",
+    key: "protocol",
+    describe: "protocol_describe",
+    category: {
+        group: 2
+    },
+    children: [{
+        example: 'protocol="quic"',
+        summary: "通过协议名称进行查询",
+        summary_en: "Query by protocol name.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !0
+        }
+    }]
+}, {
+    perm: "perm_null",
+    key: "banner",
+    describe: "banner_describe",
+    category: {
+        group: 2
+    },
+    children: [{
+        example: 'banner="users"',
+        summary: "通过协议返回信息进行查询",
+        summary_en: "Query by protocol response content.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !1
+        }
+    }]
+}, {
+    perm: "perm_null",
+    key: "banner_hash",
+    new_tag: !0,
+    describe: "banner_hash_describe",
+    category: {
+        group: 2
+    },
+    permissions: "（个人版及以上）",
+    permissions_en: "(Personal and above)",
+    children: [{
+        example: 'banner_hash="7330105010150477363"',
+        summary: "通过协议响应体计算的hash值进行查询",
+        summary_en: "Query by hash value calculated from protocol responses.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !1
+        }
+    }]
+}, {
+    perm: "banner_fid_note",
+    key: "banner_fid",
+    new_tag: !0,
+    describe: "banner_fid_describe",
+    category: {
+        group: 2
+    },
+    permissions: "（个人版及以上）",
+    permissions_en: "(Personal and above)",
+    children: [{
+        example: 'banner_fid="zRpqmn0FXQRjZpH8MjMX55zpMy9SgsW8"',
+        summary: "通过协议返回信息结构计算的指纹值进行查询。",
+        summary_en: "Query by fingerprint calculated from protocol response structure.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !1
+        }
+    }]
+}, {
+    perm: "perm_null",
+    key: "base_protocol",
+    describe: "base_protocol_describe",
+    category: {
+        group: 2
+    },
+    children: [{
+        example: 'base_protocol="udp"',
+        summary: "查询传输层为udp协议的资产",
+        summary_en: "Query assets whose transport layer is UDP.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !1
+        }
+    }, {
+        example: 'base_protocol="tcp"',
+        summary: "查询传输层为tcp协议的资产",
+        summary_en: "Query assets whose transport layer is TCP.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !1
+        }
+    }]
+}, {
+    key: "title",
+    describe: "title_describe",
+    category: {
+        group: 3
+    },
+    children: [{
+        example: 'title="beijing"',
+        summary: "通过网站标题进行查询",
+        summary_en: "Query by website title.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !0
+        }
+    }]
+}, {
+    perm: "perm_null",
+    key: "header",
+    describe: "header_describe",
+    category: {
+        group: 3
+    },
+    children: [{
+        example: 'header="elastic"',
+        summary: "通过响应标头进行查询",
+        summary_en: "Query by response headers.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !1
+        }
+    }]
+}, {
+    perm: "header_hash_note",
+    key: "header_hash",
+    describe: "header_hash_describe",
+    is_new: !0,
+    price: 100,
+    category: {
+        group: 3
+    },
+    permissions: "（个人版及以上）",
+    permissions_en: "(Personal and above)",
+    children: [{
+        example: 'header_hash="1258854265"',
+        summary: "通过http/https响应头计算的hash值进行查询",
+        summary_en: "Query by hash value calculated from HTTP/HTTPS headers.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !0
+        }
+    }]
+}, {
+    perm: "perm_null",
+    key: "body",
+    describe: "body_describe",
+    category: {
+        group: 3
+    },
+    children: [{
+        example: 'body="网络空间测绘"',
+        summary: "通过HTML正文进行查询",
+        summary_en: "Query by HTML body content.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !1
+        }
+    }]
+}, {
+    perm: "body_hash_note",
+    key: "body_hash",
+    describe: "body_hash_describe",
+    is_new: !0,
+    category: {
+        group: 3
+    },
+    children: [{
+        example: 'body_hash="-2090962452"',
+        summary: "通过HTML正文计算的hash值进行查询",
+        summary_en: "Query by hash value calculated from the HTML body.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !1
+        }
+    }]
+}, {
+    perm: "icp_note",
+    key: "js_name",
+    describe: "js_name_describe",
+    category: {
+        group: 3
+    },
+    children: [{
+        example: 'js_name="js/jquery.js"',
+        summary: "通过HTML正文包含的JS进行查询",
+        summary_en: "Query by JavaScript files referenced in the HTML body.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !0
+        }
+    }]
+}, {
+    perm: "perm_null",
+    key: "js_md5",
+    describe: "js_md5_describe",
+    category: {
+        group: 3
+    },
+    children: [{
+        example: 'js_md5="82ac3f14327a8b7ba49baa208d4eaa15"',
+        summary: "通过JS源码进行查询",
+        summary_en: "Query by JavaScript source code.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !0
+        }
+    }]
+}, {
+    perm: "perm_null",
+    key: "cname",
+    describe: "cname_describe",
+    category: {
+        group: 3
+    },
+    children: [{
+        example: 'cname="customers.spektrix.com"',
+        summary: "通过别名记录进行查询",
+        summary_en: "Query by CNAME record.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !0
+        }
+    }]
+}, {
+    perm: "perm_null",
+    key: "cname_domain",
+    describe: "cname_domain_describe",
+    category: {
+        group: 3
+    },
+    children: [{
+        example: 'cname_domain="siteforce.com"',
+        summary: "通过别名记录解析的主域名进行查询",
+        summary_en: "Query by the root domain resolved from the CNAME record.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !0
+        }
+    }]
+}, {
+    perm: "perm_null",
+    key: "icon_hash",
+    alias: "query_alias_icon_hash",
+    describe: "icon_hash_describe",
+    category: {
+        group: 3
+    },
+    children: [{
+        example: 'icon_hash="-247388890"',
+        summary: "通过网站图标的hash值进行查询",
+        summary_en: "Query by website favicon hash value.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !1
+        }
+    }]
+}, {
+    perm: "query_website_data",
+    key: "status_code",
+    describe: "status_code_describe",
+    category: {
+        group: 3
+    },
+    children: [{
+        example: 'status_code="402"',
+        summary: "筛选服务状态为402的服务（网站）资产",
+        summary_en: "Filter service (website) assets with status code 402.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !1
+        }
+    }]
+}, {
+    perm: "icp_note",
+    key: "icp",
+    describe: "icp_describe",
+    category: {
+        group: 3
+    },
+    children: [{
+        example: 'icp="京ICP证030173号"',
+        summary: "通过HTML正文包含的ICP备案号进行查询",
+        summary_en: "Query by ICP license numbers found in the HTML body.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !0
+        }
+    }]
+}, {
+    perm: "sdk_hash_note",
+    key: "sdk_hash",
+    is_new: !0,
+    describe: "sdk_hash_desc",
+    category: {
+        group: 3
+    },
+    permissions: "（商业版及以上）",
+    permissions_en: "(Business and above)",
+    children: [{
+        example: 'sdk_hash="Are3qNnP2Eqn7q5kAoUO3l+w3mgVIytO"',
+        summary: "通过网站嵌入的第三方代码计算的hash值进行查询",
+        summary_en: "Query by hash value of third-party code embedded in the website.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !1
+        }
+    }]
+}, {
+    perm: "perm_null",
+    key: "country",
+    describe: "country_describe",
+    category: {
+        group: 4
+    },
+    children: [{
+        example: 'country="CN"',
+        summary: "通过国家的简称代码进行查询",
+        summary_en: "Query by country code.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !1
+        }
+    }, {
+        example: 'country="中国"',
+        summary: "通过国家中文名称进行查询",
+        summary_en: "Query by country name in Chinese.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !1
+        }
+    }]
+}, {
+    perm: "perm_null",
+    key: "region",
+    describe: "region_describe",
+    category: {
+        group: 4
+    },
+    children: [{
+        example: 'region="Zhejiang"',
+        summary: "通过省份/地区英文名称进行查询",
+        summary_en: "Query by province or region name in English.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !1
+        }
+    }, {
+        example: 'region="浙江"',
+        summary: "通过省份/地区中文名称进行查询（仅支持中国地区）",
+        summary_en: "Query by province or region name in Chinese (China only).",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !1
+        }
+    }]
+}, {
+    perm: "perm_null",
+    key: "city",
+    describe: "city_describe",
+    category: {
+        group: 4
+    },
+    children: [{
+        example: 'city="Hangzhou"',
+        summary: "通过城市英文名称进行查询",
+        summary_en: "Query by city name in English.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !1
+        }
+    }]
+}, {
+    perm: "perm_null",
+    key: "cert",
+    describe: "cert_describe",
+    category: {
+        group: 5
+    },
+    children: [{
+        example: 'cert="baidu"',
+        summary: "通过证书进行查询",
+        summary_en: "Query by certificate content.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !1
+        }
+    }]
+}, {
+    perm: "perm_null",
+    key: "cert.subject",
+    describe: "cert_subject_describe",
+    category: {
+        group: 5
+    },
+    children: [{
+        example: 'cert.subject="Oracle Corporation"',
+        summary: "通过证书的持有者进行查询",
+        summary_en: "Query by certificate subject.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !0
+        }
+    }]
+}, {
+    perm: "perm_null",
+    key: "cert.issuer",
+    describe: "cert_issuer_describe",
+    category: {
+        group: 5
+    },
+    children: [{
+        example: 'cert.issuer="DigiCert"',
+        summary: "通过证书的颁发者进行查询",
+        summary_en: "Query by certificate issuer.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !0
+        }
+    }]
+}, {
+    perm: "perm_null",
+    key: "cert.subject.org",
+    price: 100,
+    is_new: !0,
+    describe: "cert_subject_org_describe",
+    category: {
+        group: 5
+    },
+    children: [{
+        example: 'cert.subject.org="Oracle Corporation"',
+        summary: "通过证书持有者的组织进行查询",
+        summary_en: "Query by the organization of the certificate subject.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !0
+        }
+    }]
+}, {
+    perm: "perm_null",
+    key: "cert.subject.cn",
+    describe: "cert_subject_cn_describe",
+    is_new: !0,
+    category: {
+        group: 5
+    },
+    children: [{
+        example: 'cert.subject.cn="baidu.com"',
+        summary: "通过证书持有者的通用名称进行查询",
+        summary_en: "Query by the common name of the certificate subject.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !0
+        }
+    }]
+}, {
+    perm: "perm_null",
+    key: "cert.issuer.org",
+    describe: "cert_issuer_org_describe",
+    is_new: !0,
+    category: {
+        group: 5
+    },
+    children: [{
+        example: 'cert.issuer.org="cPanel, Inc."',
+        summary: "通过证书颁发者的组织进行查询",
+        summary_en: "Query by the organization of the certificate issuer.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !0
+        }
+    }]
+}, {
+    perm: "perm_null",
+    key: "cert.issuer.cn",
+    describe: "cert_issuer_cn_describe",
+    is_new: !0,
+    category: {
+        group: 5
+    },
+    children: [{
+        example: 'cert.issuer.cn="Synology Inc. CA"',
+        summary: "通过证书颁发者的通用名称进行查询",
+        summary_en: "Query by the common name of the certificate issuer.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !0
+        }
+    }]
+}, {
+    perm: "icon_hash_note",
+    key: "cert.domain",
+    price: 100,
+    is_new: !0,
+    describe: "cert_domain_describe",
+    category: {
+        group: 5
+    },
+    children: [{
+        example: 'cert.domain="huawei.com"',
+        summary: "通过证书持有者的根域名进行查询",
+        summary_en: "Query by the registrant domain in the certificate.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !0
+        }
+    }]
+}, {
+    perm: "icon_hash_note",
+    key: "cert.is_equal",
+    new_tag: !0,
+    price: 100,
+    is_new: !0,
+    describe: "cert_is_equal_describe",
+    category: {
+        group: 5
+    },
+    permissions: "（个人版及以上）",
+    permissions_en: "(Personal and above)",
+    children: [{
+        example: "cert.is_equal=true",
+        summary: "筛选证书颁发者和持有者匹配的资产",
+        summary_en: "Filter assets where issuer and subject match.",
+        grammar: {
+            equal: !0,
+            not_equal: !1,
+            fuzzy_search: !1
+        }
+    }, {
+        example: "cert.is_equal=false",
+        summary: "筛选证书颁发者和持有者不匹配的资产",
+        summary_en: "Filter assets where issuer and subject do not match.",
+        grammar: {
+            equal: !0,
+            not_equal: !1,
+            fuzzy_search: !1
+        }
+    }]
+}, {
+    perm: "icon_hash_note",
+    key: "cert.is_valid",
+    price: 100,
+    describe: "cert_is_valid_describe",
+    category: {
+        group: 5
+    },
+    permissions: "（个人版及以上）",
+    permissions_en: "(Personal and above)",
+    children: [{
+        example: "cert.is_valid=true",
+        summary: "筛选证书是有效证书的资产",
+        summary_en: "Filter assets with valid certificates.",
+        grammar: {
+            equal: !0,
+            not_equal: !1,
+            fuzzy_search: !1
+        }
+    }, {
+        example: "cert.is_valid=false",
+        summary: "筛选证书是无效证书的资产",
+        summary_en: "Filter assets with invalid certificates.",
+        grammar: {
+            equal: !0,
+            not_equal: !1,
+            fuzzy_search: !1
+        }
+    }]
+}, {
+    perm: "icon_hash_note",
+    key: "cert.is_match",
+    is_new: !0,
+    price: 100,
+    describe: "cert_is_match_describe",
+    category: {
+        group: 5
+    },
+    permissions: "（个人版及以上）",
+    permissions_en: "(Personal and above)",
+    children: [{
+        example: "cert.is_match=true",
+        summary: "筛选证书和域名匹配的资产",
+        summary_en: "Filter assets where certificate matches the domain.",
+        grammar: {
+            equal: !0,
+            not_equal: !1,
+            fuzzy_search: !1
+        }
+    }, {
+        example: "cert.is_match=false",
+        summary: "筛选证书和域名不匹配的资产",
+        summary_en: "Filter assets where certificate does not match the domain.",
+        grammar: {
+            equal: !0,
+            not_equal: !1,
+            fuzzy_search: !1
+        }
+    }]
+}, {
+    perm: "icon_hash_note",
+    key: "cert.is_expired",
+    price: 100,
+    is_new: !0,
+    describe: "cert_is_expired_describe",
+    category: {
+        group: 5
+    },
+    permissions: "（个人版及以上）",
+    permissions_en: "(Personal and above)",
+    children: [{
+        example: "cert.is_expired=true",
+        summary: "筛选证书已过期的资产",
+        summary_en: "Filter assets with expired certificates.",
+        grammar: {
+            equal: !0,
+            not_equal: !1,
+            fuzzy_search: !1
+        }
+    }, {
+        example: "cert.is_expired=false",
+        summary: "筛选证书未过期的资产",
+        summary_en: "Filter assets with unexpired certificates.",
+        grammar: {
+            equal: !0,
+            not_equal: !1,
+            fuzzy_search: !1
+        }
+    }]
+}, {
+    perm: "perm_null",
+    key: "jarm",
+    describe: "jarm_describe",
+    category: {
+        group: 5
+    },
+    children: [{
+        example: 'jarm="2ad2ad0002ad2ad22c2ad2ad2ad2ad2eac92ec34bcc0cf7520e97547f83e81"',
+        summary: "通过JARM指纹进行查询",
+        summary_en: "Query by JARM fingerprint.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !0
+        }
+    }]
+}, {
+    perm: "tls_version_note",
+    key: "tls.version",
+    describe: "tls_version_describe",
+    is_new: !0,
+    category: {
+        group: 5
+    },
+    children: [{
+        example: 'tls.version="TLS 1.3"',
+        summary: "通过tls的协议版本进行查询",
+        summary_en: "Query by TLS protocol version.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !1
+        }
+    }]
+}, {
+    perm: "tls_ja3s_note",
+    key: "tls.ja3s",
+    describe: "tls_ja3s_describe",
+    is_new: !0,
+    category: {
+        group: 5
+    },
+    children: [{
+        example: 'tls.ja3s="15af977ce25de452b96affa2addb1036"',
+        summary: "通过tls的ja3s指纹进行查询",
+        summary_en: "Query by TLS ja3s fingerprint.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !0
+        }
+    }]
+}, {
+    perm: "cert.sn_note",
+    key: "cert.sn",
+    new_tag: !0,
+    describe: "cert_sn_describe",
+    is_new: !0,
+    category: {
+        group: 5
+    },
+    children: [{
+        example: 'cert.sn="356078156165546797850343536942784588840297"',
+        summary: "通过证书序列号进行查询",
+        summary_en: "Query by certificate serial number.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !1
+        }
+    }]
+}, {
+    perm: "cert.not_after.after_note",
+    key: "cert.not_after.after",
+    new_tag: !0,
+    describe: "cert_not_after_after_describe",
+    is_new: !0,
+    category: {
+        group: 5
+    },
+    children: [{
+        example: 'cert.not_after.after="2025-03-01"',
+        summary: "筛选某证书到期日期后的证书",
+        summary_en: "Filter certificates expiring after a given date.",
+        grammar: {
+            equal: !0,
+            not_equal: !1,
+            fuzzy_search: !1
+        }
+    }]
+}, {
+    perm: "cert.not_after.before_note",
+    key: "cert.not_after.before",
+    new_tag: !0,
+    describe: "cert_not_after_before_describe",
+    is_new: !0,
+    category: {
+        group: 5
+    },
+    children: [{
+        example: 'cert.not_after.before="2025-03-01"',
+        summary: "筛选某证书到期日期前的证书",
+        summary_en: "Filter certificates expiring before a given date.",
+        grammar: {
+            equal: !0,
+            not_equal: !1,
+            fuzzy_search: !1
+        }
+    }]
+}, {
+    perm: "cert.not_before.after_note",
+    key: "cert.not_before.after",
+    new_tag: !0,
+    describe: "cert_not_before_after_describe",
+    is_new: !0,
+    category: {
+        group: 5
+    },
+    children: [{
+        example: 'cert.not_before.after="2025-03-01"',
+        summary: "筛选某证书生效日期后的证书",
+        summary_en: "Filter certificates starting after a given date.",
+        grammar: {
+            equal: !0,
+            not_equal: !1,
+            fuzzy_search: !1
+        }
+    }]
+}, {
+    perm: "cert.not_before.before_note",
+    key: "cert.not_before.before",
+    new_tag: !0,
+    describe: "cert_not_before_before_describe",
+    is_new: !0,
+    category: {
+        group: 5
+    },
+    children: [{
+        example: 'cert.not_before.before="2025-03-01"',
+        summary: "筛选某证书生效日期前的证书",
+        summary_en: "Filter certificates starting before a given date.",
+        grammar: {
+            equal: !0,
+            not_equal: !1,
+            fuzzy_search: !1
+        }
+    }]
+}, {
+    perm: "perm_null",
+    key: "after",
+    category: {
+        group: 6
+    },
+    permissions: "（个人版及以上）",
+    permissions_en: "(Personal and above)",
+    children: [{
+        example: 'after="2023-01-01"',
+        summary: "筛选某一时间之后有更新的资产",
+        summary_en: "Filter assets updated after a given time.",
+        grammar: {
+            equal: !0,
+            not_equal: !1,
+            fuzzy_search: !1
+        }
+    }]
+}, {
+    perm: "perm_null",
+    key: "before",
+    category: {
+        group: 6
+    },
+    permissions: "（个人版及以上）",
+    permissions_en: "(Personal and above)",
+    children: [{
+        example: 'before="2023-12-01"',
+        summary: "筛选某一时间之前有更新的资产",
+        summary_en: "Filter assets updated before a given time.",
+        grammar: {
+            equal: !0,
+            not_equal: !1,
+            fuzzy_search: !1
+        }
+    }]
+}, {
+    perm: "perm_null",
+    key: "after&before",
+    notRecommend: !0,
+    category: {
+        group: 6
+    },
+    children: [{
+        example: 'after="2023-01-01" && before="2023-12-01"',
+        summary: "筛选某一时间区间有更新的资产",
+        summary_en: "Filter assets updated within a time range.",
+        grammar: {
+            equal: !0,
+            not_equal: !1,
+            fuzzy_search: !1
+        }
+    }]
+}, {
+    perm: "ip_filter_perm",
+    key: "ip_filter()",
+    new_tag: !0,
+    describe: "ip_filter_describe",
+    category: {
+        group: 7
+    },
+    permissions: "（商业版及以上）",
+    permissions_en: "(Business and above)",
+    children: [{
+        example: 'ip_filter(banner="SSH-2.0-OpenSSH_6.7p2") && ip_filter(icon_hash="-1057022626")',
+        summary: "同源IP多资产特征匹配",
+        summary_en: "Same-source IP: Multi-asset signature match.",
+        grammar: {
+            equal: !0,
+            not_equal: !1,
+            fuzzy_search: !1
+        }
+    }]
+}, {
+    perm: "ip_exclude_perm",
+    key: "ip_exclude()",
+    new_tag: !0,
+    describe: "ip_exclude_describe",
+    category: {
+        group: 7
+    },
+    permissions: "（商业版及以上）",
+    permissions_en: "(Business and above)",
+    children: [{
+        example: 'ip_filter(banner="SSH-2.0-OpenSSH_6.7p2" && asn="3462") && ip_exclude(title="EdgeOS")',
+        summary: "同源IP多资产特征不匹配",
+        summary_en: "Same-source IP: Multi-asset signature mismatch.",
+        grammar: {
+            equal: !0,
+            not_equal: !1,
+            fuzzy_search: !1
+        }
+    }]
+}, {
+    perm: "icon_hash_perm",
+    key: "port_size",
+    price: 100,
+    describe: "port_size_describe",
+    category: {
+        group: 7
+    },
+    permissions: "（商业版及以上）",
+    permissions_en: "(Business and above)",
+    children: [{
+        example: 'port_size="6"',
+        summary: "筛选开放端口数量等于6个的独立IP",
+        summary_en: "Filter dedicated IPs with exactly 6 open ports.",
+        grammar: {
+            equal: !0,
+            not_equal: !0,
+            fuzzy_search: !1
+        }
+    }]
+}, {
+    perm: "icon_hash_perm",
+    key: "port_size_gt",
+    price: 100,
+    describe: "port_size_gt_describe",
+    category: {
+        group: 7
+    },
+    permissions: "（商业版及以上）",
+    permissions_en: "(Business and above)",
+    children: [{
+        example: 'port_size_gt="6"',
+        summary: "筛选开放端口数量大于6个的独立IP",
+        summary_en: "Filter dedicated IPs with more than 6 open ports.",
+        grammar: {
+            equal: !0,
+            not_equal: !1,
+            fuzzy_search: !1
+        }
+    }]
+}, {
+    perm: "icon_hash_perm",
+    key: "port_size_lt",
+    price: 100,
+    describe: "port_size_lt_describe",
+    category: {
+        group: 7
+    },
+    permissions: "（商业版及以上）",
+    permissions_en: "(Business and above)",
+    children: [{
+        example: 'port_size_lt="12"',
+        summary: "筛选开放端口数量小于12个的独立IP",
+        summary_en: "Filter dedicated IPs with fewer than 12 open ports.",
+        grammar: {
+            equal: !0,
+            not_equal: !1,
+            fuzzy_search: !1
+        }
+    }]
+}, {
+    perm: "ip_ports_des",
+    key: "ip_ports",
+    describe: "ip_ports_describe",
+    category: {
+        group: 7
+    },
+    permissions: "（商业版及以上）",
+    permissions_en: "(Business and above)",
+    children: [{
+        example: 'ip_ports="80,161"',
+        summary: "筛选同时开放不同端口的独立IP",
+        summary_en: "Filter dedicated IPs that open multiple specified ports.",
+        grammar: {
+            equal: !0,
+            not_equal: !1,
+            fuzzy_search: !1
+        }
+    }]
+}, {
+    perm: "ip_country_note",
+    key: "ip_country",
+    describe: "ip_country_describe",
+    category: {
+        group: 7
+    },
+    permissions: "（商业版及以上）",
+    permissions_en: "(Business and above)",
+    children: [{
+        example: 'ip_country="CN"',
+        summary: "通过国家的简称代码进行查询独立IP",
+        summary_en: "Query dedicated IPs by country code.",
+        grammar: {
+            equal: !0,
+            not_equal: !1,
+            fuzzy_search: !1
+        }
+    }]
+}, {
+    perm: "ip_region_note",
+    key: "ip_region",
+    describe: "ip_region_describe",
+    category: {
+        group: 7
+    },
+    permissions: "（商业版及以上）",
+    permissions_en: "(Business and above)",
+    children: [{
+        example: 'ip_region="Zhejiang"',
+        summary: "通过省份/地区英文名称进行查询独立IP",
+        summary_en: "Query dedicated IPs by province or region name in English.",
+        grammar: {
+            equal: !0,
+            not_equal: !1,
+            fuzzy_search: !1
+        }
+    }]
+}, {
+    perm: "ip_city_note",
+    key: "ip_city",
+    describe: "ip_city_describe",
+    category: {
+        group: 7
+    },
+    permissions: "（商业版及以上）",
+    permissions_en: "(Business and above)",
+    children: [{
+        example: 'ip_city="Hangzhou"',
+        summary: "通过城市英文名称进行查询独立IP",
+        summary_en: "Query dedicated IPs by city name in English.",
+        grammar: {
+            equal: !0,
+            not_equal: !1,
+            fuzzy_search: !1
+        }
+    }]
+}, {
+    perm: "ip_after_note",
+    key: "ip_after",
+    describe: "ip_after_describe",
+    category: {
+        group: 7
+    },
+    permissions: "（商业版及以上）",
+    permissions_en: "(Business and above)",
+    children: [{
+        example: 'ip_after="2021-03-18"',
+        summary: "筛选某一时间之后有更新的独立IP",
+        summary_en: "Filter dedicated IPs updated after a given time.",
+        grammar: {
+            equal: !0,
+            not_equal: !1,
+            fuzzy_search: !1
+        }
+    }]
+}, {
+    perm: "ip_before_note",
+    key: "ip_before",
+    describe: "ip_before_describe",
+    category: {
+        group: 7
+    },
+    permissions: "（商业版及以上）",
+    permissions_en: "(Business and above)",
+    children: [{
+        example: 'ip_before="2019-09-09"',
+        summary: "筛选某一时间之前有更新的独立IP",
+        summary_en: "Filter dedicated IPs updated before a given time.",
+        grammar: {
+            equal: !0,
+            not_equal: !1,
+            fuzzy_search: !1
+        }
+    }]
+}, {
+    code: "aXA9IjIyMC4xODEuMTExLjEvMjQi",
+    name: "name_ipcs_des",
+    summary: "ipcs_des",
+    summary_en: "ipcs_des",
+    perm: "perm_null"
+}]

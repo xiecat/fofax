@@ -144,6 +144,57 @@ OTHER OPTIONS:
    -no-limit-open  No limit to the number of openings in your browser
 ```
 
+### MCP SSE 服务（本地运行）
+
+FoFaX 支持通过 `-mcp-sse`（简写 `-ms`）启动本地 MCP SSE 服务，适合被 MCP Client（如 Cursor、Claude Desktop）调用。
+
+#### 1) 启动服务
+
+```console
+MCP_AUTH_TOKEN=change-me FOFA_KEY=your-fofa-key fofax -ms
+```
+
+也可显式指定监听地址、路径和 token：
+
+```console
+FOFA_KEY=your-fofa-key fofax -mcp-sse \
+  -mcp-auth-token change-me \
+  -mcp-listen :18080 \
+  -mcp-base-path /mcp
+```
+
+#### 2) 认证方式
+
+- 使用 Bearer Token 认证
+- Header: `Authorization: Bearer <token>`
+- token 来源：`-mcp-auth-token` 或环境变量 `MCP_AUTH_TOKEN`
+
+#### 3) SSE 端点
+
+- 默认监听：`127.0.0.1:18080`
+- 默认 base path：`/mcp`
+- 常见访问入口：`http://127.0.0.1:18080/mcp/sse`
+
+#### 4) 已提供的 MCP 工具
+
+- `fofa_search`：按 FOFA 语句查询并返回结构化结果（JSON）
+  - 参数：`query`(必填), `fields`, `size`, `next`, `include`, `full`, `interval_ms`
+- `fofax_mcp_info`：返回服务配置与能力信息
+
+#### 5) `fofa_search` 参数示例
+
+```json
+{
+  "query": "app=\"nginx\" && country=\"CN\"",
+  "fields": "host,ip,port,country",
+  "size": 20,
+  "next": false,
+  "include": false,
+  "full": false,
+  "interval_ms": 0
+}
+```
+
 ### FoFa 语法规则
 
 使用 `-use` 参数，显示 FoFa 语法查询规则。
