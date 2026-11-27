@@ -16,6 +16,7 @@ import (
 	"github.com/xiecat/fofax/internal/fx"
 	"github.com/xiecat/fofax/internal/fxparser"
 	"github.com/xiecat/fofax/internal/goflags"
+	"github.com/xiecat/fofax/internal/mcpconf"
 	"github.com/xiecat/fofax/internal/printer"
 	"github.com/xiecat/fofax/internal/utils"
 )
@@ -111,9 +112,12 @@ type config struct {
 	DisableUpdate   bool
 	Next            bool // 使用 batches_pages API
 	McpSSE          bool
+	McpTransport    string
 	McpListenAddr   string
 	McpBasePath     string
 	McpAuthToken    string
+	// StartPage 查询起始页，仅用于 MCP fofa_search 的 page 参数
+	StartPage int
 }
 type fxconfig struct {
 	FxSearch       string
@@ -137,14 +141,15 @@ func initOptions() {
 	args.FoFaEmail = os.Getenv("FOFA_EMAIL")
 	args.FoFaKey = utils.HiddenUrlKey(false, os.Getenv("FOFA_KEY"))
 	args.FoFaKeyFake = os.Getenv("FOFA_KEY")
-	args.FoFaURL = "https://fofa.info"
+	args.FoFaURL = mcpconf.NormalizeFofaBaseURL(os.Getenv("FOFA_BASE_URL"))
 	args.FoFaOpenURL = "https://fofa.info"
 	args.FetchSize = 100
 	args.FxDir = filepath.Join(filepath.Dir(utils.GetDefaultConf()), "fxrules")
 	args.ConfigFile = utils.GetDefaultConf()
 	args.Stdin = utils.HasStdin()
 	args.Next = false
-	args.McpListenAddr = ":18080"
+	args.McpTransport = strings.ToLower(strings.TrimSpace(os.Getenv("MCP_TRANSPORT")))
+	args.McpListenAddr = mcpconf.ListenAddrFromEnv()
 	args.McpBasePath = "/mcp"
 	args.McpAuthToken = os.Getenv("MCP_AUTH_TOKEN")
 }
@@ -171,9 +176,10 @@ func init() {
 	)
 	createGroup(
 		flags, "mcp", "MCP SERVER",
-		flags.BoolVarP(&args.McpSSE, "mcp-sse", "ms", false, "Run local MCP SSE service mode"),
-		flags.StringVar(&args.McpListenAddr, "mcp-listen", args.McpListenAddr, "MCP SSE service listen address"),
-		flags.StringVar(&args.McpBasePath, "mcp-base-path", args.McpBasePath, "MCP SSE service base path"),
+		flags.BoolVarP(&args.McpSSE, "mcp-sse", "ms", false, "Run local MCP SSE service mode (same as -mcp-transport sse)"),
+		flags.StringVar(&args.McpTransport, "mcp-transport", args.McpTransport, "MCP transport: stdio, http, both or sse (env: MCP_TRANSPORT)"),
+		flags.StringVar(&args.McpListenAddr, "mcp-listen", args.McpListenAddr, "MCP HTTP/SSE service listen address (env: MCP_HOST/MCP_PORT)"),
+		flags.StringVar(&args.McpBasePath, "mcp-base-path", args.McpBasePath, "MCP HTTP/SSE service base path"),
 		flags.StringVar(&args.McpAuthToken, "mcp-auth-token", args.McpAuthToken, "Bearer token for MCP service authentication"),
 	)
 	createGroup(
@@ -238,6 +244,8 @@ func init() {
 	if strings.Contains(args.FoFaKey, "**********") {
 		args.FoFaKey = args.FoFaKeyFake
 	}
+	// -fofa-url 同样接受带 /api/v1 的写法
+	args.FoFaURL = mcpconf.NormalizeFofaBaseURL(args.FoFaURL)
 
 	//init xclient 解决 不同操作系统 dns 解析差异，原生库在某些版本不能使用的问题
 	fastdialerOpts := fastdialer.DefaultOptions
@@ -313,13 +321,23 @@ func ParseFxOptions() {
 }
 
 func ParseOptions() *Options {
-	if !args.Stdin && !args.Silent {
+	args.McpTransport = mcpconf.ResolveTransport(args.McpTransport, args.McpSSE)
+	if args.MCPEnabled() && args.McpTransport == "stdio" {
+		// stdio 传输独占 stdout，任何输出都会破坏 JSON-RPC 帧
+		args.Silent = true
+		printer.Silent = true
+	}
+	if !args.MCPEnabled() && !args.Stdin && !args.Silent {
 		banner()
-	} else {
+	} else if !args.MCPEnabled() {
 		args.Mode = Stdin_Mode
 	}
-	if args.McpSSE {
-		if strings.TrimSpace(args.McpAuthToken) == "" {
+	if args.MCPEnabled() {
+		if !mcpconf.ValidTransport(args.McpTransport) {
+			printer.Errorf("unsupported MCP transport %q, use stdio, http, both or sse", args.McpTransport)
+			os.Exit(1)
+		}
+		if args.MCPNetworkMode() && strings.TrimSpace(args.McpAuthToken) == "" {
 			printer.Error("MCP auth token is empty, please set -mcp-auth-token or MCP_AUTH_TOKEN")
 			os.Exit(1)
 		}
@@ -422,6 +440,16 @@ func checkMutFlags() error {
 		args.Mode = File_Mode
 	}
 	return nil
+}
+
+// MCPEnabled 是否以 MCP 服务模式运行
+func (o *Options) MCPEnabled() bool {
+	return o != nil && o.McpTransport != ""
+}
+
+// MCPNetworkMode 是否为需要 Bearer 认证的网络传输
+func (o *Options) MCPNetworkMode() bool {
+	return mcpconf.NetworkTransport(o.McpTransport)
 }
 
 // 检查 key
