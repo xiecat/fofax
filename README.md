@@ -246,21 +246,54 @@ docker run -d --name fofax-mcp \
 
 #### 6) 已提供的 MCP 工具
 
-- `fofa_search`：按 FOFA 语句查询并返回结构化结果（JSON）
-  - 参数：`query`(必填), `fields`, `size`, `next`, `include`, `full`, `interval_ms`
-- `fofax_mcp_info`：返回服务配置与能力信息
+| 工具 | 作用 | 是否消耗 API 额度 |
+|---|---|---|
+| `fofa_search` | 按 FOFA 语句查询并返回结构化结果 | 是 |
+| `fofa_stats` | 按字段聚合统计（国家/协议/端口等分布） | 是（`consumed_fpoint` 通常为 0） |
+| `fofa_field_list` | 列出合法查询字段与输出字段 | 否 |
+| `fofa_syntax_check` | 用内置文法校验查询语句 | 否 |
+| `fofax_mcp_info` | 服务配置；可选返回账号额度 | 可选 |
+
+`fofa_search` 参数：
+
+- `query`（必填）：FOFA 查询语句
+- `fields`：输出字段，逗号分隔，默认 `host,port,ip,country`；填错会被直接拒绝并提示走 `fofa_field_list`
+- `size`：单页条数 1-10000，默认 100
+- `page`：起始页，1 起；与 `next` 互斥
+- `next`：使用 `/api/v1/search/next` 游标分页
+- `include` / `full`：包含蜜罐/欺诈数据、包含历史数据
+- `interval_ms`：请求前延迟，用于规避限频
 
 ```json
 {
   "query": "app=\"nginx\" && country=\"CN\"",
   "fields": "host,ip,port,country",
   "size": 20,
+  "page": 1,
   "next": false,
   "include": false,
   "full": false,
   "interval_ms": 0
 }
 ```
+
+`fofa_stats` 示例：
+
+```json
+{
+  "query": "app=\"nginx\"",
+  "fields": "protocol",
+  "size": 5
+}
+```
+
+返回 `total`（匹配总量）、`distinct`（独立 IP 数）、`aggs`（分桶计数）。
+
+`fofa_syntax_check` 会指出两类问题：语法错误（位置 + 原因），以及文法只解析了前缀、剩余部分被忽略的半截语句（例如 `app="nginx" &&& country="CN"`）。
+
+`fofax_mcp_info` 传 `include_account=true` 时会额外调用 `/api/v1/info/my`，返回会员等级、F 点和 API 剩余额度。
+
+> 提示：字段能力（`EN` 可用 `=`/`!=`，`ENF` 额外支持模糊 `=~`，`E` 仅 `=`）和会员权限要求随 `fofa_field_list` 一起返回，模型可据此避免写出非法语句。
 
 ### FoFa 语法规则
 

@@ -250,21 +250,54 @@ Client configuration:
 
 #### 6) Built-in MCP tools
 
-- `fofa_search`: query FOFA and return structured JSON results
-  - args: `query` (required), `fields`, `size`, `next`, `include`, `full`, `interval_ms`
-- `fofax_mcp_info`: return service metadata and capabilities
+| Tool | Purpose | Consumes API quota |
+|---|---|---|
+| `fofa_search` | Query FOFA and return structured records | Yes |
+| `fofa_stats` | Aggregate a query into buckets (country, protocol, port, ...) | Yes (`consumed_fpoint` is usually 0) |
+| `fofa_field_list` | List valid query fields and output fields | No |
+| `fofa_syntax_check` | Validate a query with the bundled grammar | No |
+| `fofax_mcp_info` | Service metadata; optionally the account quota | Optional |
+
+`fofa_search` arguments:
+
+- `query` (required): FOFA query string
+- `fields`: comma-separated output fields, default `host,port,ip,country`; unknown names are rejected with a pointer to `fofa_field_list`
+- `size`: results per page, 1-10000, default 100
+- `page`: start page, 1-based; mutually exclusive with `next`
+- `next`: use the `/api/v1/search/next` cursor API
+- `include` / `full`: include fraud data / historical data
+- `interval_ms`: delay before the request, to avoid rate limiting
 
 ```json
 {
   "query": "app=\"nginx\" && country=\"CN\"",
   "fields": "host,ip,port,country",
   "size": 20,
+  "page": 1,
   "next": false,
   "include": false,
   "full": false,
   "interval_ms": 0
 }
 ```
+
+`fofa_stats` example:
+
+```json
+{
+  "query": "app=\"nginx\"",
+  "fields": "protocol",
+  "size": 5
+}
+```
+
+It returns `total`, `distinct` (unique IP count) and `aggs` (bucket counts).
+
+`fofa_syntax_check` reports two kinds of problems: syntax errors with position and reason, and queries where the grammar only consumed a prefix and silently ignored the rest (for example `app="nginx" &&& country="CN"`).
+
+`fofax_mcp_info` with `include_account=true` additionally calls `/api/v1/info/my` and returns membership level, FOFA points and remaining API quota.
+
+> Operators (`EN` allows `=`/`!=`, `ENF` adds fuzzy `=~`, `E` allows `=` only) and membership requirements are returned by `fofa_field_list` so a model can avoid invalid queries.
 
 ### FOFA Syntax Rules
 

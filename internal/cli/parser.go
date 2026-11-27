@@ -116,6 +116,8 @@ type config struct {
 	McpListenAddr   string
 	McpBasePath     string
 	McpAuthToken    string
+	// StartPage 查询起始页，仅用于 MCP fofa_search 的 page 参数
+	StartPage int
 }
 type fxconfig struct {
 	FxSearch       string

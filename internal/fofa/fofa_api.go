@@ -60,6 +60,9 @@ func (f *FoFa) buildQueryUrl(queryStr string) string {
 
 func (f *FoFa) fetchByFields(fields string, queryStr string) bool {
 	f.page = 1
+	if f.option.StartPage > 1 {
+		f.page = int64(f.option.StartPage)
+	}
 	f.next = "" // 重置 next 值
 	maxSize := f.option.FetchSize
 	if maxSize < 0 {
