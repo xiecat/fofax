@@ -140,6 +140,13 @@ FX GRAMMER:
    -fe, -fofa-ext            Using extended syntax(fx)
    -ss, -show-single string  Display a single fx message
 
+MCP SERVER:
+   -ms, -mcp-sse           Run local MCP SSE service mode (same as -mcp-transport sse)
+   -mcp-transport string   MCP transport: stdio, http, both or sse (env: MCP_TRANSPORT)
+   -mcp-listen string      MCP HTTP/SSE service listen address (env: MCP_HOST/MCP_PORT) (default ":18080")
+   -mcp-base-path string   MCP HTTP/SSE service base path (default "/mcp")
+   -mcp-auth-token string  Bearer token for MCP service authentication
+
 OTHER OPTIONS:
    -config string  fofax configuration file.The file reading order(fofax.yaml,/Users/user/.config/fofax/fofax.yaml,/etc/fofa.yaml) (default "/Users/user/.config/fofax/fofax.yaml")
    -v, -version    Show fofaX version
@@ -148,44 +155,104 @@ OTHER OPTIONS:
    -no-limit-open  No limit to the number of openings in your browser
 ```
 
-### MCP SSE Service (Local)
+### MCP Service
 
-fofax supports local MCP SSE mode with `-mcp-sse` (short flag `-ms`), suitable for MCP clients such as Cursor and Claude Desktop.
+FoFaX ships a built-in MCP service that speaks **stdio**, **Streamable HTTP** (`/mcp`) and the legacy SSE transport, so MCP clients such as Cursor, Claude Desktop and Claude Code can call it directly. **Without a transport flag fofax runs as a normal CLI**; the Docker image presets `MCP_TRANSPORT=stdio`.
 
-#### 1) Start service
+#### 1) Transports
+
+| `-mcp-transport` / `MCP_TRANSPORT` | Purpose | Token required |
+|---|---|---|
+| `stdio` | Client spawns the process and talks over stdin/stdout (image default) | No |
+| `http` | Streamable HTTP mounted at `/mcp` | Yes |
+| `both` | stdio and HTTP in one process | Yes (HTTP only) |
+| `sse` | Legacy SSE transport, same as `-ms` | Yes |
 
 ```console
-MCP_AUTH_TOKEN=change-me FOFA_KEY=your-fofa-key fofax -ms
+fofax -mcp-transport stdio      # stdio
+fofax -mcp-transport http       # Streamable HTTP
+fofax -mcp-transport both       # stdio + HTTP
+fofax -ms                       # legacy SSE (still supported)
 ```
 
-Or set listen address, base path and token explicitly:
+#### 2) Docker
+
+stdio (as a transport for a local MCP client):
+
+```json
+{
+  "mcpServers": {
+    "fofax": {
+      "command": "docker",
+      "args": [
+        "run", "-i", "--rm",
+        "-e", "FOFA_KEY=your-32-char-key",
+        "-e", "FOFA_BASE_URL=https://fofa.info",
+        "ghcr.io/xiecat/fofax:latest"
+      ]
+    }
+  }
+}
+```
+
+Streamable HTTP (long-running service):
 
 ```console
-FOFA_KEY=your-fofa-key fofax -mcp-sse \
-  -mcp-auth-token change-me \
-  -mcp-listen :18080 \
-  -mcp-base-path /mcp
+docker run -d --name fofax-mcp \
+  -p 8080:8080 \
+  -e MCP_TRANSPORT=http \
+  -e FOFA_KEY=your-32-char-key \
+  -e MCP_AUTH_TOKEN=use-a-random-token \
+  ghcr.io/xiecat/fofax:latest
 ```
 
-#### 2) Authentication
+Client configuration:
 
-- Uses Bearer Token authentication
-- Header: `Authorization: Bearer <token>`
-- Token source: `-mcp-auth-token` or environment variable `MCP_AUTH_TOKEN`
+```json
+{
+  "mcpServers": {
+    "fofax": {
+      "type": "http",
+      "url": "http://127.0.0.1:8080/mcp",
+      "headers": { "Authorization": "Bearer use-a-random-token" }
+    }
+  }
+}
+```
 
-#### 3) SSE endpoint
+- The image defaults to `MCP_TRANSPORT=stdio`, `MCP_HOST=0.0.0.0` and `MCP_PORT=8080`, so mapping port 8080 is all HTTP mode needs.
+- Health check: `GET /healthz` (no token required).
 
-- Default listen address: `127.0.0.1:18080`
-- Default base path: `/mcp`
-- Typical entry URL: `http://127.0.0.1:18080/mcp/sse`
+#### 3) Authentication
 
-#### 4) Built-in MCP tools
+- Network transports (`http`/`both`/`sse`) always require `Authorization: Bearer <token>`; a missing or wrong token returns `401`.
+- Token source: `-mcp-auth-token` or `MCP_AUTH_TOKEN`; starting a network transport without one fails immediately.
+- `stdio` runs as a client-spawned local process and is not token-checked (it also forces silent output because stdout carries the JSON-RPC frames).
+
+#### 4) Endpoints and listening
+
+| Item | Default | Override |
+|---|---|---|
+| Listen address | `:18080` | `-mcp-listen`, or `MCP_HOST` / `MCP_PORT` |
+| HTTP endpoint | `/mcp` | `-mcp-base-path` |
+| SSE endpoint | `/mcp/sse` | `-mcp-base-path` |
+| Health check | `/healthz` | — |
+
+#### 5) Environment variables
+
+| Variable | Description |
+|---|---|
+| `FOFA_KEY` | FOFA API key |
+| `FOFA_BASE_URL` | FOFA API base URL; both `https://fofa.info` and `https://fofa.info/api/v1` are accepted |
+| `MCP_TRANSPORT` | `stdio` / `http` / `both` / `sse`, defaults to `stdio` |
+| `MCP_HOST` / `MCP_PORT` | Listen host and port, `:18080` when unset |
+| `MCP_AUTH_TOKEN` | Bearer token for network transports |
+
+#### 6) Built-in MCP tools
 
 - `fofa_search`: query FOFA and return structured JSON results
-  - args: `query`(required), `fields`, `size`, `next`, `include`, `full`, `interval_ms`
+  - args: `query` (required), `fields`, `size`, `next`, `include`, `full`, `interval_ms`
 - `fofax_mcp_info`: return service metadata and capabilities
-
-#### 5) `fofa_search` example arguments
 
 ```json
 {

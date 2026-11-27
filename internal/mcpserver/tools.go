@@ -47,26 +47,19 @@ func (s *Service) registerTools(mcpServer *server.MCPServer) {
 
 func (s *Service) handleInfoTool(ctx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	_ = ctx
-	if !authorized(req.Header, s.cfg.AuthToken) {
-		return mcp.NewToolResultError("unauthorized: use header Authorization: Bearer <token>"), nil
-	}
 	data := map[string]any{
-		"service":       "fofax-mcp-sse",
-		"listen_addr":   s.cfg.ListenAddr,
-		"base_path":     s.cfg.BasePath,
-		"version":       s.cfg.Version,
-		"supports":      []string{"fofa_search", "fofax_mcp_info"},
-		"authenticated": true,
+		"service":     "fofax-mcp",
+		"transport":   s.cfg.Transport,
+		"listen_addr": s.cfg.ListenAddr,
+		"base_path":   s.cfg.BasePath,
+		"version":     s.cfg.Version,
+		"supports":    []string{"fofa_search", "fofax_mcp_info"},
 	}
 	return structured(data), nil
 }
 
 func (s *Service) handleSearchTool(ctx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	_ = ctx
-	if !authorized(req.Header, s.cfg.AuthToken) {
-		return mcp.NewToolResultError("unauthorized: use header Authorization: Bearer <token>"), nil
-	}
-
 	query, err := req.RequireString("query")
 	if err != nil {
 		return mcp.NewToolResultErrorFromErr("query is required", err), nil

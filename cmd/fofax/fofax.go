@@ -10,7 +10,7 @@ import (
 
 func main() {
 	option := cli.ParseOptions()
-	if option.McpSSE {
+	if option.MCPEnabled() {
 		if err := mcpserver.Start(option); err != nil {
 			printer.Fatal(err)
 		}

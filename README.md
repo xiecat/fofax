@@ -136,6 +136,13 @@ FX GRAMMER:
    -fe, -fofa-ext            Using extended syntax(fx)
    -ss, -show-single string  Display a single fx message
 
+MCP SERVER:
+   -ms, -mcp-sse           Run local MCP SSE service mode (same as -mcp-transport sse)
+   -mcp-transport string   MCP transport: stdio, http, both or sse (env: MCP_TRANSPORT)
+   -mcp-listen string      MCP HTTP/SSE service listen address (env: MCP_HOST/MCP_PORT) (default ":18080")
+   -mcp-base-path string   MCP HTTP/SSE service base path (default "/mcp")
+   -mcp-auth-token string  Bearer token for MCP service authentication
+
 OTHER OPTIONS:
    -config string  fofax configuration file.The file reading order(fofax.yaml,/Users/user/.config/fofax/fofax.yaml,/etc/fofa.yaml) (default "/Users/user/.config/fofax/fofax.yaml")
    -v, -version    Show fofaX version
@@ -144,44 +151,104 @@ OTHER OPTIONS:
    -no-limit-open  No limit to the number of openings in your browser
 ```
 
-### MCP SSE 服务（本地运行）
+### MCP 服务
 
-FoFaX 支持通过 `-mcp-sse`（简写 `-ms`）启动本地 MCP SSE 服务，适合被 MCP Client（如 Cursor、Claude Desktop）调用。
+FoFaX 内置 MCP 服务，支持 **stdio**、**Streamable HTTP**（端点 `/mcp`）和 SSE 三种传输，可被 Cursor、Claude Desktop、Claude Code 等 MCP 客户端直接调用。**不指定传输方式时进入普通 CLI 模式**；Docker 镜像预置 `MCP_TRANSPORT=stdio`。
 
-#### 1) 启动服务
+#### 1) 传输方式
+
+| `-mcp-transport` / `MCP_TRANSPORT` | 用途 | 是否需要 token |
+|---|---|---|
+| `stdio` | 由 MCP 客户端拉起子进程，走 stdin/stdout（镜像默认值） | 否 |
+| `http` | Streamable HTTP，端点 `/mcp` | 是 |
+| `both` | 同一进程同时提供 stdio 和 HTTP | 是（仅 HTTP 部分） |
+| `sse` | 旧版 SSE 传输，等价于 `-ms` | 是 |
 
 ```console
-MCP_AUTH_TOKEN=change-me FOFA_KEY=your-fofa-key fofax -ms
+fofax -mcp-transport stdio      # stdio
+fofax -mcp-transport http       # Streamable HTTP
+fofax -mcp-transport both       # stdio + HTTP
+fofax -ms                       # 旧版 SSE（保持兼容）
 ```
 
-也可显式指定监听地址、路径和 token：
+#### 2) Docker 使用
+
+stdio（给本地 MCP 客户端做 transport）：
+
+```json
+{
+  "mcpServers": {
+    "fofax": {
+      "command": "docker",
+      "args": [
+        "run", "-i", "--rm",
+        "-e", "FOFA_KEY=你的32位KEY",
+        "-e", "FOFA_BASE_URL=https://fofa.info",
+        "ghcr.io/xiecat/fofax:latest"
+      ]
+    }
+  }
+}
+```
+
+Streamable HTTP（常驻服务）：
 
 ```console
-FOFA_KEY=your-fofa-key fofax -mcp-sse \
-  -mcp-auth-token change-me \
-  -mcp-listen :18080 \
-  -mcp-base-path /mcp
+docker run -d --name fofax-mcp \
+  -p 8080:8080 \
+  -e MCP_TRANSPORT=http \
+  -e FOFA_KEY=你的32位KEY \
+  -e MCP_AUTH_TOKEN=换成一个随机token \
+  ghcr.io/xiecat/fofax:latest
 ```
 
-#### 2) 认证方式
+客户端配置：
 
-- 使用 Bearer Token 认证
-- Header: `Authorization: Bearer <token>`
-- token 来源：`-mcp-auth-token` 或环境变量 `MCP_AUTH_TOKEN`
+```json
+{
+  "mcpServers": {
+    "fofax": {
+      "type": "http",
+      "url": "http://127.0.0.1:8080/mcp",
+      "headers": { "Authorization": "Bearer 换成一个随机token" }
+    }
+  }
+}
+```
 
-#### 3) SSE 端点
+- 镜像默认 `MCP_TRANSPORT=stdio`、`MCP_HOST=0.0.0.0`、`MCP_PORT=8080`，所以 HTTP 模式下端口映射到 8080 即可。
+- 健康检查：`GET /healthz`（不需要 token）。
 
-- 默认监听：`127.0.0.1:18080`
-- 默认 base path：`/mcp`
-- 常见访问入口：`http://127.0.0.1:18080/mcp/sse`
+#### 3) 认证
 
-#### 4) 已提供的 MCP 工具
+- 网络传输（`http`/`both`/`sse`）强制 Bearer 认证：请求头 `Authorization: Bearer <token>`，缺失或错误返回 `401`。
+- token 来源：`-mcp-auth-token` 或环境变量 `MCP_AUTH_TOKEN`；网络模式下为空会直接启动失败。
+- `stdio` 由客户端拉起本地进程，不做 token 校验（stdio 独占 stdout，进程会自动静默）。
+
+#### 4) 端点与监听
+
+| 项 | 默认值 | 覆盖方式 |
+|---|---|---|
+| 监听地址 | `:18080` | `-mcp-listen`，或 `MCP_HOST` / `MCP_PORT` |
+| HTTP 端点 | `/mcp` | `-mcp-base-path` |
+| SSE 端点 | `/mcp/sse` | `-mcp-base-path` |
+| 健康检查 | `/healthz` | — |
+
+#### 5) 环境变量
+
+| 变量 | 说明 |
+|---|---|
+| `FOFA_KEY` | FOFA API Key |
+| `FOFA_BASE_URL` | FOFA API 基地址，`https://fofa.info` 与 `https://fofa.info/api/v1` 均可 |
+| `MCP_TRANSPORT` | `stdio` / `http` / `both` / `sse`，默认 `stdio` |
+| `MCP_HOST` / `MCP_PORT` | 监听地址与端口，未设置时用 `:18080` |
+| `MCP_AUTH_TOKEN` | 网络传输的 Bearer token |
+
+#### 6) 已提供的 MCP 工具
 
 - `fofa_search`：按 FOFA 语句查询并返回结构化结果（JSON）
   - 参数：`query`(必填), `fields`, `size`, `next`, `include`, `full`, `interval_ms`
 - `fofax_mcp_info`：返回服务配置与能力信息
-
-#### 5) `fofa_search` 参数示例
 
 ```json
 {
